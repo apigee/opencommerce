@@ -11,7 +11,7 @@ Before we delve into the specifics of the Solution it may be worthwhile to note 
 Overview
 -------------
 
-Apigee OpenCommerce Solution enables banks to accelerate  development of digital services. OpenCommerce is built on Apigee Edge API Management Platform, and features:
+Apigee OpenCommerce Solution enables retailers to accelerate  development of digital services. OpenCommerce is built on Apigee Edge API Management Platform, and features:
 
 > - Product APIs.
 > - Product Collection APIs
@@ -72,7 +72,7 @@ In addition, there are some internal APIs which are not exposed outside, but whi
 #### Transfers API Flow
 
 ### Consent App
-The consent app is a key part in helping the user securely authenticate with the bank. The consent app is a trusted app of the bank will allow the user to login and subsequently provide consent information. 
+The consent app is a key part in helping the user securely authenticate with the retail services. The consent app is a trusted app of the retail services will allow the user to login and subsequently provide consent information.
 
 In this sandbox, the consent app will talk to the following APIs in order to fulfill its functionality
 + Session API

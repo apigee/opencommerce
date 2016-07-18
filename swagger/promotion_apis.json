@@ -1,6 +1,6 @@
 {
   "swagger": "2.0",
-  "host": "opencommerce-test.apigee.net",
+  "host": "open-commerce-test.apigee.net",
   "schemes": [
     "https",
     "http"
@@ -94,8 +94,8 @@
   "securityDefinitions": {
     "commerce_auth": {
       "type": "oauth2",
-      "authorizationUrl": "https://opencommerce-test.apigee.net/apis/v1/oauth/authorize?client_id=grOmvYAei8aBARzEVIYhGtpvztofAAjz&redirect_uri=https://api.enterprise.apigee.com/v1/o/apis-bank/apimodels/accounts/templateauths/aisp_auth/callback&response_type=code&state=af0ifjsldkj&scope=openid accounts&ui-locales=en&acr_values=3",
-      "tokenUrl": "https://opencommerce-test.apigee.net/apis/v1/oauth/token",
+      "authorizationUrl": "https://open-commerce-test.apigee.net/apis/v1/oauth/authorize",
+      "tokenUrl": "https://open-commerce-test.apigee.net/apis/v1/oauth/token",
       "flow": "accessCode",
       "scopes": {
         "openid": "openID"
