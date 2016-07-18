@@ -1,6 +1,6 @@
 {
   "swagger": "2.0",
-  "host": opencommerce-test.apigee.net",
+  "host": open-commerce-test.apigee.net",
   "schemes": [
     "https"
   ],
@@ -194,7 +194,7 @@
         },
         "id_token": {
           "type": "string",
-          "description": "JWT Token that a bank returns that can have optional customer information."
+          "description": "JWT Token that the retail services returns that can have optional customer information."
         }
       },
       "xml": {
