@@ -6,7 +6,7 @@ Digital Services in Retail Space
 
 Before we delve into the specifics of the Solution it may be worthwhile to note the transformation happening currently in the retail space. Digital is positing itself in many facets and interactions that a consumer has with the Retail companies.
 
-![enter image description here](http://opencommerce.apigee.com/sites/default/files/retail_header_0.png)
+![Commerce Solution Overview](http://opencommerce.apigee.com/sites/default/files/retail_header_0.png)
 
 Overview
 -------------
@@ -27,7 +27,7 @@ It also provides an implementation of OpenID and oAuth based user authentication
 These APIs play a critical role in the digital transformation of retail services as represented below:
 
 
-![enter image description here](http://opencommerce.apigee.com/sites/default/files/opencommerce_architecture.png)
+![OpenCommerce Overview](http://opencommerce.apigee.com/sites/default/files/opencommerce_architecture.png)
 
 
 ## Repository Overview
