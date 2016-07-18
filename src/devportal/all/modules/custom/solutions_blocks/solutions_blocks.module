@@ -1,0 +1,117 @@
+<?php
+/**
+ * @file
+ * Code for the default custom blocks for the developer portal
+ */
+
+/**
+ * Implements hook_block_info().
+ */
+function solutions_blocks_block_info(){
+  $blocks = array();
+
+  $blocks['solutions_get_started'] = array(
+    'info' => t('Solutions Get Started'),
+  );
+  $blocks['solutions_apis_sandox'] = array(
+    'info' => t('Solutions Apis and Sandbox'),
+  );
+  $blocks['solutions_app_gallery'] = array(
+    'info' => t('Solutions App Gallery'),
+  );
+  $blocks['solutions_copyright'] = array(
+    'info' => t('Solutions Copyright'),
+  );
+  $blocks['solutions_social_bottom'] = array(
+    'info' => t('Solutions Social Bottom'),
+  );
+  $blocks['solutions_logo_caption'] = array(
+    'info' => t('Solutions Logo Caption'),
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function solutions_blocks_block_view($delta = ''){
+  $block = array();
+  switch ($delta) {
+    case 'solutions_get_started':
+      $block['subject'] = NULL;
+      $block['content'] = array(
+        '#markup' => theme('solutions_get_started'),
+      );
+      break;
+
+    case 'solutions_apis_sandox':
+      $block['subject'] = NULL;
+      $block['content'] = array(
+        '#markup' => theme('solutions_apis_sandox'),
+      );
+      break;
+
+    case 'solutions_app_gallery':
+      $block['subject'] = NULL;
+      $block['content'] = array(
+        '#markup' => theme('solutions_app_gallery'),
+      );
+      break;
+
+    case 'solutions_copyright':
+      $block['subject'] = NULL;
+      $block['content'] = array(
+        '#markup' => theme('solutions_copyright'),
+      );
+      break;
+
+    case 'solutions_social_bottom':
+      $block['subject'] = NULL;
+      $block['content'] = array(
+        '#markup' => theme('solutions_social_bottom'),
+      );
+      break;
+
+    case 'solutions_logo_caption':
+      $block['subject'] = NULL;
+      $block['content'] = array(
+        '#markup' => theme('solutions_logo_caption'),
+      );
+      break;
+  }
+
+  return $block;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function solutions_blocks_theme($existing, $type, $theme, $path){
+  $template_path = drupal_get_path('module', 'solutions_blocks') . '/templates';
+  $items = array();
+  $items['solutions_get_started'] = array(
+    'template' => 'solutions_get_started',
+    'path' => $template_path,
+  );
+  $items['solutions_apis_sandox'] = array(
+    'template' => 'solutions_apis_sandox',
+    'path' => $template_path,
+  );
+  $items['solutions_app_gallery'] = array(
+    'template' => 'solutions_app_gallery',
+    'path' => $template_path,
+  );
+  $items['solutions_copyright'] = array(
+    'template' => 'solutions_copyright',
+    'path' => $template_path,
+  );
+  $items['solutions_social_bottom'] = array(
+    'template' => 'solutions_social_bottom',
+    'path' => $template_path,
+  );
+  $items['solutions_logo_caption'] = array(
+    'template' => 'solutions_logo_caption',
+    'path' => $template_path,
+  );
+  return $items;
+}

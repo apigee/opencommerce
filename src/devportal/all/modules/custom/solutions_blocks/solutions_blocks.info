@@ -1,0 +1,5 @@
+name = Solutions Blocks
+description = Provides default blocks for the developer portal
+core = 7.x
+package = Solutions
+version = 1.x-1.0
