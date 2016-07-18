@@ -1,6 +1,6 @@
 {
   "swagger": "2.0",
-  "host": "opencommerce-test.apigee.net",
+  "host": "open-commerce-dev.apigee.net",
   "schemes": [
     "https",
     "http"
@@ -53,7 +53,7 @@
         },
         "security": [
           {
-            "commerce_auth": [
+            "collection_auth": [
               "openid"
             ]
           }
@@ -101,10 +101,10 @@
 
   },
   "securityDefinitions": {
-    "commerce_auth": {
+    "collection_auth": {
       "type": "oauth2",
-      "authorizationUrl": "https://opencommerce-test.apigee.net/apis/v1/oauth/authorize?client_id=grOmvYAei8aBARzEVIYhGtpvztofAAjz&redirect_uri=https://api.enterprise.apigee.com/v1/o/apis-bank/apimodels/accounts/templateauths/aisp_auth/callback&response_type=code&state=af0ifjsldkj&scope=openid accounts&ui-locales=en&acr_values=3",
-      "tokenUrl": "https://opencommerce-test.apigee.net/apis/v1/oauth/token",
+      "authorizationUrl": "https://open-commerce-dev.apigee.net/apis/v1/oauth/authorize?client_id=4DUBlJHLvp58krB0AcJ3yNJMzKqUVZEc&redirect_uri=https://api.enterprise.apigee.com/v1/o/open-commerce/apimodels/collection/templateauths/collection_auth/callback&response_type=code&state=af0ifjsldkj&scope=openid&ui-locales=en&acr_values=3",
+      "tokenUrl": "https://open-commerce-dev.apigee.net/apis/v1/oauth/token",
       "flow": "accessCode",
       "scopes": {
         "openid": "openID"

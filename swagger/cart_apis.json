@@ -1,6 +1,6 @@
 {
   "swagger": "2.0",
-  "host": "opencommerce-test.apigee.net",
+  "host": "open-commerce-dev.apigee.net",
   "schemes": [
     "https",
     "http"
@@ -47,29 +47,24 @@
             "description": "Unauthorized access"
           }
         },
-        "security": [
-          {
-            "commerce_auth": [
-              "openid"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
-            "type": "string",
-            "required": true
-          },
-          {
-            "name": "cart_id",
-            "in": "path",
-            "description": "Cart identifier",
-            "type": "string",
-            "required": true
-          }
-        ]
+        "security": [{
+          "cart_auth": [
+            "openid"
+          ]
+        }],
+        "parameters": [{
+          "name": "Authorization",
+          "in": "header",
+          "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
+          "type": "string",
+          "required": true
+        }, {
+          "name": "cart_id",
+          "in": "path",
+          "description": "Cart identifier",
+          "type": "string",
+          "required": true
+        }]
       },
       "put": {
         "description": "<p>Update Cart Details</p>",
@@ -78,6 +73,7 @@
         "tags": [
           "Cart"
         ],
+        "consumes": ["application/json"],
         "produces": [
           "application/json; charset=utf-8"
         ],
@@ -95,38 +91,39 @@
             "description": "Unauthorized access"
           }
         },
-        "security": [
-          {
-            "commerce_auth": [
-              "openid"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
-            "type": "string",
-            "required": true
+        "security": [{
+          "cart_auth": [
+            "openid"
+          ]
+        }],
+        "parameters": [{
+          "name": "Authorization",
+          "in": "header",
+          "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
+          "type": "string",
+          "required": true
+        }, {
+          "name": "Content-Type",
+          "in": "header",
+          "description": "Content-Type application/json",
+          "type": "string",
+          "default": "application/json",
+          "required": true
+        }, {
+          "name": "cart_id",
+          "in": "path",
+          "description": "Cart identifier",
+          "type": "string",
+          "required": true
+        }, {
+          "name": "CartDetail",
+          "in": "body",
+          "description": "Cart details",
+          "schema": {
+            "$ref": "#/definitions/NewCart"
           },
-          {
-            "name": "cart_id",
-            "in": "path",
-            "description": "Cart identifier",
-            "type": "string",
-            "required": true
-          },
-          {
-            "name": "CartDetail",
-            "in": "body",
-            "description": "Cart details",
-            "schema": {
-              "$ref": "#/definitions/NewCart"
-            },
-            "required": true
-          }
-        ]
+          "required": true
+        }]
       },
       "delete": {
         "description": "<p>Delete Cart</p>",
@@ -135,6 +132,7 @@
         "tags": [
           "Cart"
         ],
+        "consumes": ["application/json"],
         "produces": [
           "application/json; charset=utf-8"
         ],
@@ -152,72 +150,31 @@
             "description": "Unauthorized access"
           }
         },
-        "security": [
-          {
-            "commerce_auth": [
-              "openid"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
-            "type": "string",
-            "required": true
-          },
-          {
-            "name": "cart_id",
-            "in": "path",
-            "description": "Cart identifier",
-            "type": "string",
-            "required": true
-          }
-        ]
-      }
-    },
-    "/carts/acr:token": {
-      "get": {
-        "description": "<p>Get Cart Detail</p>",
-        "summary": "Cart detail of the User ",
-        "operationId": "Get User Cart Detail",
-        "tags": [
-          "Cart"
-        ],
-        "produces": [
-          "application/json; charset=utf-8"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Cart"
-            }
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized access"
-          }
-        },
-        "security": [
-          {
-            "commerce_auth": [
-              "openid"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Authorization Bearer Token; if user has signed-in",
-            "type": "string",
-            "required": false
-          }
-        ]
+        "security": [{
+          "cart_auth": [
+            "openid"
+          ]
+        }],
+        "parameters": [{
+          "name": "Authorization",
+          "in": "header",
+          "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
+          "type": "string",
+          "required": true
+        }, {
+          "name": "Content-Type",
+          "in": "header",
+          "description": "Content-Type application/json",
+          "type": "string",
+          "default": "application/json",
+          "required": true
+        }, {
+          "name": "cart_id",
+          "in": "path",
+          "description": "Cart identifier",
+          "type": "string",
+          "required": true
+        }]
       }
     },
     "/carts": {
@@ -228,6 +185,7 @@
         "tags": [
           "Cart"
         ],
+        "consumes": ["application/json"],
         "produces": [
           "application/json; charset=utf-8"
         ],
@@ -245,31 +203,33 @@
             "description": "Unauthorized access"
           }
         },
-        "security": [
-          {
-            "commerce_auth": [
-              "openid"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
-            "type": "string",
-            "required": true
+        "security": [{
+          "cart_auth": [
+            "openid"
+          ]
+        }],
+        "parameters": [{
+          "name": "Authorization",
+          "in": "header",
+          "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
+          "type": "string",
+          "required": true
+        }, {
+          "name": "Content-Type",
+          "in": "header",
+          "description": "Content-Type application/json",
+          "type": "string",
+          "default": "application/json",
+          "required": true
+        }, {
+          "name": "CartDetail",
+          "in": "body",
+          "description": "Cart details",
+          "schema": {
+            "$ref": "#/definitions/NewCart"
           },
-          {
-            "name": "CartDetail",
-            "in": "body",
-            "description": "Cart details",
-            "schema": {
-              "$ref": "#/definitions/NewCart"
-            },
-            "required": true
-          }
-        ]
+          "required": true
+        }]
       }
     },
     "/carts/{cart_id}/items": {
@@ -280,6 +240,7 @@
         "tags": [
           "Cart"
         ],
+        "consumes": ["application/json"],
         "produces": [
           "application/json; charset=utf-8"
         ],
@@ -297,38 +258,39 @@
             "description": "Unauthorized access"
           }
         },
-        "security": [
-          {
-            "commerce_auth": [
-              "openid"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
-            "type": "string",
-            "required": true
+        "security": [{
+          "cart_auth": [
+            "openid"
+          ]
+        }],
+        "parameters": [{
+          "name": "Authorization",
+          "in": "header",
+          "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
+          "type": "string",
+          "required": true
+        }, {
+          "name": "Content-Type",
+          "in": "header",
+          "description": "Content-Type application/json",
+          "type": "string",
+          "default": "application/json",
+          "required": true
+        }, {
+          "name": "cart_id",
+          "in": "path",
+          "description": "Cart identifier",
+          "type": "string",
+          "required": true
+        }, {
+          "name": "CartItems",
+          "in": "body",
+          "description": "Items details",
+          "schema": {
+            "$ref": "#/definitions/CartItems"
           },
-          {
-            "name": "cart_id",
-            "in": "path",
-            "description": "Cart identifier",
-            "type": "string",
-            "required": true
-          },
-          {
-            "name": "CartItems",
-            "in": "body",
-            "description": "Items details",
-            "schema": {
-              "$ref": "#/definitions/CartItems"
-            },
-            "required": true
-          }
-        ]
+          "required": true
+        }]
       },
       "put": {
         "description": "<p>Updates quantity of item already in the cart</p>",
@@ -337,6 +299,7 @@
         "tags": [
           "Cart"
         ],
+        "consumes": ["application/json"],
         "produces": [
           "application/json; charset=utf-8"
         ],
@@ -354,38 +317,39 @@
             "description": "Unauthorized access"
           }
         },
-        "security": [
-          {
-            "commerce_auth": [
-              "openid"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
-            "type": "string",
-            "required": true
+        "security": [{
+          "cart_auth": [
+            "openid"
+          ]
+        }],
+        "parameters": [{
+          "name": "Authorization",
+          "in": "header",
+          "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
+          "type": "string",
+          "required": true
+        }, {
+          "name": "Content-Type",
+          "in": "header",
+          "description": "Content-Type application/json",
+          "type": "string",
+          "default": "application/json",
+          "required": true
+        }, {
+          "name": "cart_id",
+          "in": "path",
+          "description": "Cart identifier",
+          "type": "string",
+          "required": true
+        }, {
+          "name": "CartItems",
+          "in": "body",
+          "description": "Items details",
+          "schema": {
+            "$ref": "#/definitions/CartItems"
           },
-          {
-            "name": "cart_id",
-            "in": "path",
-            "description": "Cart identifier",
-            "type": "string",
-            "required": true
-          },
-          {
-            "name": "CartItems",
-            "in": "body",
-            "description": "Items details",
-            "schema": {
-              "$ref": "#/definitions/CartItems"
-            },
-            "required": true
-          }
-        ]
+          "required": true
+        }]
       },
       "delete": {
         "description": "<p>Delete items from the cart</p>",
@@ -394,6 +358,7 @@
         "tags": [
           "Cart"
         ],
+        "consumes": ["application/json"],
         "produces": [
           "application/json; charset=utf-8"
         ],
@@ -411,46 +376,47 @@
             "description": "Unauthorized access"
           }
         },
-        "security": [
-          {
-            "commerce_auth": [
-              "openid"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
-            "type": "string",
-            "required": true
+        "security": [{
+          "cart_auth": [
+            "openid"
+          ]
+        }],
+        "parameters": [{
+          "name": "Authorization",
+          "in": "header",
+          "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
+          "type": "string",
+          "required": true
+        }, {
+          "name": "Content-Type",
+          "in": "header",
+          "description": "Content-Type application/json",
+          "type": "string",
+          "default": "application/json",
+          "required": true
+        }, {
+          "name": "cart_id",
+          "in": "path",
+          "description": "Cart identifier",
+          "type": "string",
+          "required": true
+        }, {
+          "name": "CartItems",
+          "in": "body",
+          "description": "Items details",
+          "schema": {
+            "$ref": "#/definitions/CartItems"
           },
-          {
-            "name": "cart_id",
-            "in": "path",
-            "description": "Cart identifier",
-            "type": "string",
-            "required": true
-          },
-          {
-            "name": "CartItems",
-            "in": "body",
-            "description": "Items details",
-            "schema": {
-              "$ref": "#/definitions/CartItems"
-            },
-            "required": true
-          }
-        ]
+          "required": true
+        }]
       }
     }
   },
   "securityDefinitions": {
-    "commerce_auth": {
+    "cart_auth": {
       "type": "oauth2",
-      "authorizationUrl": "https://opencommerce-test.apigee.net/apis/v1/oauth/authorize?client_id=grOmvYAei8aBARzEVIYhGtpvztofAAjz&redirect_uri=https://api.enterprise.apigee.com/v1/o/apis-bank/apimodels/accounts/templateauths/aisp_auth/callback&response_type=code&state=af0ifjsldkj&scope=openid accounts&ui-locales=en&acr_values=3",
-      "tokenUrl": "https://opencommerce-test.apigee.net/apis/v1/oauth/token",
+      "authorizationUrl": "https://open-commerce-dev.apigee.net/apis/v1/oauth/authorize?client_id=f3TQqXrAA8cdsSunptUz4KVy9lxAMYJr&redirect_uri=https://api.enterprise.apigee.com/v1/o/open-commerce/apimodels/carts/templateauths/cart_auth/callback&response_type=code&state=af0ifjsldkj&scope=openid&ui-locales=en&acr_values=3",
+      "tokenUrl": "https://open-commerce-dev.apigee.net/apis/v1/oauth/token",
       "flow": "accessCode",
       "scopes": {
         "openid": "openID"
@@ -498,15 +464,17 @@
           "description": "Updated date/time"
         }
       }
-    },
-    "CartItems": {
-      "type": "object",
-      "description": "Items to be updated in the cart",
-      "properties": {
-        "cart_items": {
+    }
+  },
+  "CartItems": {
+    "type": "object",
+    "description": "Items to be updated in the cart",
+    "properties": {
+      "cart_details": {
+        "items": {
           "type": "array",
           "description": "Items & quantity chosen",
-          "items": {
+          "item": {
             "type": "object",
             "properties": {
               "sku_id": {
@@ -521,104 +489,104 @@
           }
         }
       }
-    },
-    "Cart": {
-      "type": "object",
-      "description": "Cart or Wishlist",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "A unique identifier for the cart. Shall not be present in POST request"
-        },
-        "session_id": {
-          "type": "string",
-          "description": "A placeholder for apps to store any information that will help in mapping the user, in case of User not logged-in"
-        },
-        "cart_items": {
-          "type": "array",
-          "description": "Items & quantity chosen",
-          "items": {
-            "$ref": "#/definitions/Item"
-          }
-        },
-        "total_base_price": {
-          "type": "number",
-          "format": "float",
-          "description": "Total base price"
-        },
-        "total_discount": {
-          "type": "number",
-          "format": "float",
-          "description": "Total discounts"
-        },
-        "total_price": {
-          "type": "number",
-          "format": "float",
-          "description": "Total price in base currency"
-        },
-        "user_id": {
-          "type": "string",
-          "description": "Customer Identifier; if not present, user-id associated with the accessToken will be used"
-        },
-        "created_at": {
-          "type": "integer",
-          "format": "int64",
-          "description": "Created date/time"
-        },
-        "updated_at": {
-          "type": "integer",
-          "format": "int64",
-          "description": "Updated date/time"
+    }
+  },
+  "Cart": {
+    "type": "object",
+    "description": "Cart or Wishlist",
+    "properties": {
+      "cart_id": {
+        "type": "string",
+        "description": "A unique identifier for the cart. Shall not be present in POST request"
+      },
+      "session_id": {
+        "type": "string",
+        "description": "A placeholder for apps to store any information that will help in mapping the user."
+      },
+      "cart_items": {
+        "type": "array",
+        "description": "Items & quantity chosen",
+        "items": {
+          "$ref": "#/definitions/Item"
         }
+      },
+      "total_base_price": {
+        "type": "number",
+        "format": "float",
+        "description": "Total base price"
+      },
+      "total_discount": {
+        "type": "number",
+        "format": "float",
+        "description": "Total discounts"
+      },
+      "total_price": {
+        "type": "number",
+        "format": "float",
+        "description": "Total price in base currency"
+      },
+      "user_id": {
+        "type": "string",
+        "description": "Customer Identifier; if not present, user-id associated with the accessToken will be used"
+      },
+      "created_at": {
+        "type": "integer",
+        "format": "int64",
+        "description": "Created date/time"
+      },
+      "updated_at": {
+        "type": "integer",
+        "format": "int64",
+        "description": "Updated date/time"
       }
-    },
-    "Item": {
-      "type": "object",
-      "description": "Product Item chosen in Cart/WishList",
-      "properties": {
-        "sku_id": {
+    }
+  },
+  "Item": {
+    "type": "object",
+    "description": "Product Item chosen in Cart/WishList",
+    "properties": {
+      "sku_id": {
+        "type": "string",
+        "description": "Unique Identifier of the SKU chosen"
+      },
+      "name": {
+        "type": "string",
+        "description": "Sku name"
+      },
+      "sku_url": {
+        "type": "string",
+        "description": "URL to retrieve Sku detail"
+      },
+      "price": {
+        "type": "number",
+        "format": "float",
+        "description": "Price of the product in base currency"
+      },
+      "currency": {
+        "type": "string",
+        "description": "The base currency (e.g. USD, GBP, INR, etc.)"
+      },
+      "discount": {
+        "type": "number",
+        "format": "float",
+        "description": "The discount on the price (amount or percentage)"
+      },
+      "total_price": {
+        "type": "number",
+        "format": "float",
+        "description": "Total price of the product per item"
+      },
+      "image": {
+        "type": "array",
+        "description": "An array of image objects",
+        "items": {
           "type": "string",
-          "description": "Unique Identifier of the SKU chosen"
-        },
-        "name": {
-          "type": "string",
-          "description": "Sku name"
-        },
-        "sku_url": {
-          "type": "string",
-          "description": "URL to retrieve Sku detail"
-        },
-        "price": {
-          "type": "number",
-          "format": "float",
-          "description": "Price of the product in base currency"
-        },
-        "currency": {
-          "type": "string",
-          "description": "The base currency (e.g. USD, GBP, INR, etc.)"
-        },
-        "discount": {
-          "type": "number",
-          "format": "float",
-          "description": "The discount on the price (amount or percentage)"
-        },
-        "total_price": {
-          "type": "number",
-          "format": "float",
-          "description": "Total price of the product per item"
-        },
-        "image": {
-          "type": "array",
-          "description": "An array of image objects",
-          "items": {
-            "type": "string",
-            "description": "Image Url"
-          }
-        },
-        "quantity": {
-          "type": "integer",
-          "description": "Quantity added"
+          "description": "Image Url"
         }
+      },
+      "quantity": {
+        "type": "integer",
+        "description": "Quantity added"
       }
     }
   }
