@@ -1,6 +1,6 @@
 {
   "swagger": "2.0",
-  "host": opencommerce-test.apigee.net",
+  "host": "open-commerce-dev.apigee.net",
   "schemes": [
     "https"
   ],
