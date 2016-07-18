@@ -1,0 +1,248 @@
+{
+  "swagger": "2.0",
+  "host": "opencommerce-test.apigee.net",
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "info": {
+    "description": "Store Location Details",
+    "title": "Store Location Details",
+    "version": "0.0.1",
+    "termsOfService": "http://example.com/about/terms",
+    "contact": {
+      "name": "API Docs",
+      "url": "http://example.com/contact",
+      "email": "apis-eng@apigee.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://example.com"
+    }
+  },
+  "basePath": "/apis/v1",
+  "paths": {
+    "/locations": {
+      "get": {
+        "description": "<p>This will return list of store locations matching the given criteria.</p><p>&nbsp;</p><p>The results can be filtered by city, zipcode or nearby( by specifying latitude, longitude and distance) filter.  </p>",
+        "summary": "List of Store locations matching criteria",
+        "operationId": "Store Location List",
+        "tags": [
+          "StoreLocation"
+        ],
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Store"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized access"
+          }
+        },
+        "security": [
+          {
+            "commerce_auth": [
+              "openid"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "postal_code",
+            "in": "query",
+            "description": "Matching or nearby the given postal_code",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "city",
+            "in": "query",
+            "description": "Stores in the given city",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "latitude",
+            "in": "query",
+            "description": "latitude of the current location",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "longitude",
+            "in": "query",
+            "description": "longitude of the current location",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "radius",
+            "in": "query",
+            "description": "distance in meters, all the stores with-in the radius will be listed",
+            "type": "integer",
+            "required": false
+          }
+        ]
+      }
+    },
+    "/locations/{store_id}": {
+      "get": {
+        "description": "<p>The Store Location details matching given store_id </p>",
+        "summary": "Store Location Details",
+        "operationId": "Store Location Detail",
+        "tags": [
+          "StoreLocation"
+        ],
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Store"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized access"
+          }
+        },
+        "security": [
+          {
+            "commerce_auth": [
+              "openid"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "store_id",
+            "in": "path",
+            "description": "Store identifier",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "commerce_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "https://opencommerce-test.apigee.net/apis/v1/oauth/authorize?client_id=grOmvYAei8aBARzEVIYhGtpvztofAAjz&redirect_uri=https://api.enterprise.apigee.com/v1/o/apis-bank/apimodels/accounts/templateauths/aisp_auth/callback&response_type=code&state=af0ifjsldkj&scope=openid accounts&ui-locales=en&acr_values=3",
+      "tokenUrl": "https://opencommerce-test.apigee.net/apis/v1/oauth/token",
+      "flow": "accessCode",
+      "scopes": {
+        "openid": "openID"
+      }
+    }
+  },
+  "definitions": {
+    "Store": {
+      "type": "object",
+      "description": "Store location details",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Store identifier"
+        },
+        "name": {
+          "type": "string",
+          "description": "Store Name"
+        },
+        "category": {
+          "type": "string",
+          "description": "Store Type/Category"
+        },
+        "address": {
+          "type": "string",
+          "description": "Address (building, no, street)"
+        },
+        "locality": {
+          "type": "string",
+          "description": "Locality"
+        },
+        "city": {
+          "type": "string",
+          "description": "City"
+        },
+        "state": {
+          "type": "string",
+          "description": "State"
+        },
+        "country": {
+          "type": "string",
+          "description": "Country"
+        },
+        "postal_code": {
+          "type": "string",
+          "description": "Postal code"
+        },
+        "phone_number": {
+          "type": "string",
+          "description": "Phone number"
+        },
+        "email": {
+          "type": "string",
+          "description": "Email id"
+        },
+        "location": {
+          "type": "object",
+          "description": "Location details",
+          "properties": {
+            "latitude": {
+              "type": "string",
+              "description": "Latitude"
+            },
+            "longitude": {
+              "type": "string",
+              "description": "Longitude"
+            }
+          }
+        },
+        "working_hours": {
+          "type": "string",
+          "description": "Store working hours"
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Additional attributes about the store"
+        },
+        "comments": {
+          "type": "string",
+          "description": "Any additional description about the store"
+        }
+      }
+    }
+  }
+}
+
+

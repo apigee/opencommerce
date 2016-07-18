@@ -1,0 +1,11 @@
+[{
+  "name": "rainy_collection",
+  "collection_description": "All rainy collections go here",
+  "created_date": 0,
+  "expiry_date": 999,
+  "image": [],
+  "products": [16421452, 40321974, 40321981],
+  "published_scope": "ALL",
+  "published_status": "active",
+  "updated_at": 111
+}]

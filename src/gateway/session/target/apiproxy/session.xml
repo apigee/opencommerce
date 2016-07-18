@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><APIProxy name="session" revision="1">
+    <ConfigurationVersion majorVersion="4" minorVersion="0"/>
+    <Description>session</Description>
+    <DisplayName>session</DisplayName>
+    <validate>false</validate>
+</APIProxy>

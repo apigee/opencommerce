@@ -1,0 +1,69 @@
+{
+	"base_path": "/internal/consent",
+	"logo_uri": "",
+	"styles": {
+		"header_background_color": "#ffffff"
+	},
+	"consentTransaction": {
+		"transactionEndpoint": "http://open-commerce-dev.apigee.net/internal/apis/v1/session/transactions/",
+		"method": "GET",
+		"headers": {
+			"x-apikey": "r3Y1L0ZV9J1I4DLHpxCQfaMkDfuPnuHp"
+		}
+	},
+  "authenticationTransaction": {
+    "transactionEndpoint": "https://open-commerce-dev.apigee.net/internal/connector/v1/authenticate",
+    "method": "POST",
+    "headers": {
+			"x-apikey": "r3Y1L0ZV9J1I4DLHpxCQfaMkDfuPnuHp"
+		}
+  },
+  "accessTokenTransaction": {
+    "transactionEndpoint": "https://open-commerce-dev.apigee.net/apis/v1/oauth/authorized/transactions/",
+    "method": "POST",
+    "headers": {
+			"x-apikey": "r3Y1L0ZV9J1I4DLHpxCQfaMkDfuPnuHp"
+		}
+  },
+	"generateOtp": {
+		"transactionEndpoint": "https://open-commerce-dev.apigee.net/internal/apis/v1/sms/otp/",
+    "method": "POST",
+    "headers": {
+			"x-apikey": "r3Y1L0ZV9J1I4DLHpxCQfaMkDfuPnuHp"
+		}
+	},
+	"validateOtp": {
+		"transactionEndpoint": "https://open-commerce-dev.apigee.net/internal/apis/v1/sms/otp/",
+    "method": "POST",
+    "headers": {
+			"x-apikey": "r3Y1L0ZV9J1I4DLHpxCQfaMkDfuPnuHp"
+		}
+	},
+	"errors": {
+		"user_cancel": {
+			"code": "Consent_Rejected",
+			"description": "User rejected consent"
+		}
+	},
+	"loa": {
+		"1": {
+			"steps": [{
+				"name": "UID_PWD",
+				"weight": 0
+			}]
+		},
+		"2": {
+			"steps": [{
+				"name": "UID_PWD",
+				"weight": 0
+			}]
+		},
+		"3": {
+			"steps": [{
+				"name": "UID_PWD",
+				"weight": 0
+			}]
+		}
+	}
+
+}

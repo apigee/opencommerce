@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?><APIProxy name="connector-template" revision="1">
+    <ConfigurationVersion majorVersion="4" minorVersion="0"/>
+    <Description>products-connector</Description>
+    <DisplayName>products-connector</DisplayName>
+</APIProxy>

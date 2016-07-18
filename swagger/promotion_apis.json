@@ -1,0 +1,214 @@
+{
+  "swagger": "2.0",
+  "host": "opencommerce-test.apigee.net",
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "info": {
+    "description": "Special Promotions on the product variants",
+    "title": "Promotions",
+    "version": "0.0.1",
+    "termsOfService": "http://example.com/about/terms",
+    "contact": {
+      "name": "API Docs",
+      "url": "http://example.com/contact",
+      "email": "apis-eng@apigee.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://example.com"
+    }
+  },
+  "basePath": "/apis/v1",
+  "paths": {
+    "/search": {
+      "get": {
+        "description": "<p>A specialization on the product search, providing the information about the promotion  name (collection_id). If the access token provided contains user information (user had signed-in), it might be used to filter/sort the products with-in promotion collection  .</p>",
+        "summary": "List of Product recommendations for the user",
+        "operationId": "Product List",
+        "tags": [
+          "ProductList"
+        ],
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/SkuList"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized access"
+          }
+        },
+        "security": [
+          {
+            "commerce_auth": [
+              "openid"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
+            "type": "string",
+            "required": true
+          },
+
+          {
+            "name": "collection_name",
+            "in": "query",
+            "description": "Product collection (static or dynamic collection) to retrieve",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of records to return, by default 10",
+            "type": "integer",
+            "required": false
+          },
+          {
+            "name": "page_hint",
+            "in": "query",
+            "description": "An encoded representation of query position pointing to the set of results. Used in conjunction with 'limit' for pagination",
+            "type": "string",
+            "required": false
+          }
+        ]
+      }
+    }
+
+
+
+  },
+  "securityDefinitions": {
+    "commerce_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "https://opencommerce-test.apigee.net/apis/v1/oauth/authorize?client_id=grOmvYAei8aBARzEVIYhGtpvztofAAjz&redirect_uri=https://api.enterprise.apigee.com/v1/o/apis-bank/apimodels/accounts/templateauths/aisp_auth/callback&response_type=code&state=af0ifjsldkj&scope=openid accounts&ui-locales=en&acr_values=3",
+      "tokenUrl": "https://opencommerce-test.apigee.net/apis/v1/oauth/token",
+      "flow": "accessCode",
+      "scopes": {
+        "openid": "openID"
+      }
+    }
+  },
+  "definitions": {
+    "SkuList": {
+      "description": "List of Product Variants - search results, recommendations or promotions",
+      "type": "object",
+      "properties": {
+        "products": {
+          "type": "array",
+          "description": "Array of Product Variants",
+          "items": {
+            "$ref": "#/definitions/Sku"
+          }
+
+        },
+        "count": {
+          "type": "integer",
+          "description": "Number of items contained in this response"
+        },
+        "page_hint": {
+          "type": "string",
+          "description": "Encrypted query position in the result, using it in the next call will retrieve next page of result."
+        }
+      }
+    },
+
+    "Sku": {
+      "type": "object",
+      "description": "Product Variant",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Display name of the SKU"
+        },
+        "product_id": {
+          "type": "string",
+          "description": "Product identifier"
+        },
+        "sku_id": {
+          "type": "string",
+          "description": "Sku identifier"
+        },
+        "sku_description": {
+          "type":"string",
+          "description":"sku description"
+        },
+        "inventory_type": {
+          "type": "string",
+          "description": "The option to indicate front store whether order could be accepted if the available quantity is less than the required minimum quantity"
+        },
+        "available_quantity": {
+          "type": "integer",
+          "description": "Number of quantities available"
+        },
+        "barcode": {
+          "type": "string",
+          "description": "Bar code of the SKU"
+        },
+        "price": {
+          "type": "number",
+          "format":"float",
+          "description": "Price of the product in base currency"
+        },
+        "currency": {
+          "type": "string",
+          "description": "The base currency (e.g. USD, GBP, INR, etc.)"
+        },
+        "discount": {
+          "type": "number",
+          "format":"float",
+          "description": "The discount on the price (amount or percentage)"
+        },
+        "total_price": {
+          "type": "number",
+          "format":"float",
+          "description": "Total price of the product"
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Additional attributes of the Product variant (e.g, color, size)",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "image": {
+          "type": "array",
+          "description": "An array of image objects",
+          "items":{
+            "type": "string",
+            "description":"Image Url"
+          }
+
+        },
+        "created_date": {
+          "type": "integer",
+          "format":"int64",
+          "description": "Created Date/Time"
+        },
+        "expiry_date": {
+          "type": "integer",
+          "format":"int64",
+          "description": "Expiry Date/Time"
+        },
+        "product_url": {
+          "type":"string",
+          "description": "URL to get the Product details"
+        }
+      }
+    }
+
+  }
+}

@@ -1,0 +1,57 @@
+{
+	"id": "ca136925-1df3-de6b-5765-5f4c14e04de7",
+	"name": "Retail Location",
+	"description": "",
+	"order": [
+		"696d0fbe-3372-71d9-6753-91b39e65ebda",
+		"9a2fb044-8c9b-cde1-fe67-6cb55d164ac1"
+	],
+	"folders": [],
+	"timestamp": 1467280055693,
+	"owner": "",
+	"remoteLink": "",
+	"public": false,
+	"published": false,
+	"requests": [
+		{
+			"id": "696d0fbe-3372-71d9-6753-91b39e65ebda",
+			"headers": "",
+			"url": "{{host}}/?postal_codezip_code=72756&city=&latitude=&longitude=&radius=",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "ca136925-1df3-de6b-5765-5f4c14e04de7",
+			"data": null,
+			"dataMode": "params",
+			"name": "search location",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1467280055693,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "9a2fb044-8c9b-cde1-fe67-6cb55d164ac1",
+			"headers": "",
+			"url": "{{host}}/89e42140-39d7-11e6-b770-23e9fb3d4e33",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "ca136925-1df3-de6b-5765-5f4c14e04de7",
+			"data": null,
+			"dataMode": "params",
+			"name": "get Store",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1467280574420,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		}
+	]
+}

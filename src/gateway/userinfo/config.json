@@ -1,0 +1,52 @@
+{
+  "configurations": [
+    {
+      "name": "dev",
+      "policies": [
+        {
+          "name": "Callout.GetUserDetails.xml",
+          "tokens": [
+            {
+              "xpath": "/ServiceCallout/HTTPTargetConnection/URL",
+              "value": "https://baas-ug000sr.apigee.net/api-solutions/opencommerce/customers/{accesstoken.customer_number}"
+            }
+          ]
+        }
+      ],
+      "proxies": [],
+      "targets": []
+    },
+    {
+      "name": "test",
+      "policies": [
+        {
+          "name": "Callout.GetUserDetails.xml",
+          "tokens": [
+            {
+              "xpath": "/ServiceCallout/HTTPTargetConnection/URL",
+              "value": "https://baas-ug000sr.apigee.net/api-solutions/opencommerce/customers/{accesstoken.customer_number}"
+            }
+          ]
+        }
+      ],
+      "proxies": [],
+      "targets": []
+    },
+    {
+      "name": "prod",
+      "policies": [
+        {
+          "name": "Callout.GetUserDetails.xml",
+          "tokens": [
+            {
+              "xpath": "/ServiceCallout/HTTPTargetConnection/URL",
+              "value": "https://baas-ug000sr.apigee.net/api-solutions/opencommerce/customers/{accesstoken.customer_number}"
+            }
+          ]
+        }
+      ],
+      "proxies": [],
+      "targets": []
+    }
+  ]
+}

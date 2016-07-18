@@ -1,0 +1,73 @@
+{
+	"id": "042fef57-e9c8-9350-24eb-cf1cd6eb6cd7",
+	"name": "skus",
+	"description": "",
+	"order": [
+		"a7ec088d-e258-ffd3-7b2a-ddc36139b65f",
+		"cc366f52-513b-928f-06f3-44dad13b60e4",
+		"eea29b6e-2d8b-b296-be44-910b1166c455"
+	],
+	"folders": [],
+	"timestamp": 1467278816216,
+	"owner": 0,
+	"remoteLink": "",
+	"public": false,
+	"requests": [
+		{
+			"id": "a7ec088d-e258-ffd3-7b2a-ddc36139b65f",
+			"headers": "",
+			"url": "http://localhost:3000/S40321974",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1467278952271,
+			"name": "http://localhost:3000/S40321998",
+			"description": "",
+			"collectionId": "042fef57-e9c8-9350-24eb-cf1cd6eb6cd7",
+			"responses": []
+		},
+		{
+			"id": "cc366f52-513b-928f-06f3-44dad13b60e4",
+			"headers": "",
+			"url": "http://localhost:3000/S40321981",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1467278992701,
+			"name": "http://localhost:3000/S40321998",
+			"description": "",
+			"collectionId": "042fef57-e9c8-9350-24eb-cf1cd6eb6cd7",
+			"responses": []
+		},
+		{
+			"id": "eea29b6e-2d8b-b296-be44-910b1166c455",
+			"headers": "",
+			"url": "http://localhost:3000/S40321981",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "042fef57-e9c8-9350-24eb-cf1cd6eb6cd7",
+			"data": null,
+			"dataMode": "params",
+			"name": "http://localhost:3000/S40321998",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1467279002355,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		}
+	]
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><ServiceCallout async="false" continueOnError="false" enabled="true" name="Callout.GetUserDetails">
+    <DisplayName>Callout.GetUserDetails</DisplayName>
+    <Properties/>
+    <Request clearPayload="true">
+        <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
+    </Request>
+    <Response>getUserDetailsResponse</Response>
+    <HTTPTargetConnection>
+        <Properties/>
+        <URL>https://baas-ug000sr.apigee.net/api-solutions/opencommerce/customers/{accesstoken.customer_number}</URL>
+    </HTTPTargetConnection>
+</ServiceCallout>

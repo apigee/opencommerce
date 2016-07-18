@@ -1,0 +1,30 @@
+{
+	"id": "fd08966f-0f76-123f-d986-54c85223787d",
+	"name": "Retail Search",
+	"requests": [
+		{
+			"id": "4f1e2130-e0f7-07c7-de89-6e009525c7c7",
+			"headers": "",
+			"url": "{{host}}/?product_filter=&sku_filter&cursor&limit&category=cameras&collection=",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "fd08966f-0f76-123f-d986-54c85223787d",
+			"data": null,
+			"dataMode": "params",
+			"name": "Search",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1467279998396,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		}
+	],
+	"order": [
+		"4f1e2130-e0f7-07c7-de89-6e009525c7c7"
+	],
+	"timestamp": 1467279998396
+}

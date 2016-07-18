@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<APIProxy revision="1" name="orders">
+    <ConfigurationVersion majorVersion="4" minorVersion="0"/>
+    <Description>orders</Description>
+    <DisplayName>orders</DisplayName>
+    <validate>false</validate>
+</APIProxy>

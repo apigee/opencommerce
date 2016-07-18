@@ -1,0 +1,52 @@
+{
+  "configurations": [
+    {
+      "name": "dev",
+      "policies": [],
+      "proxies": [],
+      "targets": [
+        {
+          "name": "default.xml",
+          "tokens": [
+            {
+              "xpath": "/TargetEndpoint/HTTPTargetConnection/URL",
+              "value": "https://baas-ug000sr.apigee.net/api-solutions/opencommerce/token"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "test",
+      "policies": [],
+      "proxies": [],
+      "targets": [
+        {
+          "name": "default.xml",
+          "tokens": [
+            {
+              "xpath": "/TargetEndpoint/HTTPTargetConnection/URL",
+              "value": "https://baas-ug000sr.apigee.net/api-solutions/opencommerce/token"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "prod",
+      "policies": [],
+      "proxies": [],
+      "targets": [
+        {
+          "name": "default.xml",
+          "tokens": [
+            {
+              "xpath": "/TargetEndpoint/HTTPTargetConnection/URL",
+              "value": "https://baas-ug000sr.apigee.net/api-solutions/opencommerce/token"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

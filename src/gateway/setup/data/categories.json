@@ -1,0 +1,111 @@
+[ {
+  "uuid" : "4023d1ea-39d7-11e6-a575-bb801d7efe4e",
+  "type" : "category",
+  "name" : "Appliances",
+  "created" : 1466750733822,
+  "modified" : 1466750733822,
+  "color" : "#506d7d",
+  "id" : 0,
+  "metadata" : {
+    "path" : "/categories/4023d1ea-39d7-11e6-a575-bb801d7efe4e"
+  }
+}, {
+  "uuid" : "4026b81a-39d7-11e6-9670-0d22691dd47e",
+  "type" : "category",
+  "name" : "Automotive",
+  "created" : 1466750733841,
+  "modified" : 1466750733841,
+  "color" : "#94cbb9",
+  "id" : 1,
+  "metadata" : {
+    "path" : "/categories/4026b81a-39d7-11e6-9670-0d22691dd47e"
+  }
+}, {
+  "uuid" : "4029ec6a-39d7-11e6-ab13-718549cf6a7f",
+  "type" : "category",
+  "name" : "Baby",
+  "created" : 1466750733862,
+  "modified" : 1466750733862,
+  "color" : "#ffc20e",
+  "id" : 2,
+  "metadata" : {
+    "path" : "/categories/4029ec6a-39d7-11e6-ab13-718549cf6a7f"
+  }
+}, {
+  "uuid" : "402d20ba-39d7-11e6-b668-67ef56fb83fe",
+  "type" : "category",
+  "name" : "Books",
+  "created" : 1466750733883,
+  "modified" : 1466750733883,
+  "color" : "#f7a969",
+  "id" : 3,
+  "metadata" : {
+    "path" : "/categories/402d20ba-39d7-11e6-b668-67ef56fb83fe"
+  }
+}, {
+  "uuid" : "4030ca3a-39d7-11e6-9fac-996d38219ca4",
+  "type" : "category",
+  "name" : "Cameras",
+  "created" : 1466750733907,
+  "modified" : 1466750733907,
+  "color" : "#6c507d",
+  "id" : 4,
+  "metadata" : {
+    "path" : "/categories/4030ca3a-39d7-11e6-9fac-996d38219ca4"
+  }
+}, {
+  "uuid" : "403473ba-39d7-11e6-9403-cfa754b0b2dc",
+  "type" : "category",
+  "name" : "Clothing",
+  "created" : 1466750733931,
+  "modified" : 1466750733931,
+  "color" : "#f07d65",
+  "id" : 5,
+  "metadata" : {
+    "path" : "/categories/403473ba-39d7-11e6-9403-cfa754b0b2dc"
+  }
+}, {
+  "uuid" : "4037f62a-39d7-11e6-a4f8-2159402fdc1c",
+  "type" : "category",
+  "name" : "Electronics",
+  "created" : 1466750733954,
+  "modified" : 1466750733954,
+  "color" : "#e36b22",
+  "id" : 6,
+  "metadata" : {
+    "path" : "/categories/4037f62a-39d7-11e6-a4f8-2159402fdc1c"
+  }
+}, {
+  "uuid" : "403b518a-39d7-11e6-add4-c136a74f4420",
+  "type" : "category",
+  "name" : "Fitness",
+  "created" : 1466750733976,
+  "modified" : 1466750733976,
+  "color" : "#b34b37",
+  "id" : 7,
+  "metadata" : {
+    "path" : "/categories/403b518a-39d7-11e6-add4-c136a74f4420"
+  }
+}, {
+  "uuid" : "403f703a-39d7-11e6-98f8-abd7e0cb06f1",
+  "type" : "category",
+  "name" : "Gifts",
+  "created" : 1466750734003,
+  "modified" : 1466750734003,
+  "color" : "#97779e",
+  "id" : 8,
+  "metadata" : {
+    "path" : "/categories/403f703a-39d7-11e6-98f8-abd7e0cb06f1"
+  }
+}, {
+  "uuid" : "404340ca-39d7-11e6-8bad-4976dfd2251b",
+  "type" : "category",
+  "name" : "Health",
+  "created" : 1466750734028,
+  "modified" : 1466750734028,
+  "color" : "#71a973",
+  "id" : 9,
+  "metadata" : {
+    "path" : "/categories/404340ca-39d7-11e6-8bad-4976dfd2251b"
+  }
+} ]

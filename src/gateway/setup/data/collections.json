@@ -1,0 +1,40 @@
+[ {
+  "uuid" : "7a93d15a-3c65-11e6-a3aa-39972dbcf31b",
+  "type" : "collection",
+  "created" : 1467031722725,
+  "modified" : 1467204410778,
+  "attributes" : { },
+  "collection_description" : "this is random description of some collection",
+  "collections" : [ ],
+  "expiry_date" : 232332,
+  "image" : {
+    "href" : "http://xyz.com/da"
+  },
+  "metadata" : {
+    "path" : "/collections/7a93d15a-3c65-11e6-a3aa-39972dbcf31b",
+    "connections" : {
+      "has" : "/collections/7a93d15a-3c65-11e6-a3aa-39972dbcf31b/has"
+    }
+  },
+  "products" : [ "fe66565a-392d-11e6-ab82-fb455081e23d" ]
+}, {
+  "uuid" : "3771463a-3d2a-11e6-a5be-856fa0397d58",
+  "type" : "collection",
+  "name" : "rainy_collection",
+  "created" : 1467116220947,
+  "modified" : 1467116657946,
+  "collection_description" : "All rainy collections go here",
+  "created_date" : 0,
+  "expiry_date" : 999,
+  "image" : [ ],
+  "metadata" : {
+    "path" : "/collections/3771463a-3d2a-11e6-a5be-856fa0397d58",
+    "connections" : {
+      "issetof" : "/collections/3771463a-3d2a-11e6-a5be-856fa0397d58/issetof"
+    }
+  },
+  "products" : [ 16421452, 40321974, 40321981 ],
+  "published_scope" : "ALL",
+  "published_status" : "active",
+  "updated_at" : 111
+} ]

@@ -1,0 +1,318 @@
+{
+    "variables": [],
+    "info": {
+        "name": "API Solutions - Open Commerce",
+        "_postman_id": "22bc76fd-5844-a5f4-1f20-4d68bb400acb",
+        "description": "",
+        "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+    },
+    "item": [{
+        "name": "Opencommerce",
+        "description": "",
+        "item": [{
+            "name": "OAuth Authorize (pass - token)",
+            "request": {
+                "url": "https://psubopencom-test.apigee.net/apis/v1/oauth/authorize?response_type=code&redirect_uri=http://localhost&scope=openid products&client_id=rA3nLIjDu3DXEvVUm1emiH3AidVlckzh",
+                "method": "GET",
+                "header": [{
+                    "key": "Authorization",
+                    "value": "Basic ckEzbkxJakR1M0RYRXZWVW0xZW1pSDNBaWRWbGNremg6WXI4N2xjbkxwY0FpYmZ4Yw==",
+                    "description": ""
+                }],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "description": ""
+            },
+            "response": []
+        }, {
+            "name": "OAuth Authorize (pass - code)",
+            "request": {
+                "url": "https://psubopencom-test.apigee.net/apis/v1/oauth/authorize?response_type=code&redirect_uri=http://localhost&scope=openid products&client_id=rA3nLIjDu3DXEvVUm1emiH3AidVlckzh",
+                "method": "GET",
+                "header": [{
+                    "key": "Authorization",
+                    "value": "Basic ckEzbkxJakR1M0RYRXZWVW0xZW1pSDNBaWRWbGNremg6WXI4N2xjbkxwY0FpYmZ4Yw==",
+                    "description": ""
+                }],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "description": ""
+            },
+            "response": []
+        }, {
+            "name": "OAuth Token (code)",
+            "request": {
+                "url": "https://psubopencom-test.apigee.net/apis/v1/oauth/token",
+                "method": "POST",
+                "header": [{
+                    "key": "Authorization",
+                    "value": "Basic ckEzbkxJakR1M0RYRXZWVW0xZW1pSDNBaWRWbGNremg6WXI4N2xjbkxwY0FpYmZ4Yw==",
+                    "description": ""
+                }],
+                "body": {
+                    "mode": "urlencoded",
+                    "urlencoded": [{
+                        "key": "client_id",
+                        "value": "rA3nLIjDu3DXEvVUm1emiH3AidVlckzh",
+                        "type": "text",
+                        "enabled": true
+                    }, {
+                        "key": "client_secret",
+                        "value": "Yr87lcnLpcAibfxc",
+                        "type": "text",
+                        "enabled": true
+                    }, {
+                        "key": "grant_type",
+                        "value": "authorization_code",
+                        "type": "text",
+                        "enabled": true
+                    }, {
+                        "key": "code",
+                        "value": "bY6QpV0s",
+                        "type": "text",
+                        "enabled": true
+                    }]
+                },
+                "description": ""
+            },
+            "response": []
+        }, {
+            "name": "OAuth Token (client cred)",
+            "request": {
+                "url": "https://psubopencom-test.apigee.net/apis/v1/oauth/token",
+                "method": "POST",
+                "header": [{
+                    "key": "Authorization",
+                    "value": "Basic ckEzbkxJakR1M0RYRXZWVW0xZW1pSDNBaWRWbGNremg6WXI4N2xjbkxwY0FpYmZ4Yw==",
+                    "description": ""
+                }],
+                "body": {
+                    "mode": "urlencoded",
+                    "urlencoded": [{
+                        "key": "client_id",
+                        "value": "rA3nLIjDu3DXEvVUm1emiH3AidVlckzh",
+                        "type": "text",
+                        "enabled": true
+                    }, {
+                        "key": "client_secret",
+                        "value": "Yr87lcnLpcAibfxc",
+                        "type": "text",
+                        "enabled": true
+                    }, {
+                        "key": "grant_type",
+                        "value": "client_credentials",
+                        "type": "text",
+                        "enabled": true
+                    }]
+                },
+                "description": ""
+            },
+            "response": []
+        }, {
+            "name": "Locations",
+            "request": {
+                "url": "https://{{host}}/locations?postal_codezip_code=72756&city=&latitude=&longitude=&radius=",
+                "method": "GET",
+                "header": [{
+                    "key": "Authorization",
+                    "value": "Bearer PItrtAVn4JXJoqwBmdRR6V5FjSyL",
+                    "description": ""
+                }],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "description": ""
+            },
+            "response": []
+        }, {
+            "name": "Get Products",
+            "request": {
+                "url": "https://{{host}}/products/16421452",
+                "method": "GET",
+                "header": [{
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "description": ""
+                }],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"first_name\": \"rohan\",\n    \"last_name\": \"m\",\n    \"addr\":\"apigee\"\n}"
+                },
+                "description": ""
+            },
+            "response": []
+        }, {
+            "name": "Get Product Skus",
+            "request": {
+                "url": "https://{{host}}/products/16421452/skus?filter&limit&pageHint",
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "description": ""
+            },
+            "response": []
+        }, {
+            "name": "Get Product Sku Details",
+            "request": {
+                "url": "https://{{host}}/products/16421452/skus/S16421452",
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "description": ""
+            },
+            "response": []
+        }, {
+            "name": "Search",
+            "request": {
+                "url": "https://{{host}}/search?product_filter=&sku_filter&cursor&limit&category=cameras&collection=",
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "description": ""
+            },
+            "response": []
+        }, {
+            "name": "Get Skus",
+            "request": {
+                "url": "https://{{host}}/skus/S40321974",
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "description": ""
+            },
+            "response": []
+        }, {
+            "name": "Get Cart",
+            "request": {
+                "url": "https://{{host}}/carts/399235ea-3de4-11e6-811f-2f0a1506d1ed",
+                "method": "GET",
+                "header": [{
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "description": ""
+                }],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n\"items\":[{\"sku_id\": \"ddddddd\",\"quantity\": 78}]\n    \n}"
+                },
+                "description": ""
+            },
+            "response": []
+        }, {
+            "name": "Create Cart",
+            "request": {
+                "url": "https://{{host}}/carts",
+                "method": "POST",
+                "header": [{
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "description": ""
+                }],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{  \n    \"cart_details\":{\n        \"session_id\":\"ddsd-ssd-sd-sds\",\n        \"cart_items\": [],\n        \"total_base_price\": \"\",\n        \"total_discount\": \"\",\n        \"total_price\": \"\",\n        \"user_id\": \"\",\n        \"created_at\": \"\",\n        \"updated_at\": \"\"\n    }\n}"
+                },
+                "description": ""
+            },
+            "response": []
+        }, {
+            "name": "Update Cart",
+            "request": {
+                "url": "https://{{host}}/carts/e7be002a-3de6-11e6-a3b4-d5118e8a08b3",
+                "method": "PUT",
+                "header": [{
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "description": ""
+                }],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{  \n    \"cart_details\":{\n        \"session_id\":\"ddsd-ssd-sd-sds\",\n        \"cart_items\": [],\n        \"total_base_price\": \"\",\n        \"total_discount\": \"\",\n        \"total_price\": \"\",\n        \"user_id\": \"\",\n        \"created_at\": \"\",\n        \"updated_at\": \"\"\n    }\n}"
+                },
+                "description": ""
+            },
+            "response": []
+        }, {
+            "name": "Delete Cart",
+            "request": {
+                "url": "https://{{host}}/carts/49eb0b7a-3de3-11e6-89b7-77b1acb16e75",
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": ""
+                },
+                "description": ""
+            },
+            "response": []
+        }, {
+            "name": "Add Items to Cart",
+            "request": {
+                "url": "https://{{host}}/carts/399235ea-3de4-11e6-811f-2f0a1506d1ed/items/",
+                "method": "POST",
+                "header": [{
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "description": ""
+                }],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n\"items\":[{\"sku_id\": \"ce69556a-392d-11e6-99bb-3766336ce921\",\"quantity\": 8}]\n    \n}"
+                },
+                "description": ""
+            },
+            "response": []
+        }, {
+            "name": "Edit Items in Cart",
+            "request": {
+                "url": "https://{{host}}/carts/399235ea-3de4-11e6-811f-2f0a1506d1ed/items/",
+                "method": "PUT",
+                "header": [{
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "description": ""
+                }],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n\"items\":[{\"sku_id\": \"ce69556a-392d-11e6-99bb-3766336ce921\",\"quantity\": 100}]\n    \n}"
+                },
+                "description": ""
+            },
+            "response": []
+        }, {
+            "name": "Delete Items in Cart",
+            "request": {
+                "url": "https://{{host}}/carts/399235ea-3de4-11e6-811f-2f0a1506d1ed/items/",
+                "method": "DELETE",
+                "header": [{
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "description": ""
+                }],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n\"items\":[{\"sku_id\": \"aaaaa\",\"quantity\": 7}]\n    \n}"
+                },
+                "description": ""
+            },
+            "response": []
+        }]
+    }]
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="Assign.TargetParams">
+    <DisplayName>Assign.TargetParams</DisplayName>
+    <AssignTo createNew="false" transport="http" type="request"/>
+    <Add>
+        <QueryParams>
+            <QueryParam name="username">{accesstoken.username}</QueryParam>
+        </QueryParams>
+    </Add>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</AssignMessage>

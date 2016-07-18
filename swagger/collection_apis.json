@@ -1,0 +1,348 @@
+{
+  "swagger": "2.0",
+  "host": "opencommerce-test.apigee.net",
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "info": {
+    "description": "Product Collections",
+    "title": "Product Collections",
+    "version": "0.0.1",
+    "termsOfService": "http://example.com/about/terms",
+    "contact": {
+      "name": "API Docs",
+      "url": "http://example.com/contact",
+      "email": "apis-eng@apigee.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://example.com"
+    }
+  },
+  "basePath": "/apis/v1",
+  "paths": {
+
+    "/collections/{collection_name}": {
+      "get": {
+        "description": "<p>This will return list of products/collections that belong to a the given collection. The products returned can be personalized based on the user-id information, in case an accessToken is passed in Authorization Header.</p><p>The collections can be used to model product hierarchy, promotions, campaigns.  The dynamic collection is a rule that gets executed and returns resultant products; this can be used to model any rule based (e.g. all products in a category, where price is less than 'x' amount) promotions/campaigns. </p><p>The results can be filtered by giving a filter criteria.  The number of items returned can be controlled by providing a 'limit'. By providing the page_hint, the next set of results can be retrieved.</p>",
+        "summary": "List of Products matching criteria",
+        "operationId": "Product Collection",
+        "tags": [
+          "ProductCollection"
+        ],
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Collection"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized access"
+          }
+        },
+        "security": [
+          {
+            "commerce_auth": [
+              "openid"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "collection_name",
+            "in": "path",
+            "description": "Product collection to retrieve",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter criteria to apply using valid product/collection attributes; e.g. filter='price < 5000'",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of records to return, by default 10",
+            "type": "integer",
+            "required": false
+          },
+          {
+            "name": "page_hint",
+            "in": "query",
+            "description": "An encoded representation of query position pointing to the set of results. Used in conjunction with 'limit' for pagination",
+            "type": "string",
+            "required": false
+          }
+        ]
+      }
+    }
+
+
+  },
+  "securityDefinitions": {
+    "commerce_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "https://opencommerce-test.apigee.net/apis/v1/oauth/authorize?client_id=grOmvYAei8aBARzEVIYhGtpvztofAAjz&redirect_uri=https://api.enterprise.apigee.com/v1/o/apis-bank/apimodels/accounts/templateauths/aisp_auth/callback&response_type=code&state=af0ifjsldkj&scope=openid accounts&ui-locales=en&acr_values=3",
+      "tokenUrl": "https://opencommerce-test.apigee.net/apis/v1/oauth/token",
+      "flow": "accessCode",
+      "scopes": {
+        "openid": "openID"
+      }
+    }
+  },
+  "definitions": {
+    "ProductDetail": {
+      "description": "Product Details",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "A unique identifier for the product"
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name of the product"
+        },
+        "short_description": {
+          "type": "string",
+          "description": "A short description of the product"
+        },
+        "long_description": {
+          "type": "string",
+          "description": "Detailed description of the product, the features, package contents, etc. with required formatting"
+        },
+        "images": {
+          "type": "array",
+          "description": "An array of image objects",
+          "items" : {
+            "type": "string",
+            "description":"Image Url"
+          }
+
+        },
+        "category": {
+          "type": "string",
+          "description": "Product Category"
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Additional attributes associated with the product",
+          "additionalProperties": {
+            "type": "string"
+          }
+
+        },
+        "vendor":
+        {
+          "type":"object",
+          "description":"Product Vendor"
+        },
+        "skus": {
+          "type": "array",
+          "items":{
+            "$ref": "#/definitions/Sku"
+          }
+
+        },
+        "reviews": {
+          "$ref": "#/definitions/ReviewRatingOverview"
+        },
+        "ratings": {
+          "$ref": "#/definitions/ReviewRatingOverview"
+        },
+        "overall_rating": {
+          "type": "number",
+          "format":"float",
+          "description": "Overall customer rating for the product"
+        }
+      }
+    },
+    "Sku": {
+      "type": "object",
+      "description": "Product Variant",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Display name of the SKU"
+        },
+        "product_id": {
+          "type": "string",
+          "description": "Product identifier"
+        },
+        "sku_id": {
+          "type": "string",
+          "description": "Sku identifier"
+        },
+        "sku_description": {
+          "type":"string",
+          "description":"sku description"
+        },
+        "inventory_type": {
+          "type": "string",
+          "description": "The option to indicate front store whether order could be accepted if the available quantity is less than the required minimum quantity"
+        },
+        "available_quantity": {
+          "type": "integer",
+          "description": "Number of quantities available"
+        },
+        "barcode": {
+          "type": "string",
+          "description": "Bar code of the SKU"
+        },
+        "price": {
+          "type": "number",
+          "format":"float",
+          "description": "Price of the product in base currency"
+        },
+        "currency": {
+          "type": "string",
+          "description": "The base currency (e.g. USD, GBP, INR, etc.)"
+        },
+        "discount": {
+          "type": "number",
+          "format":"float",
+          "description": "The discount on the price (amount or percentage)"
+        },
+        "total_price": {
+          "type": "number",
+          "format":"float",
+          "description": "Total price of the product"
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Additional attributes of the Product variant (e.g, color, size)",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "image": {
+          "type": "array",
+          "description": "An array of image objects",
+          "items":{
+            "type": "string",
+            "description":"Image Url"
+          }
+
+        },
+        "created_date": {
+          "type": "integer",
+          "format":"int64",
+          "description": "Created Date/Time"
+        },
+        "expiry_date": {
+          "type": "integer",
+          "format":"int64",
+          "description": "Expiry Date/Time"
+        },
+        "product_url": {
+          "type":"string",
+          "description": "URL to get the Product details"
+        }
+      }
+    },
+    "Collection": {
+      "type": "object",
+      "description": "Collection of Products/Collections.  The stores could use collection to group products for categories, promotions, campaigns",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "A unique name of the collection"
+        },
+        "collection_description": {
+          "type": "string",
+          "description": "Description of the collection"
+        },
+        "image": {
+          "type": "array",
+          "description": "Image representing the collection",
+          "items":{
+            "type": "string",
+            "description":"Image Url"
+          }
+        },
+        "products": {
+          "type": "array",
+          "description": "List of products",
+          "items":{
+            "$ref": "#/definitions/ProductDetail"
+          }
+
+        },
+        "collections": {
+          "type": "array",
+          "description": "List of collections",
+          "items":{
+            "$ref": "#/definitions/Collection"
+          }
+
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Additional Attributes",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "created_date": {
+          "type": "integer",
+          "format":"int64",
+          "description": "Created Date/Time"
+        },
+        "published_status": {
+          "type": "boolean",
+          "description": "Whether the collection is published or not"
+        },
+        "published_scope": {
+          "type": "string",
+          "description": "A text to denote the publish scope of this collection (e.g. 'user','global')"
+        },
+        "expiry_date": {
+          "type": "integer",
+          "format":"int64",
+          "description": "Expiry Date/Time of the collection"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format":"int64",
+          "description": "Updated Date/Time"
+        }
+      }
+    },
+    "ReviewRatingOverview": {
+      "description": "Review/Rating summary",
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "description": "Total number of review/ratings"
+        },
+        "href": {
+          "type": "string",
+          "description": "URL to get the review/rating details"
+        }
+      }
+    }
+
+  }
+}
