@@ -1,0 +1,465 @@
+{
+  "swagger": "2.0",
+  "host": "opencommerce-test.apigee.net",
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "info": {
+    "description": "Product Information",
+    "title": "Product Information",
+    "version": "0.0.1",
+    "termsOfService": "http://example.com/about/terms",
+    "contact": {
+      "name": "API Docs",
+      "url": "http://example.com/contact",
+      "email": "apis-eng@apigee.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://example.com"
+    }
+  },
+  "basePath": "/apis/v1",
+  "paths": {
+
+
+    "/products/{product_id}": {
+      "get": {
+        "description": "<p>Product Detail</p>",
+        "summary": "Detailed listing of the Product ",
+        "operationId": "Product Detail",
+        "tags": [
+          "ProductDetail"
+        ],
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+                "$ref": "#/definitions/ProductDetail"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized access"
+          }
+        },
+        "security": [
+          {
+            "commerce_auth": [
+              "openid"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "product_id",
+            "in": "path",
+            "description": "Product identifier",
+            "type": "string",
+            "required": true
+          }
+
+        ]
+      }
+    },
+    "/products/{product_id}/skus": {
+      "get": {
+        "description": "<p>This will return list skus (product variant) of the given product. The Skus returned can be personalized based on the user-id information, in case an accessToken is passed in Authorization Header.</p><p>&nbsp;</p><p>The results can be filtered by giving a filter criteria.  The number of items returned can be controlled by providing a 'limit'. By providing the page_hint, the next set of results can be retrieved.</p>",
+        "summary": "List of Product Skus ",
+        "operationId": "Sku List",
+        "tags": [
+          "SkuList"
+        ],
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+
+                "$ref": "#/definitions/SkuList"
+
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized access"
+          }
+        },
+        "security": [
+          {
+            "commerce_auth": [
+              "openid"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "product_id",
+            "in": "path",
+            "description": "Product identifier",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter criteria to apply using valid product/collection attributes; e.g. filter='price < 5000'",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of records to return, by default 10",
+            "type": "integer",
+            "required": false
+          },
+          {
+            "name": "page_hint",
+            "in": "query",
+            "description": "An encoded representation of query position pointing to the set of results. Used in conjunction with 'limit' for pagination",
+            "type": "string",
+            "required": false
+          }
+        ]
+      }
+    },
+    "/skus/{sku_id}": {
+      "get": {
+        "description": "<p>Product Variant Detail</p>",
+        "summary": "Detailed listing of the Product Variant ",
+        "operationId": "Sku Detail",
+        "tags": [
+          "SkuDetail"
+        ],
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+                "$ref": "#/definitions/Sku"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized access"
+          }
+        },
+        "security": [
+          {
+            "commerce_auth": [
+              "openid"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "sku_id",
+            "in": "path",
+            "description": "Sku identifier",
+            "type": "string",
+            "required": true
+          }
+
+        ]
+      }
+    },
+    "/products/{product_id}/skus/{sku_id}": {
+      "get": {
+        "description": "<p>Product Variant Detail</p>",
+        "summary": "Detailed listing of the Product Variant ",
+        "operationId": "SkuList",
+        "tags": [
+          "SkuDetail"
+        ],
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+                "$ref": "#/definitions/Sku"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized access"
+          }
+        },
+        "security": [
+          {
+            "commerce_auth": [
+              "openid"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "product_id",
+            "in": "path",
+            "description": "Product identifier",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "sku_id",
+            "in": "path",
+            "description": "Sku identifier",
+            "type": "string",
+            "required": true
+          }
+
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "commerce_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "https://opencommerce-test.apigee.net/apis/v1/oauth/authorize?client_id=grOmvYAei8aBARzEVIYhGtpvztofAAjz&redirect_uri=https://api.enterprise.apigee.com/v1/o/apis-bank/apimodels/accounts/templateauths/aisp_auth/callback&response_type=code&state=af0ifjsldkj&scope=openid accounts&ui-locales=en&acr_values=3",
+      "tokenUrl": "https://opencommerce-test.apigee.net/apis/v1/oauth/token",
+      "flow": "accessCode",
+      "scopes": {
+        "openid": "openID"
+      }
+    }
+  },
+  "definitions": {
+
+    "SkuList": {
+      "description": "List of Product Variants - search results, recommendations or promotions",
+      "type": "object",
+      "properties": {
+        "skus": {
+          "type": "array",
+          "description": "Array of Product Variants",
+          "items": {
+            "$ref": "#/definitions/Sku"
+          }
+
+        },
+        "count": {
+          "type": "integer",
+          "description": "Number of items contained in this response"
+        },
+        "page_hint": {
+          "type": "string",
+          "description": "Encrypted query position in the result, using it in the next call will retrieve next page of result."
+        }
+      }
+    },
+
+
+    "ProductDetail": {
+      "description": "Product Details",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "A unique identifier for the product"
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name of the product"
+        },
+        "short_description": {
+          "type": "string",
+          "description": "A short description of the product"
+        },
+        "long_description": {
+          "type": "string",
+          "description": "Detailed description of the product, the features, package contents, etc. with required formatting"
+        },
+        "images": {
+          "type": "array",
+          "description": "An array of image objects",
+          "items" : {
+            "type": "string",
+            "description":"Image Url"
+          }
+
+        },
+        "categories": {
+          "type": "string",
+          "description": "Product Categories"
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Additional attributes associated with the product",
+          "additionalProperties": {
+            "type": "string"
+          }
+
+        },
+        "vendor":
+        {
+          "type":"object",
+          "description":"Product Vendor"
+        },
+        "skus": {
+          "type": "array",
+          "description": "The list of product variants (Sku)",
+          "items":{
+            "$ref": "#/definitions/Sku"
+          }
+
+        },
+        "reviews": {
+          "$ref": "#/definitions/ReviewRatingOverview"
+        },
+        "ratings": {
+          "$ref": "#/definitions/ReviewRatingOverview"
+        },
+        "overall_rating": {
+          "type": "number",
+          "format":"float",
+          "description": "Overall customer rating for the product"
+        }
+      }
+    },
+    "Sku": {
+      "type": "object",
+      "description": "Product Variant",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Display name of the SKU"
+        },
+        "product_id": {
+          "type": "string",
+          "description": "Product identifier"
+        },
+        "sku_id": {
+          "type": "string",
+          "description": "Sku identifier"
+        },
+        "sku_description": {
+          "type":"string",
+          "description":"sku description"
+        },
+        "inventory_type": {
+          "type": "string",
+          "description": "The option to indicate front store whether order could be accepted if the available quantity is less than the required minimum quantity"
+        },
+        "available_quantity": {
+          "type": "integer",
+          "description": "Number of quantities available"
+        },
+        "barcode": {
+          "type": "string",
+          "description": "Bar code of the SKU"
+        },
+        "price": {
+          "type": "number",
+          "format":"float",
+          "description": "Price of the product in base currency"
+        },
+        "currency": {
+          "type": "string",
+          "description": "The base currency (e.g. USD, GBP, INR, etc.)"
+        },
+        "discount": {
+          "type": "number",
+          "format":"float",
+          "description": "The discount on the price (amount or percentage)"
+        },
+        "total_price": {
+          "type": "number",
+          "format":"float",
+          "description": "Total price of the product"
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Additional attributes of the Product variant (e.g, color, size)",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "image": {
+          "type": "array",
+          "description": "An array of image objects",
+          "items":{
+            "type": "string",
+            "description":"Image Url"
+          }
+
+        },
+        "created_date": {
+          "type": "integer",
+          "format":"int64",
+          "description": "Created Date/Time"
+        },
+        "expiry_date": {
+          "type": "integer",
+          "format":"int64",
+          "description": "Expiry Date/Time"
+        },
+        "product_url": {
+          "type":"string",
+          "description": "URL to get the Product details"
+        }
+      }
+    },
+    "ReviewRatingOverview": {
+      "description": "Review/Rating summary",
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "description": "Total number of review/ratings"
+        },
+        "href": {
+          "type": "string",
+          "description": "URL to get the review/rating details"
+        }
+      }
+    }
+
+
+  }
+}

@@ -1,0 +1,69 @@
+{
+	"base_path": "/internal/consent",
+	"logo_uri": "",
+	"styles": {
+		"header_background_color": "#ffffff"
+	},
+	"consentTransaction": {
+		"transactionEndpoint": "http://__HOST__/internal/apis/v1/session/transactions/",
+		"method": "GET",
+		"headers": {
+			"x-apikey": "__KEY__"
+		}
+	},
+  "authenticationTransaction": {
+    "transactionEndpoint": "https://__HOST__/internal/connector/v1/authenticate",
+    "method": "POST",
+    "headers": {
+			"x-apikey": "__KEY__"
+		}
+  },
+  "accessTokenTransaction": {
+    "transactionEndpoint": "https://__HOST__/apis/v1/oauth/authorized/transactions/",
+    "method": "POST",
+    "headers": {
+			"x-apikey": "__KEY__"
+		}
+  },
+	"generateOtp": {
+		"transactionEndpoint": "https://__HOST__/internal/apis/v1/sms/otp/",
+    "method": "POST",
+    "headers": {
+			"x-apikey": "__KEY__"
+		}
+	},
+	"validateOtp": {
+		"transactionEndpoint": "https://__HOST__/internal/apis/v1/sms/otp/",
+    "method": "POST",
+    "headers": {
+			"x-apikey": "__KEY__"
+		}
+	},
+	"errors": {
+		"user_cancel": {
+			"code": "Consent_Rejected",
+			"description": "User rejected consent"
+		}
+	},
+	"loa": {
+		"1": {
+			"steps": [{
+				"name": "UID_PWD",
+				"weight": 0
+			}]
+		},
+		"2": {
+			"steps": [{
+				"name": "UID_PWD",
+				"weight": 0
+			}]
+		},
+		"3": {
+			"steps": [{
+				"name": "UID_PWD",
+				"weight": 0
+			}]
+		}
+	}
+
+}

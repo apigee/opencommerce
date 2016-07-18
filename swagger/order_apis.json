@@ -1,0 +1,565 @@
+{
+  "swagger": "2.0",
+  "host": "opencommerce-test.apigee.net",
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "info": {
+    "description": "Order Information",
+    "title": "Order Information",
+    "version": "0.0.1",
+    "termsOfService": "http://example.com/about/terms",
+    "contact": {
+      "name": "API Docs",
+      "url": "http://example.com/contact",
+      "email": "apis-eng@apigee.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://example.com"
+    }
+  },
+  "basePath": "/apis/v1",
+  "paths": {
+    "/orders": {
+      "get": {
+        "description": "<p>This will return list of orders placed by the user.</p><p>&nbsp;</p><p>The results can be filtered by specifying the status.  The number of items returned can be controlled by providing a 'limit'. By providing the page_hint, the next set of results can be retrieved.</p>",
+        "summary": "List of Orders matching criteria",
+        "operationId": "Order List",
+        "tags": [
+          "Order"
+        ],
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/OrderList"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized access"
+          }
+        },
+        "security": [
+          {
+            "commerce_auth": [
+              "openid"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization Bearer Token; if user has signed-in",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Order Status",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of records to return, by default 10",
+            "type": "integer",
+            "required": false
+          },
+          {
+            "name": "page_hint",
+            "in": "query",
+            "description": "An encoded representation of query position pointing to the set of results. Used in conjunction with 'limit' for pagination",
+            "type": "string",
+            "required": false
+          }
+        ]
+      }
+    },
+
+    "/orders/{order_id}": {
+      "get": {
+        "description": "<p>Order Detail</p>",
+        "summary": "Detailed listing of the Order ",
+        "operationId": "Order Detail",
+        "tags": [
+          "Order"
+        ],
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+                "$ref": "#/definitions/Order"
+
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized access"
+          }
+        },
+        "security": [
+          {
+            "commerce_auth": [
+              "openid"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "order_id",
+            "in": "path",
+            "description": "Order identifier",
+            "type": "string",
+            "required": true
+          }
+
+        ]
+      }
+    }
+
+  },
+  "securityDefinitions": {
+    "commerce_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "https://opencommerce-test.apigee.net/apis/v1/oauth/authorize?client_id=grOmvYAei8aBARzEVIYhGtpvztofAAjz&redirect_uri=https://api.enterprise.apigee.com/v1/o/apis-bank/apimodels/accounts/templateauths/aisp_auth/callback&response_type=code&state=af0ifjsldkj&scope=openid accounts&ui-locales=en&acr_values=3",
+      "tokenUrl": "https://opencommerce-test.apigee.net/apis/v1/oauth/token",
+      "flow": "accessCode",
+      "scopes": {
+        "openid": "openID"
+      }
+    }
+  },
+  "definitions": {
+
+    "OrderList": {
+      "description": "List of Orders - order history of a user",
+      "type": "object",
+      "properties": {
+        "orders": {
+          "type": "array",
+          "description": "Array of Orders",
+          "items":{
+            "$ref": "#/definitions/Order"
+          }
+
+        },
+        "count": {
+          "type": "integer",
+          "description": "Number of items contained in this response"
+        },
+        "page_hint": {
+          "type": "string",
+          "description": "Encrypted query position in the result, using it in the next call will retrieve next page of result."
+        }
+      }
+    },
+
+
+    "Order":{
+      "type":"object",
+      "description":"Order Details",
+      "properties" :{
+        "order_number":{
+          "type":"string",
+          "description":"Unique identifier for the order"
+        },
+        "order_date":{
+          "type":"integer",
+          "format":"int64",
+          "description":"When the order was placed"
+        },
+        "sub_total_amount":{
+          "type":"number",
+          "format":"float",
+          "description":"Total amount of the order, excluding discounts/taxes"
+        },
+        "currency":{
+          "type": "string",
+          "description": "Currency code"
+        },
+        "total_discount": {
+          "type":"number",
+          "format":"float",
+          "description":"Total discounts offered"
+        },
+        "discount_codes":{
+          "type":"array",
+          "description":"Discount codes applied",
+          "items":{
+
+          }
+        },
+        "tax_lines": {
+          "type":"array",
+          "description":"Taxes applied.  A separate entry for each tax",
+          "items":{
+            "type":"object"
+          }
+        },
+        "is_tax_applicable":{
+          "type":"boolean",
+          "description":"Whether tax is applicable for the purchase"
+        },
+        "total_amount": {
+          "type":"number",
+          "format":"float",
+          "description":"Total amount"
+        },
+        "updated_at": {
+          "type":"integer",
+          "format":"int64",
+          "description":"Last updated at date/time"
+        },
+        "client_ip": {
+          "type":"string",
+          "description": "Client IP"
+        },
+        "cancel_reason": {
+          "type" : "string",
+          "description":"If order was cancelled, the reason for the cancellation"
+        },
+        "cancel_date":{
+          "type":"integer",
+          "format":"int64",
+          "description":"Date/time when the Order was cancelled"
+        },
+        "cart_id": {
+          "type":"string",
+          "description":"Cart identifier of the Order"
+        },
+        "customer_details": {
+          "$ref":"#/definitions/Customer"
+        },
+
+        "payment_details": {
+          "$ref":"#/definitions/PaymentDetail"
+        },
+        "fulfillment_status": {
+          "type":"string",
+          "description":"Overall fulfillment status of the Order"
+        },
+        "ship_to": {
+          "$ref":"#/definitions/Address"
+
+        },
+        "is_billing_same_as_shipping": {
+          "type":"boolean",
+          "description":"Is Billing address same as Shipping"
+        },
+        "bill_to": {
+          "$ref":"#/definitions/Address"
+
+        },
+        "order_items": {
+          "type":"array",
+          "description":"Ordered items",
+          "items":{
+            "$ref":"#/definitions/OrderItem"
+          }
+
+        },
+        "packages":{
+          "type":"array",
+          "description":"Packages",
+          "items":{
+            "$ref":"#/definitions/Package"
+          }
+
+        }
+      }
+    },
+
+    "Package" : {
+      "type":"object",
+      "description":"Package of items, shipped together",
+      "properties":{
+        "package_id": {
+          "type":"string",
+          "description":"Unique identifier for the package"
+        },
+        "shipment_id" : {
+          "type": "string",
+          "description":"Shipment identifier"
+        },
+        "shipping_agent": {
+          "type":"object",
+          "description":"Shipping agent details",
+          "properties": {
+            "id" : {
+              "type" : "string",
+              "description": "Shipping partner identification"
+            },
+            "name": {
+              "type" : "string",
+              "description":"Name of the Shipping agent"
+            },
+            "logo": {
+              "type":"string",
+              "description":"Logo URL of the shipping partner"
+            },
+            "description": {
+              "type":"string",
+              "description":"Additional information about the Shipping Agent"
+            },
+            "url": {
+              "type":"string",
+              "description":"Shipping Partner website"
+            }
+          }
+        },
+        "track_url" : {
+          "type":"string",
+          "description":"URL for Package Tracking"
+        },
+        "expected_delivery_date":{
+          "type": "integer",
+          "format":"int64",
+          "description":"Expected Delivery Date/Time"
+        },
+        "status": {
+          "type":"string",
+          "description":"Current Status of the Package"
+        },
+        "order_items": {
+          "type":"array",
+          "description": "Order items contained in this package",
+          "items":{
+            "$ref":"#/definitions/OrderItem"
+          }
+
+        }
+      }
+    },
+    "OrderItem": {
+      "type": "object",
+      "description": "Order Line Item",
+      "properties": {
+        "order_line_id" : {
+          "type" : "string",
+          "description": "Unique identifier for the order line item"
+        },
+        "order_id": {
+          "type": "string",
+          "description":"Order Identifier"
+        },
+        "sku_id": {
+          "type": "string",
+          "description": "Unique Identifier of the SKU chosen"
+        },
+        "name": {
+          "type": "string",
+          "description": "Sku name"
+        },
+        "sku_url": {
+          "type":"string",
+          "description":"URL to get Sku details"
+        },
+        "vendor": {
+          "type":"string",
+          "description":"Manufacturer or Supplier name"
+        },
+        "status" : {
+          "type":"string",
+          "description":"Order Line Item status - useful in case of partial fulfillment"
+        },
+        "return_reason": {
+          "type":"string",
+          "description":"In case of partial cancellation, the reason for returning the item"
+        },
+        "package_id": {
+          "type":"string",
+          "description":"Package identifier, once order is picked for shipping"
+        },
+        "price": {
+          "type": "number",
+          "format":"float",
+          "description": "Price of the product in base currency"
+        },
+        "currency": {
+          "type": "string",
+          "description": "The base currency (e.g. USD, GBP, INR, etc.)"
+        },
+        "discount": {
+          "type": "number",
+          "format":"float",
+          "description": "The discount on the price (amount or percentage)"
+        },
+        "total_price": {
+          "type": "number",
+          "format":"float",
+          "description": "Total price of the product per item"
+        },
+        "image": {
+          "type": "array",
+          "description": "An array of image objects",
+          "items":{
+            "type": "string",
+            "description":"Image Url"
+          }
+
+        },
+        "quantity": {
+          "type": "integer",
+          "description": "Quantity added"
+        },
+        "created_at":{
+          "type":"integer",
+          "format":"int64",
+          "description":"Created date/time"
+        },
+        "updated_at":{
+          "type":"integer",
+          "format":"int64",
+          "description":"Updated date/time"
+        }
+      }
+    },
+
+    "PaymentDetail" : {
+      "type":"object",
+      "description":"Payment information",
+      "properties": {
+        "status": {
+          "type":"string",
+          "description":"Payment status"
+        },
+        "payment_mode" : {
+          "type":"string",
+          "description":"Mode of Payment"
+        },
+        "ac_number": {
+          "type":"string",
+          "description":"Masked a/c information"
+        },
+        "date_of_payment": {
+          "type":"integer",
+          "format":"int64",
+          "description":"Date/Time when the payment was made"
+        },
+        "transaction_id": {
+          "type":"string",
+          "description":"Transaction ref id"
+        },
+        "gateway_used": {
+          "type":"string",
+          "description":"Payment Gateway Used"
+        },
+        "gateway_transaction_id": {
+          "type":"string",
+          "description":"Transaction id returned by the Gateway"
+        }
+      }
+    },
+    "Customer": {
+      "type":"object",
+      "description":"Customer information",
+      "properties":{
+        "id":{
+          "type":"string",
+          "description":"Customer identifier in the system"
+        },
+        "first_name" : {
+          "type":"string",
+          "description":"First name"
+        },
+        "last_name":{
+          "type":"string",
+          "description":"Last name"
+        },
+        "email":{
+          "type":"string",
+          "description":"Email"
+        },
+        "city": {
+          "type":"string",
+          "description":"City"
+        }
+      }
+    },
+
+    "Address" : {
+      "type":"object",
+      "description":"Address Details",
+      "properties": {
+          "name": {
+            "type":"string",
+            "description":"Name"
+          },
+          "address1":{
+            "type":"string",
+            "description":"Address line 1"
+          },
+          "address2":{
+            "type":"string",
+            "description":"Address line 2"
+          },
+          "locality":{
+            "type":"string",
+            "description":"Locality"
+          },
+          "city":{
+            "type":"string",
+            "description":"City"
+          },
+          "state":{
+            "type":"string",
+            "description":"State"
+          },
+          "country":{
+            "type":"string",
+            "description":"Country"
+          },
+          "zip":{
+            "type":"string",
+            "description":"Zip code"
+          },
+          "phone_number":{
+            "type":"string",
+            "description":"Phone number"
+          },
+          "email":{
+            "type":"string",
+            "description":"Email id"
+          },
+          "location":{
+            "type":"object",
+            "description":"Location details",
+            "properties":{
+              "latitude": {
+                "type":"string",
+                "description":"Latitude"
+              },
+              "longitude" : {
+                "type" : "string",
+                "description" : "Longitude"
+              }
+            }
+          }
+
+      }
+    }
+  }
+}

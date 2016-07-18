@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<OAuthV2 async="false" continueOnError="false" enabled="true" name="Generate-Authorization-Code">
+    <DisplayName>Security: Generate Authorization Code</DisplayName>
+    <Properties/>
+    <Attributes/>
+    <ExternalAuthorization>false</ExternalAuthorization>
+    <Operation>GenerateAuthorizationCode</Operation>
+    <Scope>scope</Scope>
+  	<ClientId>client_id</ClientId>
+    <ResponseType>code</ResponseType>
+    <ExpiresIn>2592000000</ExpiresIn>
+    <RedirectUri>redirect_uri</RedirectUri>
+    <SupportedGrantTypes/>
+    <Attributes>
+  		<Attribute name="sessionid" ref="sessionid" display="false"/>
+  		<Attribute name="scope" ref="scope" display="false"/>
+        <Attribute name="sub" ref="sub" display="false"/>
+        <Attribute name="username" ref="username" display="false"/>
+      	<Attribute name="baas_access_token" ref="baas_access_token" display="false"/>
+      	<Attribute name="acr_values" ref="acr_values" display="false"/>
+      	<Attribute name="amr" ref="amr" display="false"/>
+      	<Attribute name="azp" ref="azp" display="false"/>
+      	<Attribute name="auth_time" ref="auth_time" display="false"/>
+ 	</Attributes>
+    <UserName>sub</UserName>
+    <Tokens/>
+</OAuthV2>

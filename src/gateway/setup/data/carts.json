@@ -1,0 +1,32 @@
+[ {
+  "uuid" : "e7be002a-3de6-11e6-a3b4-d5118e8a08b3",
+  "type" : "cart",
+  "created" : 1467197262114,
+  "modified" : 1467362982455,
+  "cart_items" : [ ],
+  "metadata" : {
+    "path" : "/carts/e7be002a-3de6-11e6-a3b4-d5118e8a08b3"
+  },
+  "session_id" : "ddsd-ssd-sd-sds",
+  "user_id" : "retailuser"
+}, {
+  "uuid" : "a8fe370a-3f68-11e6-aa55-1154d449c7ef",
+  "type" : "cart",
+  "created" : 1467362942576,
+  "modified" : 1467362942576,
+  "cart_items" : [ ],
+  "metadata" : {
+    "path" : "/carts/a8fe370a-3f68-11e6-aa55-1154d449c7ef"
+  },
+  "session_id" : "ddsd-ssd-sd-sds"
+}, {
+  "uuid" : "af1d23da-3f68-11e6-8bff-3fd8266ec459",
+  "type" : "cart",
+  "created" : 1467362952845,
+  "modified" : 1467362952845,
+  "cart_items" : [ ],
+  "metadata" : {
+    "path" : "/carts/af1d23da-3f68-11e6-8bff-3fd8266ec459"
+  },
+  "session_id" : "ddsd-ssd-sd-sds"
+} ]

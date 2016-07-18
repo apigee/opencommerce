@@ -1,0 +1,15 @@
+{
+  "name": "baas-data-setup",
+  "version": "1.0.0",
+  "description": "setup data in baas sandbox",
+  "main": "upload.js",
+  "scripts": {
+    "start": "npm install && node upload.js data && node upload.js query"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "line-reader": "^0.4.0",
+    "request": "^2.73.0"
+  }
+}

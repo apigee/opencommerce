@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<APIProxy revision="2" name="consent-app">
+    <ConfigurationVersion majorVersion="4" minorVersion="0"/>
+    <DisplayName>consent-app</DisplayName>
+    <Description>consent-app</Description>
+    <validate>false</validate>
+</APIProxy>

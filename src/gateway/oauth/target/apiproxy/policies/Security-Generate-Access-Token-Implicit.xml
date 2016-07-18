@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<OAuthV2 async="false" continueOnError="false" enabled="true" name="Security-Generate-Access-Token-Implicit">
+    <DisplayName>Security: Generate Access Token Implicit</DisplayName>
+    <Properties/>
+    <Attributes/>
+    <ExternalAuthorization>false</ExternalAuthorization>
+    <Operation>GenerateAccessTokenImplicitGrant</Operation>
+    <SupportedGrantTypes/>
+    <Scope>scope</Scope>
+    <ClientId>client_id</ClientId>
+    <ResponseType>token</ResponseType>
+    <ExpiresIn>2592000000</ExpiresIn>
+     <Attributes>
+  		<Attribute name="sessionid" ref="sessionid" display="true"/>
+  		<Attribute name="scope" ref="scope" display="true"/>      	
+        <Attribute name="sub" ref="sub" display="true"/>
+        <Attribute name="username" ref="username" display="true"/>
+        <Attribute name="baas_access_token" ref="baas_access_token" display="true"/>
+       	<Attribute name="acr_values" ref="acr_values" display="true"/>
+ 	</Attributes>
+    <UserName>sub</UserName>
+</OAuthV2>
