@@ -6,7 +6,7 @@ Digital Services in Retail Space
 
 Before we delve into the specifics of the Solution it may be worthwhile to note the transformation happening currently in the retail space. Digital is positing itself in many facets and interactions that a consumer has with the Retail companies.
 
-![Commerce Solution Overview](http://opencommerce.apigee.com/sites/default/files/retail_header_0.png)
+![Commerce Solution Overview](http://opencommerce.apigee.com/sites/default/files/retail-header_0.png)
 
 Overview
 -------------
