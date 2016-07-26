@@ -48,6 +48,9 @@ $ sh setup/setup.sh
 
 This will interactively prompt you for your Edge and BaaS credentials, and will then create / deploy all relevant bundles and artifacts and will provision the **OpenCommerce Sandbox** on your own Org.
 
+## Support
+This is an open-source project of the Apigee Corporation. It is not covered by Apigee support contracts. However, we will support you as best we can. For help, please open an issue in this GitHub project. You are also always welcome to submit a pull request.
+
 ## Design
 The APIs provided are configurable to connect to your own Commerce backend and / or provide your own consent apps. The following sections will help you understand this solution so that you can go about this on your own.
 
