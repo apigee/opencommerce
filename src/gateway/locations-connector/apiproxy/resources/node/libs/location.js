@@ -64,8 +64,12 @@ location.searchNearBy = function (postal_codezip_code, city, nearby, callback) {
             var stores = assignResponseForStores(JSON.parse(body));
             callback(null, stores);
         }
-        else {
-            callback("something went wrong", null);
+        else if (JSON.parse(body).error)
+        {
+            errobj={};
+            errobj.msg=JSON.parse(body).error;
+
+            callback(errobj, null);
         }
     });
 };
@@ -81,7 +85,8 @@ location.searchNearByStore = function (storeId, callback) {
     request(options, function (err, res, bdy) {
         if (!err && res.statusCode == 200) {
             var body = JSON.parse(bdy);
-            if (body.entities[0]) {
+            if (body.entities[0])
+            {
                 var store = assignResponseForStore(JSON.parse(bdy).entities[0]);
                 callback(null, store);
             }
@@ -89,8 +94,38 @@ location.searchNearByStore = function (storeId, callback) {
                 callback(null, {});
 
         }
-        else {
-            callback("something went wrong", null);
+        else if(res.statusCode==404)
+        {
+            errobj={};
+            errobj.msg="Store not found";
+            errobj.code=404;
+
+            callback(errobj, null);
+        }
+        else if(res.statusCode==400)
+        {
+            errobj={};
+            errobj.msg="Bad request";
+            errobj.code=400;
+
+            callback(errobj, null);
+        }
+        else if(res.statusCode==401)
+        {
+            errobj={};
+            errobj.msg="Unauthorized access";
+            errobj.code=401;
+
+            callback(errobj, null);
+        }
+
+        else
+        {
+            errobj={};
+            errobj.msg="something went wrong";
+            console.log(res.statusCode)
+
+            callback(errobj, null);
 
         }
     });

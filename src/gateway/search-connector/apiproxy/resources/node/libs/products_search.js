@@ -10,7 +10,8 @@ var authInHeader = pkginfo.authInHeader;
 
 products_search.searchProducts = function (product_filter, sku_filter, cursor, limit, category, collection, callback) {
     var url = basePath; //adding relevent product ID
-    if (ispresent(product_filter)) {
+    if (ispresent(product_filter))
+    {
         product_filter = " and " + product_filter;
     }
     else
@@ -25,6 +26,7 @@ products_search.searchProducts = function (product_filter, sku_filter, cursor, l
         var options = {
             method: 'GET',
             uri: url,
+
             qs: {
                 "ql": sku_filter,
                 "cursor": cursor,
@@ -33,15 +35,23 @@ products_search.searchProducts = function (product_filter, sku_filter, cursor, l
         };
         //request to fetch the skus based on the search results
         request(options, function (error, response, body) {
-            if (!error && response.statusCode == 200) {
+            if (!error && response.statusCode == 200)
+            {
                 var skus = assignResponseForSku(JSON.parse(body));
 
                 callback(null, skus);
 
 
             }
-            else {
-                callback("something went wrong", null);
+            else
+            {
+                body_obj=JSON.parse(body);
+
+                errorobj={};
+                errorobj.code=response.statusCode;
+                errorobj.msg=body_obj.error;
+
+                callback(errorobj, null);
 
             }
         });
@@ -65,19 +75,28 @@ products_search.searchProducts = function (product_filter, sku_filter, cursor, l
         };
 //request to fetch the products based on the search results
         request(options, function (error, response, body) {
-            if (!error && response.statusCode == 200) {
+            if (!error && response.statusCode == 200)
+            {
                 var products = assignResponseForProducts(JSON.parse(body));
                 var product_url = basePath + '/products/';
                 var len = products.length;
                 //syncronous request to fetch the sku's
                 var skusList = [];
+
                 if(len>0)
-                requestProductSku(products, sku_filter, skusList, 0, len, callback, JSON.parse(body).cursor);
+                    requestProductSku(products, sku_filter, skusList, 0, len, callback, JSON.parse(body).cursor);
                 else
                     callback(null,[]);
             }
-            else {
-                callback("something went wrong", null);
+            else
+            {
+                body_obj=JSON.parse(body);
+
+                errorobj={};
+                errorobj.code=response.statusCode;
+                errorobj.msg=body_obj.error;
+
+                callback(errorobj, null);
 
             }
         });
