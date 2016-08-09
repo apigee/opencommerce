@@ -10,11 +10,13 @@ Routes.getAllOrders = function(req, res) {
     params.status = req.query.status;
     params.limit = req.query.limit;
     params.pageHint = req.query.page_hint;
+    params.username=req.query.username;
 
     console.log('GET for all orders');
 
     order.getAllOrders(params, function(err, data) {
-        if (err){
+        if (err)
+        {
             res.send({'message': err});
         }
         else {
@@ -37,7 +39,7 @@ Routes.getOrder = function(req, res) {
 
     order.getOrder(params, function(err, data) {
         if (err){
-            res.send({'message': err});
+            res.status(err.code).send(JSON.stringify(err, undefined, 2));
         }
         else {
             res.statusCode = 200;

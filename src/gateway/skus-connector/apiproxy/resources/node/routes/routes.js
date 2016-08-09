@@ -16,6 +16,10 @@ Routes.get = function(req, res)
         if(err===null){
             res.send(data);
         }
+        else
+        {
+            res.status(err.code).send(JSON.stringify(err, undefined, 2));
+        }
 
     });
 };
