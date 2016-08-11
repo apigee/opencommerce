@@ -6,7 +6,7 @@
     "http"
   ],
   "info": {
-    "description": "Searching in all product variants",
+    "description": "<p>Product Search</p> Searching in all product variants for matching criteria",
     "title": "Product Search",
     "version": "0.0.1",
     "termsOfService": "http://example.com/about/terms",
@@ -26,9 +26,9 @@
       "get": {
         "description": "<p>This will return list of product variants that belong to a product category or part of the given collection. The products returned can be personalized based on the user-id information, in case an accessToken is passed in Authorization Header.</p><p>&nbsp;</p><p>The results can be filtered by giving a filter criteria.  The number of items returned can be controlled by providing a 'limit'. By providing the page_hint, the next set of results can be retrieved.</p>",
         "summary": "List of Products matching criteria",
-        "operationId": "Product List",
+        "operationId": "Product Search",
         "tags": [
-          "ProductList"
+          "Product Search"
         ],
         "produces": [
           "application/json; charset=utf-8"
@@ -60,7 +60,7 @@
             "in": "header",
             "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "name": "category",

@@ -28,7 +28,7 @@
         "summary": "List of Product recommendations for the user",
         "operationId": "Product List",
         "tags": [
-          "ProductList"
+          "Product List"
         ],
         "produces": [
           "application/json; charset=utf-8"
@@ -60,7 +60,7 @@
             "in": "header",
             "description": "Authorization Bearer Token obtained using user sign-in",
             "type": "string",
-            "required": true
+            "required": false
           },
 
           {
