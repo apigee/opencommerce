@@ -7,7 +7,7 @@
   ],
   "info": {
     "description": "Cart Operations (add, delete, update and get)",
-    "title": "Cart Information",
+    "title": "Cart",
     "version": "0.0.1",
     "termsOfService": "http://example.com/about/terms",
     "contact": {
@@ -24,11 +24,11 @@
   "paths": {
     "/carts/{cart_id}": {
       "get": {
-        "description": "<p>Get Cart Detail</p>",
+        "description": "<p>Get Cart Details</p> Given the cartId, get the Cart Details",
         "summary": "Cart detail ",
         "operationId": "Get Cart Detail",
         "tags": [
-          "Cart"
+          "Get Cart"
         ],
         "produces": [
           "application/json; charset=utf-8"
@@ -57,7 +57,7 @@
           "in": "header",
           "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
           "type": "string",
-          "required": true
+          "required": false
         }, {
           "name": "cart_id",
           "in": "path",
@@ -67,11 +67,11 @@
         }]
       },
       "put": {
-        "description": "<p>Update Cart Details</p>",
+        "description": "<p>Update Cart</p> Update Cart Details",
         "summary": "Update Cart detail ",
-        "operationId": "Update Cart Detail",
+        "operationId": "Update Cart",
         "tags": [
-          "Cart"
+          "Update Cart"
         ],
         "consumes": ["application/json"],
         "produces": [
@@ -101,7 +101,7 @@
           "in": "header",
           "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
           "type": "string",
-          "required": true
+          "required": false
         }, {
           "name": "Content-Type",
           "in": "header",
@@ -126,11 +126,11 @@
         }]
       },
       "delete": {
-        "description": "<p>Delete Cart</p>",
+        "description": "<p>Delete Cart</p> Delete cart, given the cart id",
         "summary": "Delete Cart  ",
         "operationId": "Delete Cart",
         "tags": [
-          "Cart"
+          "Delete Cart"
         ],
         "consumes": ["application/json"],
         "produces": [
@@ -160,7 +160,7 @@
           "in": "header",
           "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
           "type": "string",
-          "required": true
+          "required": false
         }, {
           "name": "Content-Type",
           "in": "header",
@@ -179,11 +179,11 @@
     },
     "/carts": {
       "post": {
-        "description": "<p>Create a new Cart</p>",
-        "summary": "Create a new cart.  If the user is logged-in (Authorization Bearer Token), the cart will be associated with the user ",
+        "description": "<p>Create a new cart</p>  If the user is logged-in (Authorization Bearer Token), the cart will be associated with the user ",
+        "summary": "Create a new Cart",
         "operationId": "Create Cart",
         "tags": [
-          "Cart"
+          "Create Cart"
         ],
         "consumes": ["application/json"],
         "produces": [
@@ -213,7 +213,7 @@
           "in": "header",
           "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
           "type": "string",
-          "required": true
+          "required": false
         }, {
           "name": "Content-Type",
           "in": "header",
@@ -236,9 +236,9 @@
       "post": {
         "description": "<p>Adds items to the cart</p>",
         "summary": "Add one or more items to the cart or updates the quantity if already present",
-        "operationId": "Add Item",
+        "operationId": "Add Cart Items",
         "tags": [
-          "Cart"
+          "Add Cart Item"
         ],
         "consumes": ["application/json"],
         "produces": [
@@ -268,7 +268,7 @@
           "in": "header",
           "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
           "type": "string",
-          "required": true
+          "required": false
         }, {
           "name": "Content-Type",
           "in": "header",
@@ -295,9 +295,9 @@
       "put": {
         "description": "<p>Updates quantity of item already in the cart</p>",
         "summary": "Updates the quantity of an item in the cart if present, else adds the item",
-        "operationId": "Update Item",
+        "operationId": "Update Cart Items",
         "tags": [
-          "Cart"
+          "Update Cart Item"
         ],
         "consumes": ["application/json"],
         "produces": [
@@ -327,7 +327,7 @@
           "in": "header",
           "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
           "type": "string",
-          "required": true
+          "required": false
         }, {
           "name": "Content-Type",
           "in": "header",
@@ -354,9 +354,9 @@
       "delete": {
         "description": "<p>Delete items from the cart</p>",
         "summary": "Removes completely the specified items from the cart if present",
-        "operationId": "Delete Item",
+        "operationId": "Delete Cart Item",
         "tags": [
-          "Cart"
+          "Delete Cart Item"
         ],
         "consumes": ["application/json"],
         "produces": [
@@ -386,7 +386,7 @@
           "in": "header",
           "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
           "type": "string",
-          "required": true
+          "required": false
         }, {
           "name": "Content-Type",
           "in": "header",
@@ -464,17 +464,15 @@
           "description": "Updated date/time"
         }
       }
-    }
-  },
-  "CartItems": {
-    "type": "object",
-    "description": "Items to be updated in the cart",
-    "properties": {
-      "cart_details": {
-        "items": {
-          "type": "array",
+    },
+    "CartItems": {
+      "type": "object",
+      "description": "Items to be updated in the cart",
+      "properties": {
+        "cart_items": {
+          "type":"array",
           "description": "Items & quantity chosen",
-          "item": {
+          "items": {
             "type": "object",
             "properties": {
               "sku_id": {
@@ -489,104 +487,104 @@
           }
         }
       }
-    }
-  },
-  "Cart": {
-    "type": "object",
-    "description": "Cart or Wishlist",
-    "properties": {
-      "cart_id": {
-        "type": "string",
-        "description": "A unique identifier for the cart. Shall not be present in POST request"
-      },
-      "session_id": {
-        "type": "string",
-        "description": "A placeholder for apps to store any information that will help in mapping the user."
-      },
-      "cart_items": {
-        "type": "array",
-        "description": "Items & quantity chosen",
-        "items": {
-          "$ref": "#/definitions/Item"
-        }
-      },
-      "total_base_price": {
-        "type": "number",
-        "format": "float",
-        "description": "Total base price"
-      },
-      "total_discount": {
-        "type": "number",
-        "format": "float",
-        "description": "Total discounts"
-      },
-      "total_price": {
-        "type": "number",
-        "format": "float",
-        "description": "Total price in base currency"
-      },
-      "user_id": {
-        "type": "string",
-        "description": "Customer Identifier; if not present, user-id associated with the accessToken will be used"
-      },
-      "created_at": {
-        "type": "integer",
-        "format": "int64",
-        "description": "Created date/time"
-      },
-      "updated_at": {
-        "type": "integer",
-        "format": "int64",
-        "description": "Updated date/time"
-      }
-    }
-  },
-  "Item": {
-    "type": "object",
-    "description": "Product Item chosen in Cart/WishList",
-    "properties": {
-      "sku_id": {
-        "type": "string",
-        "description": "Unique Identifier of the SKU chosen"
-      },
-      "name": {
-        "type": "string",
-        "description": "Sku name"
-      },
-      "sku_url": {
-        "type": "string",
-        "description": "URL to retrieve Sku detail"
-      },
-      "price": {
-        "type": "number",
-        "format": "float",
-        "description": "Price of the product in base currency"
-      },
-      "currency": {
-        "type": "string",
-        "description": "The base currency (e.g. USD, GBP, INR, etc.)"
-      },
-      "discount": {
-        "type": "number",
-        "format": "float",
-        "description": "The discount on the price (amount or percentage)"
-      },
-      "total_price": {
-        "type": "number",
-        "format": "float",
-        "description": "Total price of the product per item"
-      },
-      "image": {
-        "type": "array",
-        "description": "An array of image objects",
-        "items": {
+    },
+    "Cart": {
+      "type": "object",
+      "description": "Cart or Wishlist",
+      "properties": {
+        "cart_id": {
           "type": "string",
-          "description": "Image Url"
+          "description": "A unique identifier for the cart. Shall not be present in POST request"
+        },
+        "session_id": {
+          "type": "string",
+          "description": "A placeholder for apps to store any information that will help in mapping the user."
+        },
+        "cart_items": {
+          "type": "array",
+          "description": "Items & quantity chosen",
+          "items": {
+            "$ref": "#/definitions/Item"
+          }
+        },
+        "total_base_price": {
+          "type": "number",
+          "format": "float",
+          "description": "Total base price"
+        },
+        "total_discount": {
+          "type": "number",
+          "format": "float",
+          "description": "Total discounts"
+        },
+        "total_price": {
+          "type": "number",
+          "format": "float",
+          "description": "Total price in base currency"
+        },
+        "user_id": {
+          "type": "string",
+          "description": "Customer Identifier; if not present, user-id associated with the accessToken will be used"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Created date/time"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Updated date/time"
         }
-      },
-      "quantity": {
-        "type": "integer",
-        "description": "Quantity added"
+      }
+    },
+    "Item": {
+      "type": "object",
+      "description": "Product Item chosen in Cart/WishList",
+      "properties": {
+        "sku_id": {
+          "type": "string",
+          "description": "Unique Identifier of the SKU chosen"
+        },
+        "name": {
+          "type": "string",
+          "description": "Sku name"
+        },
+        "sku_url": {
+          "type": "string",
+          "description": "URL to retrieve Sku detail"
+        },
+        "price": {
+          "type": "number",
+          "format": "float",
+          "description": "Price of the product in base currency"
+        },
+        "currency": {
+          "type": "string",
+          "description": "The base currency (e.g. USD, GBP, INR, etc.)"
+        },
+        "discount": {
+          "type": "number",
+          "format": "float",
+          "description": "The discount on the price (amount or percentage)"
+        },
+        "total_price": {
+          "type": "number",
+          "format": "float",
+          "description": "Total price of the product per item"
+        },
+        "image": {
+          "type": "array",
+          "description": "An array of image objects",
+          "items": {
+            "type": "string",
+            "description": "Image Url"
+          }
+        },
+        "quantity": {
+          "type": "integer",
+          "description": "Quantity added"
+        }
       }
     }
   }
