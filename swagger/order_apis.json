@@ -24,11 +24,11 @@
   "paths": {
     "/orders": {
       "get": {
-        "description": "<p>This will return list of orders placed by the user.</p><p>&nbsp;</p><p>The results can be filtered by specifying the status.  The number of items returned can be controlled by providing a 'limit'. By providing the page_hint, the next set of results can be retrieved.</p>",
+        "description": "<p>Order List</p>This will return list of orders placed by the user.><p>The results can be filtered by specifying the status.  The number of items returned can be controlled by providing a 'limit'. By providing the page_hint, the next set of results can be retrieved.</p>",
         "summary": "List of Orders matching criteria",
         "operationId": "Order List",
         "tags": [
-          "Order"
+          "Order List"
         ],
         "produces": [
           "application/json; charset=utf-8"
@@ -89,11 +89,11 @@
 
     "/orders/{order_id}": {
       "get": {
-        "description": "<p>Order Detail</p>",
-        "summary": "Detailed listing of the Order ",
+        "description": "<p>Order Detail</p> Detailed Listing of Order, given the Order Id",
+        "summary": "Order Detail ",
         "operationId": "Order Detail",
         "tags": [
-          "Order"
+          "Get Order"
         ],
         "produces": [
           "application/json; charset=utf-8"
@@ -126,7 +126,7 @@
             "in": "header",
             "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "name": "order_id",

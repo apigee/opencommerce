@@ -6,8 +6,8 @@
     "http"
   ],
   "info": {
-    "description": "Store Location Details",
-    "title": "Store Location Details",
+    "description": "<p>Store Details</p> Search nearby stores and get detailed information about the store",
+    "title": "Store Details",
     "version": "0.0.1",
     "termsOfService": "http://example.com/about/terms",
     "contact": {
@@ -24,11 +24,11 @@
   "paths": {
     "/locations": {
       "get": {
-        "description": "<p>This will return list of store locations matching the given criteria.</p><p>&nbsp;</p><p>The results can be filtered by city, zipcode or nearby( by specifying latitude, longitude and distance) filter.  </p>",
-        "summary": "List of Store locations matching criteria",
-        "operationId": "Store Location List",
+        "description": "<p>Search Store</p> <p> This will return list of store locations matching the given criteria.</p><p>&nbsp;</p><p>The results can be filtered by city, zipcode or nearby( by specifying latitude, longitude and distance) filter.  </p>",
+        "summary": "Search in Store locations for the given matching criteria",
+        "operationId": "Search Store",
         "tags": [
-          "StoreLocation"
+          "Search Store"
         ],
         "produces": [
           "application/json; charset=utf-8"
@@ -63,7 +63,7 @@
             "in": "header",
             "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "name": "postal_code",
@@ -105,11 +105,11 @@
     },
     "/locations/{store_id}": {
       "get": {
-        "description": "<p>The Store Location details matching given store_id </p>",
-        "summary": "Store Location Details",
-        "operationId": "Store Location Detail",
+        "description": "<p>Get Store Detail</p> <p>The Store Location details matching given store_id </p>",
+        "summary": "Store Details",
+        "operationId": "Get Store Detail",
         "tags": [
-          "StoreLocation"
+          "Get Store Detail"
         ],
         "produces": [
           "application/json; charset=utf-8"
@@ -141,7 +141,7 @@
             "in": "header",
             "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "name": "store_id",
