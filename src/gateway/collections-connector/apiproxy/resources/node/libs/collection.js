@@ -9,6 +9,7 @@ var basePath = pkginfo.baasBasePath;
 
 var headers = { 
     //"Content-Type" : "application/x-www-form-urlencoded",
+	"Authorization":"Bearer YWMt6hC8gDkpEeahpY8g1ZSFHgAAAVWgxJgOagbavdxfXXw80gKiAyVToqfIWkc"
 };
 
 Collection.getCollection = function(params, callback) {
@@ -23,7 +24,8 @@ Collection.getCollection = function(params, callback) {
 
 	async.parallel(
 		[	// first async function
-    		function(cb){
+    		function(cb)
+			{
     			genurl = new util.genurl();
 				genurl.setBase(basePath);
 				genurl.join('collections');
@@ -34,16 +36,29 @@ Collection.getCollection = function(params, callback) {
 
 				console.log('GET : ' + url);
 
-    			request({ url : url, method: 'GET', headers: headers }, function(error, response, body){
-					if(error){
-						console.log('GET : Error - ' + err);
-						callback(error);
-					} else {
+    			request({ url : url, method: 'GET', headers: headers }, function(error, response, body)
+				{
+					errorobj={};
+					if(error)
+					{
+
+						console.log(' GET : Error - ' + err);
+						errorobj.code=error.statusCode;
+						errorobj.msg=error.message ;
+
+						callback(errorobj,null);
+
+					}
+					else
+					{
 						console.log('GET : Response from collection - ' + body);
 						var body_obj = JSON.parse(body);
-						if(body_obj.error){
+						if(body_obj.error)
+						{
+							errorobj.code=response.statusCode;
+							errorobj.msg=body_obj.error_description;
 							console.log('GET : Error - ' + body_obj.error);
-							cb(body_obj.error);
+							cb(errorobj);
 						} else {
 							var obj = JSON.parse(body).entities[0];
 							collection_details = collectionObj(obj.uuid ,obj.name ,obj.collection_description ,obj.image ,[] ,obj.collections ,obj.attributes ,obj.created ,obj.published_status ,obj.published_scope ,obj.expiry_date ,obj.modified);
@@ -65,16 +80,27 @@ Collection.getCollection = function(params, callback) {
 
 				console.log('GET : ' + url);
 
-    			request({ url : url, method: 'GET', headers: headers }, function(error, response, body){
-					if(error){
+    			request({ url : url, method: 'GET', headers: headers }, function(error, response, body)
+				{
+					errorobj={};
+					if(error)
+					{
+						errorobj.code=error.statusCode;
+						errorobj.msg=error.message ;
+
 						console.log('GET : Error - ' + err);
-						callback(error);
-					} else {
+						callback(errorobj,null);
+					} else
+						{
 						console.log('GET : Response from collection products relation - ' + body);
 						var body_obj = JSON.parse(body);
-						if(body_obj.error){
+						if(body_obj.error)
+						{
 							console.log('GET : Error - ' + body_obj.error);
-							cb(body_obj.error);
+							errorobj.code=response.statusCode;
+							errorobj.msg=body_obj.error_description;
+							cb(errorobj);
+
 						} else {
 							var list_obj = JSON.parse(body).entities;
 							var products = []
@@ -93,10 +119,14 @@ Collection.getCollection = function(params, callback) {
 		], 
 
 		// callback called after both the above functions are done ie c(); this fucntion is called  only once!
-		function(err, results) {
-			if(err){
-				callback(err);
-			} else {
+		function(err, results)
+		{
+			if(err)
+			{
+				callback(err,null);
+			}
+			else
+			{
 				var formated_output = collection_details;
 				formated_output.products = products_details;
 				callback(null, formated_output);

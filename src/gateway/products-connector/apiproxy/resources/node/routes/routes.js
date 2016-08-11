@@ -3,16 +3,19 @@ var products = require('../libs/products.js')
 routes = {};
 module.exports = routes;
 
-routes.getProduct = function (req, res) {
+routes.getProduct = function (req, res)
+{
     var productId = req.params.productId;
-    products.getProduct(productId, function (err, data) {
-        if (err) {
-            res.status(err.code || 500).send(
-                JSON.stringify(err.msg, undefined, 2));
-        }
-        else {
-            res.send(data);
-        }
+    products.getProduct(productId, function (err, data)
+    {
+        if (err)
+            {
+                res.status(err.code).send(JSON.stringify(err, undefined, 2));
+            }
+        else
+            {
+                res.send(data);
+            }
     });
 };
 
@@ -23,8 +26,8 @@ routes.getProductSkus = function (req, res) {
     var limit = req.query.limit;
     products.getProductSkus(productId, filter, cursor, limit, function (err, data) {
         if (err) {
-            res.status(err.code || 500).send(
-                JSON.stringify(err.msg, undefined, 2));
+            res.status(err.code).send(
+                JSON.stringify(err, undefined, 2));
         }
         else {
             res.send(data);
@@ -37,11 +40,13 @@ routes.getSku = function (req, res) {
     var productId = req.params.productId;
     var skuId = req.params.skuId;
     products.getSku(productId, skuId, function (err, data) {
-        if (err) {
-            res.status(err.code || 500).send(
-                JSON.stringify(err.msg, undefined, 2));
+        if (err)
+        {
+            res.status(err.code ).send(
+                JSON.stringify(err, undefined, 2));
         }
-        else {
+        else
+        {
             res.send(data);
         }
     });

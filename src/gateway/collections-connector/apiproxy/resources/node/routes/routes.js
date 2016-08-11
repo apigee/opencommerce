@@ -15,7 +15,8 @@ Routes.getCollection = function(req, res) {
 
     order.getCollection(params, function(err, data) {
         if (err){
-            res.send(err);
+            res.status(err.code ).send(
+                JSON.stringify(err, undefined, 2));
         }
         else {
             res.statusCode = 200;

@@ -12,32 +12,77 @@ products.getProduct = function (productId, callback) {
     request({
         method: 'GET',
         uri: url
-    }, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
+    }, function (error, response, body)
+    {
+        errorobj={};
+        if (!error && response.statusCode == 200)
+            {
             var product = assignResponseForProduct(JSON.parse(body));
 
 //second request to fetch the sku's associated with the product
             request({
                 method: 'GET',
                 uri: url + "/isinstanceof"
-            }, function (err, res, bdy) {
-                if (!err && res.statusCode == 200) {
+            }, function (err, res, bdy)
+            {
+                errobj={};
+                if ((!err && res.statusCode == 200)||(res.length==0 && res.statusCode==200) )
+                    {
                     var skus = assignResponseForSku(JSON.parse(bdy), productId);
                     addItem(product, "skus", skus);//skus
 
                     callback(null, product);
-                }
-                else {
-                    callback("something went wrong", null);
+                    }
+                else if(res.statusCode==401)
+                    {
+                        errobj.code=res.statusCode;
+                        errobj.msg="UnAuthorised access";
+                        callback(errobj,null);
+                    }
 
-                }
+                else if(res.statusCode==404)
+                    {
+                    //no skus for the product, but the product exists
+                    var skus=[];
+                    addItem(product,"skus",skus);
+                    callback(null,product);
+                    }
+
+                else
+                    {
+                        errobj.code=res.statusCode;
+                        errobj.msg="Something went wrong";
+                        callback(errobj, null);
+
+                    }
             });
 
-        }
-        else {
-            callback("something went wrong", null);
+            }
+        else if(response.statusCode==401)
+            {
+                errorobj.code=response.statusCode;
+                errorobj.msg="Unauthorised access";
+                callback(errorobj,null);
+            }
+        else if(response.statusCode==404)
+            {
+                errorobj.code=response.statusCode;
+                errorobj.msg="Product Not Found";
+                callback(errorobj,null);
+            }
+        else if(response.statusCode==400)
+            {
+                errorobj.code=response.statusCode;
+                errorobj.msg="Bad Request";
+                callback(errorobj,null);
+            }
+        else
+            {
+                errorobj.code=response.statusCode;
+                errorobj.msg="Something went wrong";
+                callback(errorobj,null);
 
-        }
+            }
     });
 };
 
@@ -55,7 +100,9 @@ products.getProductSkus = function (productId, filter, cursor, limit, callback) 
     };
 
 //Direct request to fetch the sku's associated with the product
-    request(options, function (err, res, bdy) {
+    request(options, function (err, res, bdy)
+    {
+        errorobj={};
         if (!err && res.statusCode == 200) {
             var resObj = {};
             var skus = assignResponseForSku(JSON.parse(bdy));
@@ -64,29 +111,120 @@ products.getProductSkus = function (productId, filter, cursor, limit, callback) 
             resObj.page_hint = JSON.parse(bdy).cursor;
             callback(null, resObj);
         }
-        else {
-            callback("something went wrong", null);
+
+        else if(res.statusCode==401)
+        {
+            errorobj.code=res.statusCode;
+            errorobj.msg="Unauthorised access";
+            callback(errorobj,null);
+        }
+        else if(res.statusCode==404)
+        {
+            errorobj.code=res.statusCode;
+            errorobj.msg="Product Not Found";
+            callback(errorobj,null);
+        }
+        else if(res.statusCode==400)
+        {
+            errorobj.code=res.statusCode;
+            errorobj.msg="Bad Request";
+            callback(errorobj,null);
+        }
+        else
+        {
+            errorobj.code=res.statusCode;
+            errorobj.msg="Something went wrong";
+            callback(errorobj,null);
 
         }
     });
 };
 
 
-products.getSku = function (productId, skuId, callback) {
-    var url = basePath +"/products/"+ productId + "/isinstanceof" + "/skus/" + skuId;//adding reelevent sku ID
+products.getSku = function (productId, skuId, callback)
+{
+    var url = basePath +"/products/"+ productId + "/isinstanceof" + "/skus/" ;//adding reelevent sku ID
 
 //Direct request to fetch the sku's associated with the product
     request({
         method: 'GET',
         uri: url
-    }, function (err, res, bdy) {
-        if (!err && res.statusCode == 200) {
-            var skus = assignResponseForSku(JSON.parse(bdy));
-            callback(null, skus[0]);
+    }, function (err, res, bdy)
+    {
+        errorobj={};
+        if (!err && res.statusCode == 200)
+        {
+            request({
+                method: 'GET',
+                uri: url  + skuId
+            }, function (err, res, bdy)
+            {
+                errobj={};
+                if ((!err && res.statusCode == 200)||(res.length==0 && res.statusCode==200) )
+                {
+
+                    var skus = assignResponseForSku(JSON.parse(bdy));
+                    callback(null, skus[0]);
+
+                }
+                else if(res.statusCode==401)
+                {
+                    errobj.code=res.statusCode;
+                    errobj.msg="UnAuthorised access";
+                    callback(errobj,null);
+                }
+
+                else if(res.statusCode==404)
+                {
+                    //no skus for the product, but the product exists
+                    errobj.code=res.statusCode;
+                    errobj.msg="Sku Not Found";
+                    callback(errobj, null);
+                }
+                else if(JSON.parse(bdy).error)
+                {
+                    errobj.code=404;
+                    errobj.msg="Sku Not Found";
+                    callback(errobj,null);
+
+                }
+
+                else
+                {
+                    errobj.code=res.statusCode;
+                    //console.log(JSON.parse(bdy));
+                    errobj.msg=res.msg;
+                    callback(errobj, null);
+
+                }
+            });
+
+
 
         }
-        else {
-            callback("something went wrong", null);
+        else if(res.statusCode==401)
+        {
+            errorobj.code=res.statusCode;
+            errorobj.msg="Unauthorised access";
+            callback(errorobj,null);
+        }
+        else if(res.statusCode==404)
+        {
+            errorobj.code=res.statusCode;
+            errorobj.msg="Product Not Found";
+            callback(errorobj,null);
+        }
+        else if(res.statusCode==400)
+        {
+            errorobj.code=res.statusCode;
+            errorobj.msg="Bad Request";
+            callback(errorobj,null);
+        }
+        else
+        {
+            errorobj.code=res.statusCode;
+            errorobj.msg="1 Something went wrong";
+            callback(errorobj,null);
 
         }
     });

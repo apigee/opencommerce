@@ -48,6 +48,7 @@ skus.get = function(params, callback)
         //headers:{"Authorization":"Bearer YWMt6hC8gDkpEeahpY8g1ZSFHgAAAVWgxJgOagbavdxfXXw80gKiAyVToqfIWkc"}//set authorization header
     },function (error, response, body)
     {
+        errobj={};
         //if no error and the response is a success, return the json
         if (!error && response.statusCode == 200)
         {
@@ -55,17 +56,30 @@ skus.get = function(params, callback)
 
             callback(null,sku);
         }
+
         else if(response.statusCode==400)
-            {
-                callback("Bad Request",null);
-            }
+        {
+                errobj.code=response.statusCode;
+                errobj.msg="Bad Request";
+                callback(errobj,null);
+        }
         else if(response.statusCode==401)
         {
-            callback("UnAuthorized access",null);
+            errobj.code=response.statusCode;
+            errobj.msg="UnAuthorised Access";
+            callback(errobj,null);
+        }
+        else if(response.statusCode==404)
+        {
+            errobj.code=response.statusCode;
+            errobj.msg="Skus Not Found";
+            callback(errobj,null);
         }
         else
         {
-            callback("something went wrong",null);
+            errobj.code=response.statusCode;
+            errobj.msg="Something went wrong";
+            callback(errobj,null);
 
         }
     });
