@@ -14,7 +14,7 @@ routes.searchNearBy = function (req, res) {
     location.searchNearBy(postal_code, city, nearby, function (err, data) {
         if (err) {
             res.status(err.code || 500).send(
-                JSON.stringify(err.msg, undefined, 2));
+                JSON.stringify(err, undefined, 2));
         }
         else {
             res.send(data);
@@ -25,11 +25,13 @@ routes.searchNearBy = function (req, res) {
 routes.searchNearByStore = function (req, res) {
     var storeId = req.params.storeId;
     location.searchNearByStore(storeId, function (err, data) {
-        if (err) {
+        if (err)
+        {
             res.status(err.code || 500).send(
-                JSON.stringify(err.msg, undefined, 2));
+                JSON.stringify(err, undefined, 2));
         }
-        else {
+        else
+        {
             res.send(data);
         }
     });

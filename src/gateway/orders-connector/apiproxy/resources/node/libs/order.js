@@ -28,8 +28,11 @@ Order.getAllOrders = function(params, callback) {
 		genurl.addLimit(limit);
 	if (pageHint)
 		genurl.addPageHint(pageHint);
-//	if (username)
-//		genurl.addQL('');
+	if (username)
+	{
+		//console.log("USERNAME--> "+ username);
+		genurl.addQL(" where username = " + username);
+	}
 
 	// get the generated URL
 	url = genurl.getUrl();
@@ -48,7 +51,8 @@ Order.getAllOrders = function(params, callback) {
 			var tmpObj = {};
 			var formated_output;
 
-			for (key in entities_list){
+			for (key in entities_list)
+			{
 				obj = entities_list[key];
 				tmpObj = orderObj(obj.order_number, obj.order_date, obj.sub_total_amount, obj.currency, obj.total_discount, obj.discount_codes, obj.tax_lines, obj.is_tax_applicable, obj.total_amount, obj.updated_at, obj.client_ip, obj.cancel_reason, obj.cancel_date, obj.cart_id, obj.customer_details, obj.payment_details, obj.fulfillment_status, obj.ship_to, obj.is_billing_same_as_shipping, obj.bill_to, obj.order_items, obj.packages);
 				output.push(tmpObj);
@@ -62,7 +66,8 @@ Order.getAllOrders = function(params, callback) {
 	});
 };
 
-Order.getOrder = function(params, callback) {
+Order.getOrder = function(params, callback)
+{
 	var status = params.status;
 	var pageHint = params.pageHint;
 	var order_id  = params.order_id;
@@ -81,22 +86,33 @@ Order.getOrder = function(params, callback) {
 
 	console.log('GET : ' + url);
 
-	request({ url : url, method: 'GET', headers: headers }, function(error, response, body){
-		if(error){
+	request({ url : url, method: 'GET', headers: headers }, function(error, response, body)
+	{
+		errorobj={};
+		if(error)
+		{
+			errorobj.code=500;
+			errorobj.message=error.message;
 			console.log('GET : Error - ' + err);
-			callback(error);
-		} else {
+			callback(errorobj);
+		} else
+			{
 			var obj;
 			var formated_output;
 			console.log('GET : Response from order - ' + body);
 			body_obj = JSON.parse(body);
-			if(body_obj.entities.length > 0){
+			if(!body_obj.error)
+			{
 				obj = body_obj.entities[0];
 				output = orderObj(obj.order_number, obj.order_date, obj.sub_total_amount, obj.currency, obj.total_discount, obj.discount_codes, obj.tax_lines, obj.is_tax_applicable, obj.total_amount, obj.updated_at, obj.client_ip, obj.cancel_reason, obj.cancel_date, obj.cart_id, obj.customer_details, obj.payment_details, obj.fulfillment_status, obj.ship_to, obj.is_billing_same_as_shipping, obj.bill_to, obj.order_items, obj.packages);
 				formated_output = output;
 				callback(null, formated_output);
-			} else {
-				callback('no order with given order_id');
+			}
+			else
+			{
+				errorobj.code=response.statusCode;
+				errorobj.msg=body_obj.error;
+				callback(errorobj,null);
 			}
 			
 			

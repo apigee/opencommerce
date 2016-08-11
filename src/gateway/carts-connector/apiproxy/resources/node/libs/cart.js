@@ -34,16 +34,26 @@ Cart.getCart = function(params, callback) {
 
 				console.log('GET : ' + url);
 
-				request({ url : url, method: 'GET', headers: headers }, function(error, response, body){
-					if(error){
+				request({ url : url, method: 'GET', headers: headers }, function(error, response, body)
+				{
+					errorobj={};
+
+					if(error)
+					{
 						console.log('GET : Error - ' + err);
-						cb(error);
-					} else {
+						errorobj.code=500;
+						errorobj.msg=error.message;
+						cb(errorobj);
+					}
+					else {
 						//console.log('GET : Response from cart - ' + body);
 						var body_obj = JSON.parse(body);
-						if(body_obj.error){
+						if(body_obj.error)
+						{
 							console.log('GET : Error - ' + body_obj.error);
-							cb(body_obj.error);
+							errorobj.code=response.statusCode;
+							errorobj.msg=body_obj.error;
+							cb(errorobj);
 						} else {
 							var obj = JSON.parse(body).entities[0];
 							cart_items = cartObj(obj.session_id, obj.cart_items, obj.total_base_price ,obj.total_discount, obj.total_price, obj.user_id, obj.created_at, obj.updated_at, obj.uuid);
@@ -68,11 +78,19 @@ Cart.getCart = function(params, callback) {
 
 				console.log('GET : ' + url);
 
-				request({ url : url, method: 'GET', headers: headers }, function(error, response, body){
-					if(error){
+				request({ url : url, method: 'GET', headers: headers }, function(error, response, body)
+				{
+					errorobj={};
+					if(error)
+					{
 						console.log('GET : Error - ' + err);
-						cb(error);
-					} else {
+						errorobj.code=500;
+						errorobj.msg=error.message;
+						cb(errorobj);
+
+					}
+					else
+						{
 						//console.log('GET : Response from cart connection - ' + body);
 						cart_item_details = JSON.parse(body).entities;
 						cb();
@@ -99,8 +117,11 @@ Cart.getCart = function(params, callback) {
    		}
    	);
 };
+
+
+
 //cartItemObj(cart_item_details[tmp_index].uuid, cart_item_details[tmp_index].name, cart_item_details[tmp_index].sku_url, cart_item_details[tmp_index].price, cart_item_details[tmp_index].currency, cart_item_details[tmp_index].discount, cart_item_details[tmp_index].total_price, cart_item_details[tmp_index].image, cart_items.cart_items[index].quantity);
-Cart.createCart = function(params, callback){
+Cart.createCart = function(params, callback) {
 	console.log('POST : carts : ' + JSON.stringify(params));
 
 	var cart_details = params.cart_details;
@@ -127,36 +148,50 @@ Cart.createCart = function(params, callback){
 
 	var cartName;
 
-	if(!session_id){
+	if (!session_id) {
 		callback('session_id not passed');
 		return
 	}
-	if(!cart_items){
+	if (!cart_items) {
 		cart_items = [];
 	}
 
-	requestData = cartObj(session_id, cart_items,total_base_price, total_discount, total_price, user_id,created_at, updated_at);
+	cartObjWithCheck(session_id, cart_items, total_base_price, total_discount, total_price, user_id, created_at, updated_at, function (errors, data) {
 
-	console.log('POST data: ' + JSON.stringify(requestData));
 
-	request({ url : url, method: 'POST', headers: headers, body: JSON.stringify(requestData) }, function(error, response, body){
-		if(error){
-			console.log('POST : Error - ' + err);
-			callback(error);
-		} else {
-			console.log('POST : Response from cart - ' + body);
-			var obj = JSON.parse(body).entities[0];
-			callback(null, cartObj(obj.session_id, obj.cart_items, obj.total_base_price ,obj.total_discount, obj.total_price, obj.user_id, obj.created_at, obj.updated_at, obj.uuid ));
+	console.log('POST data: ' + JSON.stringify(data));
+	if (data) {
+		request({
+			url: url,
+			method: 'POST',
+			headers: headers,
+			body: JSON.stringify(data)
+		}, function (error, response, body) {
+			if (error) {
+				console.log('POST : Error - ' + err);
+				callback(error);
+			} else {
+				console.log('POST : Response from cart - ' + body);
+				var obj = JSON.parse(body).entities[0];
+				callback(null, cartObj(obj.session_id, obj.cart_items, obj.total_base_price, obj.total_discount, obj.total_price, obj.user_id, obj.created_at, obj.updated_at, obj.uuid));
+			}
+		});
+	}
+	else
+		{
+			console.log(errors);
+			callback(errors);
 		}
 	});
 	
 };
 
-Cart.editCart = function(params, callback){
+Cart.editCart = function(params, callback)
+{
 	console.log('PUT : carts : ' + JSON.stringify(params));
-	var cart_id  = params.cart_id;
+	var cart_id = params.cart_id;
 	var cart_details = params.cart_details;
-	
+
 	var session_id = cart_details.session_id;
 	var cart_items = cart_details.cart_items;
 	var total_base_price = cart_details.total_base_price;
@@ -164,11 +199,11 @@ Cart.editCart = function(params, callback){
 	var total_price = cart_details.total_price;
 	var user_id = cart_details.user_id;
 	// created_at,updated_at timestamp in Seconds
-	if(!(created_at = cart_details.created_at))
-		var created_at = Math.floor( (new Date()).getTime() / 1000 );
+	if (!(created_at = cart_details.created_at))
+		var created_at = Math.floor((new Date()).getTime() / 1000);
 
-	if(!(updated_at = cart_details.updated_at))
-		var updated_at = Math.floor( (new Date()).getTime() / 1000 );
+	if (!(updated_at = cart_details.updated_at))
+		var updated_at = Math.floor((new Date()).getTime() / 1000);
 
 
 	// use genurl object to create URL
@@ -184,29 +219,70 @@ Cart.editCart = function(params, callback){
 
 	var cartName;
 
-	if(!session_id){
+	if (!session_id) {
 		callback('session_id not passed');
 		return
 	}
-	if(!cart_items){
+	console.log("CART!!!!!!!" + JSON.stringify(cart_items));
+
+	if (!cart_items) {
+		console.log("No item");
 		cart_items = [];
 	}
+	cartObjWithCheck(session_id, cart_items, total_base_price, total_discount, total_price, user_id, created_at, updated_at, function (errors, data)
+	{
+		if(data)
+		{
+			console.log("data="+JSON.stringify(data));
+			console.log("errror=\n"+errors);
+			console.log("no error!!! in query");
 
-	requestData = cartObj(session_id, cart_items,total_base_price, total_discount, total_price, user_id,created_at, updated_at);
+			request({uri: url, method: 'GET', headers: headers}, function (err, res, req) {
+				if (!err && res.statusCode == 200)
+				{
 
-	console.log('PUT data: ' + JSON.stringify(requestData));
 
-	request({ url : url, method: 'PUT', headers: headers, body: JSON.stringify(requestData) }, function(error, response, body){
-		if(error){
-			console.log('PUT : Error - ' + err);
-			callback(error);
-		} else {
-			console.log('PUT : Response from cart - ' + body);
-			var obj = JSON.parse(body).entities[0];
-			callback(null, cartObj(obj.session_id, obj.cart_items, obj.total_base_price ,obj.total_discount, obj.total_price, obj.user_id, obj.created_at, obj.updated_at, obj.uuid));
+					console.log('PUT data: ' + JSON.stringify(data));
+
+					request({
+						url: url,
+						method: 'PUT',
+						headers: headers,
+						body: JSON.stringify(data)
+					}, function (error, response, body) {
+						if (error) {
+
+							console.log('PUT : Error - ' + err);
+							callback(error);
+						} else {
+							console.log('PUT : Response from cart - ' + body);
+							var obj = JSON.parse(body).entities[0];
+							callback(null, cartObj(obj.session_id, obj.cart_items, obj.total_base_price, obj.total_discount, obj.total_price, obj.user_id, obj.created_at, obj.updated_at, obj.uuid));
+						}
+					});
+
+
+
+
+				}
+				else if (res.statusCode == 404) {
+					console.log("GET not successfull");
+
+					callback(res.statusCode + " Cart Not Found ", null);
+				}
+				else {
+					callback(err);
+				}
+			});
 		}
-	});
-	
+		else
+		{
+			callback(errors);
+		}
+});
+
+
+
 };
 
 Cart.deleteCart = function(params, callback) {
@@ -265,20 +341,44 @@ Cart.addItem = function(params, callback){
 			genurl.join(cart_id);
 			genurl.join('contains');
 			genurl.join('skus');
-			genurl.join(value.sku_id);
-			var url = genurl.getUrl();
 
+
+			if (value.sku_id)
+			{
+				genurl.join(value.sku_id);
+			var url = genurl.getUrl();
 			console.log('POST : ' + url);
-			request({ url : url, method: 'POST', headers: headers}, function(error, response, body){
-				if(error || JSON.parse(body).error){
-					console.log('POST for connection of items : Error - ' + body);
-					cb(body);
-					return
-				} else {
-					cb();
+			makeGetCall(value.sku_id, items.indexOf(value), items.length - 1, function (err, res) {
+
+				if (res) {
+					console.log("all skus perfect ");
+					request({url: url, method: 'POST', headers: headers}, function (error, response, body) {
+						if (error) {
+							console.log('POST for connection of items : Error - ' + error);
+							cb(error);
+							return
+						}
+						else if (JSON.parse(body).error) {
+							cb(JSON.parse(body).error);
+						}
+						else {
+							cb();
+							return
+						}
+					});
+				}
+				else {
+					console.log("error" + err);
+					cb(err);
 					return
 				}
-			});	
+			});
+		}
+		else
+			{
+				cb("400 Bad request, Sku_id not mentioned");
+			}
+
 		},
 		// callback called after iterating through all elements
 		function (err) {
@@ -359,30 +459,51 @@ Cart.deleteItem = function(params, callback){
 			genurl.join(cart_id);
 			genurl.join('contains');
 			genurl.join('skus');
-			genurl.join(value.sku_id);
-			var url = genurl.getUrl();
+			if(value.sku_id)
+			{
 
-			request({ url : url, method: 'DELETE', headers: headers}, function(error, response, body){
-				if(error || JSON.parse(body).error){
-					console.log('DELETE for connection of items : Error - ' + body);
-					cb(body);
-					return
-				} else {
-					cb();
-					return
-				}
-			});	
+				genurl.join(value.sku_id);
+				var url = genurl.getUrl();
+				makeGetCall(value.sku_id, items.indexOf(value), items.length - 1, function (err, res) {
+					if (res) {
+						request({url: url, method: 'DELETE', headers: headers}, function (error, response, body) {
+							if (error || JSON.parse(body).error) {
+								console.log('DELETE for connection of items : Error - ' + error);
+								cb(error);
+								return
+							}
+							else if (JSON.parse(body).error) {
+								cb(body)
+							}
+							else {
+								cb();
+								return
+							}
+						});
+					}
+					else {
+						cb(err);
+					}
+				});
+			}
+			else
+			{
+				cb("400 Bad request, sku Id not mentioned");
+			}
 		},
 		// callback called after iterating through all elements
-		function (err) {
+		function (err)
+		{
 			if(err) {
 				callback(err);
 				return
-			} else {			
+			}
+			else
+			{
 				console.log('PUT item to cart making GET first');
 				self.getCart({'cart_id': cart_id}, function(err, output){
 					if(err){
-						callback('wrong cart id ');
+						callback(err);
 					} else {
 						oldCart = JSON.parse(JSON.stringify(output));
 						// creating new object to update back
@@ -399,7 +520,7 @@ Cart.deleteItem = function(params, callback){
 								}
 							}
 							if(!item_found){
-								callback('item with sku_id '+ sku_id +' not found');
+								callback('404 item with sku_id '+ sku_id +' not found');
 								return	
 							}
 						}
@@ -433,33 +554,50 @@ Cart.deleteItem = function(params, callback){
 
 }
 
-Cart.editItem = function(params, callback){
+Cart.editItem = function(params, callback)
+{
 	console.log('POST : item to carts : ' + JSON.stringify(params));
 	var cart_id = params.cart_id;
 	var items = params.items;
 
 	console.log('POST item to cart making GET first');
 		this.getCart({'cart_id': cart_id}, function(err, output){
-			if(err){
-				callback('wrong cart id ');
-			} else {
+			if(err)
+			{
+				console.log(err);
+				callback(err);
+			}
+			else
+			{
+				console.log("correct cart");
 				oldCart = JSON.parse(JSON.stringify(output));
+
 				// creating new object to update back
 				var newCart = oldCart;
 				var item_found = false;
-				for (itemindex in items){
+				for (itemindex in items)
+				{
+
 					var sku_id = items[itemindex].sku_id;
-					var quantity = items[itemindex].quantity;
-					for(index in newCart.cart_items){
-						if(newCart.cart_items[index].sku_id == sku_id){
-							item_found = true;
-							newCart.cart_items[index].quantity = quantity;
-							break;
-						}
+					if(!sku_id)
+					{
+						callback("400 Bad request, Sku Id not mentioned");
+						return;
 					}
-					if(!item_found){
-						callback('item with sku_id '+ sku_id +' not found');
-						return	
+					else {
+						var quantity = items[itemindex].quantity;
+						for (index in newCart.cart_items) {
+							if (newCart.cart_items[index].sku_id == sku_id) {
+								item_found = true;
+								newCart.cart_items[index].quantity = quantity;
+								break;
+							}
+						}
+						if (!item_found) {
+							console.log(sku_id + "not found");
+							callback('404 item with sku_id ' + sku_id + ' not found');
+							return
+						}
 					}
 				}
 				var requestData = newCart;
@@ -496,6 +634,7 @@ function cartObj(session_id, cart_items, total_base_price, total_discount, total
 		session_id = "";
 	if(!cart_items)
 		cart_items = "";
+
 	if(!total_base_price)
 		total_base_price = "";
 	if(!total_discount)
@@ -518,9 +657,169 @@ function cartObj(session_id, cart_items, total_base_price, total_discount, total
 	obj.created_at = created_at;
 	obj.updated_at = updated_at;
 	obj.cart_id = cart_id;
+	console.log("obj=\n"+JSON.stringify(obj));
 
 	return obj;
 }
+cartObjWithCheck=function(session_id, cart_items, total_base_price, total_discount, total_price, user_id, created_at, updated_at, callback)
+{
+	var obj = {};
+
+	if(!session_id)
+		session_id = "";
+	if(!cart_items)
+	{
+		cart_items = "";
+		if(!total_base_price)
+			total_base_price = "";
+		if(!total_discount)
+			total_discount = "";
+		if(!total_price)
+			total_price = "";
+		if(!user_id)
+			user_id = "";
+		if(!created_at)
+			created_at = "";
+		if(!updated_at)
+			updated_at = "";
+
+		obj.session_id = session_id;
+		obj.cart_items = cart_items;
+		obj.total_base_price = total_base_price;
+		obj.total_discount = total_discount;
+		obj.total_price = total_price;
+		obj.user_id = user_id;
+		obj.created_at = created_at;
+		obj.updated_at = updated_at;
+		//obj.cart_id = cart_id;
+		callback(null,obj);
+	}
+	else
+	{
+		console.log("CHECK CART!\n");
+		checkValidSkew( cart_items,function(ERROR,DATA)
+		{
+			if(ERROR)
+			{
+				callback(ERROR,null);
+				return;
+
+			}
+			else
+			{
+				console.log("CHECK DONE");
+				if(!total_base_price)
+					total_base_price = "";
+				if(!total_discount)
+					total_discount = "";
+				if(!total_price)
+					total_price = "";
+				if(!user_id)
+					user_id = "";
+				if(!created_at)
+					created_at = "";
+				if(!updated_at)
+					updated_at = "";
+
+				obj.session_id = session_id;
+				obj.cart_items = cart_items;
+				obj.total_base_price = total_base_price;
+				obj.total_discount = total_discount;
+				obj.total_price = total_price;
+				obj.user_id = user_id;
+				obj.created_at = created_at;
+				obj.updated_at = updated_at;
+				//obj.cart_id = cart_id;
+				callback(null,obj);
+				return;
+			}
+
+		});
+
+	}
+	//console.log("CHECK DONE");
+
+}
+
+function checkValidSkew(cart_items,cb)
+{
+	async.forEach(cart_items,function(item,index,array)
+	{
+		console.log("EACH ITEM\n"+JSON.stringify(item));
+		if(!item.sku_id)
+		{
+			console.log("N0 sku id ");
+			//error=;
+			cb("400 Bad Request Sku_id not mentioned",null);
+			return;
+		}
+		else
+		{
+			console.log("making GET CAll");
+			console.log("index="+cart_items.indexOf(item)+"cart length="+cart_items.length);
+			makeGetCall(item.sku_id,cart_items.indexOf(item),cart_items.length-1,function(e,d)
+			{
+				if(e)
+				{
+					console.log("error returned");
+					cb(e);
+					return;
+				}
+				else
+				{
+					cb(null,d);
+					return;
+				}
+
+			});
+
+
+
+		}
+
+	});
+}
+function makeGetCall(sku_id,index,last_index,cb)
+{
+	genurl1 = new util.genurl();
+	genurl1.setBase(basePath);
+	genurl1.join('skus');
+	genurl1.join(sku_id);
+	url1 = genurl1.getUrl();
+	console.log("2nd url "+url1);
+	request({uri:url1,method:'GET'},function(err,res,bdy)
+	{
+		console.log(res.statusCode + "response#######"+JSON.stringify(bdy));
+		if(!err && res.statusCode==200)
+		{
+			if(index==last_index)
+			{
+
+				cb(null,bdy);
+				return
+			}
+			//console.log("response#######"+JSON.stringify(bdy));
+
+		}
+		else if(res.statusCode==404)
+		{
+			console.log("GET not successfull");
+			//error=;
+			cb("404  Sku_id " +sku_id+" Not Found",null);
+			return;
+		}
+		else if(err)
+		{
+
+			//error=err;
+			cb(err,null);
+			return ;
+		}
+
+	});
+}
+
+
 
 
 function cartItemObj(sku_id, name, sku_url, price, currency, discount, total_price, image, quantity){

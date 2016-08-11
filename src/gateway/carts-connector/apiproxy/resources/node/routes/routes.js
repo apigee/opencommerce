@@ -13,8 +13,7 @@ Routes.getCart = function(req, res) {
 
     cart.getCart(params, function(err, data) {
         if (err){
-            res.statusCode = 404;
-            res.send(err);
+            res.status(err.code).send(JSON.stringify(err,undefined,2));
         }
         else {
             res.statusCode = 200;
@@ -31,8 +30,18 @@ Routes.createCart = function(req, res) {
     console.log('POST cart');
 
     cart.createCart(params, function(err, data) {
-        if (err){
+        if (err)
+        {
+            if(err.indexOf("404")!=-1)
+            {
+                res.statusCode=404;
+            }
+            else if(err.indexOf("400")!=-1)
+            {
+                res.statusCode=400;
+            }
             res.send(err);
+
         }
         else {
             res.statusCode = 200;
@@ -46,15 +55,26 @@ Routes.editCart = function(req, res) {
 
     params.cart_id = req.params.cart_id;
     params.cart_details = req.body.cart_details;
-
+    console.log("details:"+req.body.cart_details);
     console.log('PUT cart');
 
     cart.editCart(params, function(err, data) {
-        if (err){
+        if (err)
+        {
+            console.log(err);
+            if(err.indexOf("404")!=-1)
+            {
+                res.statusCode=404;
+            }
+            else if(err.indexOf("400")!=-1)
+            {
+                res.statusCode=400;
+            }
             res.send(err);
         }
-        else {
-            res.statusCode = 200;
+        else
+        {
+            //res.statusCode = 200;
             res.send(data);
         }
     });
@@ -81,13 +101,24 @@ Routes.deleteCart = function(req, res) {
 Routes.addItem = function(req, res) {
     var params = {};
     params.cart_id = req.params.cart_id;
-    params.items = req.body.cart_items;
+    params.items = req.body.items;
 
     console.log('POST items to cart');
 
     cart.addItem(params, function(err, data) {
-        if (err){
+        if (err)
+        {
+            console.log(err);
+            if(err.indexOf("404")!=-1)
+            {
+                res.statusCode=404;
+            }
+            else if(err.indexOf("400")!=-1)
+            {
+                res.statusCode=400;
+            }
             res.send(err);
+
         }
         else {
             res.statusCode = 200;
@@ -99,12 +130,23 @@ Routes.addItem = function(req, res) {
 Routes.deleteItem = function(req, res) {
     var params = {};
     params.cart_id = req.params.cart_id;
-    params.items = req.body.cart_items;
+    params.items = req.body.items;
 
     console.log('DELETE items from cart');
 
     cart.deleteItem(params, function(err, data) {
-        if (err){
+        if (err)
+        {
+            console.log(err);
+            if(err.indexOf("404")!=-1)
+            {
+                res.statusCode=404;
+            }
+            else if(err.indexOf("400")!=-1)
+            {
+                res.statusCode=400;
+            }
+
             res.send(err);
         }
         else {
@@ -117,12 +159,23 @@ Routes.deleteItem = function(req, res) {
 Routes.editItem = function(req, res) {
     var params = {};
     params.cart_id = req.params.cart_id;
-    params.items = req.body.cart_items;
+    params.items = req.body.items;
 
     console.log('PUT edit items in cart');
 
     cart.editItem(params, function(err, data) {
-        if (err){
+        if (err)
+        {
+            console.log(err);
+            if(err.indexOf("404")!=-1)
+            {
+                res.statusCode=404;
+            }
+            else if(err.indexOf("400")!=-1)
+            {
+                res.statusCode=400;
+            }
+
             res.send(err);
         }
         else {
