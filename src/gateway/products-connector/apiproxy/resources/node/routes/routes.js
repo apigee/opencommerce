@@ -6,6 +6,7 @@ module.exports = routes;
 routes.getProduct = function (req, res)
 {
     var productId = req.params.productId;
+    //console.log(productId);
     products.getProduct(productId, function (err, data)
     {
         if (err)
@@ -18,6 +19,7 @@ routes.getProduct = function (req, res)
             }
     });
 };
+
 
 routes.getProductSkus = function (req, res) {
     var productId = req.params.productId;
