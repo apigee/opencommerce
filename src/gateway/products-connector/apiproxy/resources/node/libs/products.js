@@ -5,9 +5,10 @@ products = {};
 module.exports = products;
 
 var basePath = pkginfo.baasBasePath;
-products.getProduct = function (productId, callback) {
-
+products.getProduct = function (productId, callback)
+{
     var url = basePath +"/products/"+ productId;//adding relevent product ID
+
 //first request to fetch the product
     request({
         method: 'GET',

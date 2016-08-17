@@ -19,11 +19,7 @@ Cart.getCart = function(params, callback) {
 	var cart_items;
 	var cart_item_details;
 
-	async.parallel(
-		[	// first async function
-    		function(cb){
-
-				// use genurl object to create URL
+			// use genurl object to create URL
 				genurl = new util.genurl();
 				genurl.setBase(basePath);
 				genurl.join('carts');
@@ -43,9 +39,10 @@ Cart.getCart = function(params, callback) {
 						console.log('GET : Error - ' + err);
 						errorobj.code=500;
 						errorobj.msg=error.message;
-						cb(errorobj);
+						callback(errorobj);
 					}
-					else {
+					else
+					{
 						//console.log('GET : Response from cart - ' + body);
 						var body_obj = JSON.parse(body);
 						if(body_obj.error)
@@ -53,61 +50,59 @@ Cart.getCart = function(params, callback) {
 							console.log('GET : Error - ' + body_obj.error);
 							errorobj.code=response.statusCode;
 							errorobj.msg=body_obj.error;
-							cb(errorobj);
-						} else {
+							callback(errorobj);
+						} else
+						{
 							var obj = JSON.parse(body).entities[0];
-							cart_items = cartObj(obj.session_id, obj.cart_items, obj.total_base_price ,obj.total_discount, obj.total_price, obj.user_id, obj.created_at, obj.updated_at, obj.uuid);
-							cb();
+							fetchPrice(obj,function(err,data)
+							{
+								if(data)
+								{
+									//console.log(JSON.stringify(data))
+									total_base_price=data.total_base_price;
+									total_discount=data.total_discount;
+									total_price=total_base_price - total_discount;
+									//console.log("yayyy");
+									console.log(total_price);
+									cart_items = cartObj(obj.session_id, obj.cart_items, base_price ,total_discount, total_price, obj.user_id, obj.created, obj.modified, obj.uuid);
+									callback(null,cart_items);
+									return;
+								}
+								else
+								{
+									callback(err);
+									return;
+								}
+
+
+
+							});
+
+
+
 						}
 					}
 
 				});
-			},
+
 			// second async function
-			function(cb){
 
-				// use genurl object to create URL
-				genurl = new util.genurl();
-				genurl.setBase(basePath);
-				genurl.join('carts');
-				genurl.join(cart_id);
-				genurl.join('contains');
 
-				// get the generated URL
-				url = genurl.getUrl();
-
-				console.log('GET : ' + url);
-
-				request({ url : url, method: 'GET', headers: headers }, function(error, response, body)
-				{
-					errorobj={};
-					if(error)
-					{
-						console.log('GET : Error - ' + err);
-						errorobj.code=500;
-						errorobj.msg=error.message;
-						cb(errorobj);
-
-					}
-					else
-						{
-						//console.log('GET : Response from cart connection - ' + body);
-						cart_item_details = JSON.parse(body).entities;
-						cb();
-					}
-				});
-			}
-		],
 		// callback called after both the above functions are done ie c(); this fucntion is called  only once!
-		function(err, results) {
-			if(err){
+		/*function(err, results) {
+			if(err)
+			{
 				callback(err);
-			} else {
+			} else
+				{
 				var formated_output = cart_items;
 				for(index in cart_items.cart_items){
-					for (tmp_index in cart_item_details){
-						if(cart_items.cart_items[index].sku_id == cart_item_details[tmp_index].name){
+					for (tmp_index in cart_item_details)
+					{
+						if(cart_items.cart_items[index].sku_id == cart_item_details[tmp_index].name)
+						{
 							formated_output.cart_items[index] = cartItemObj(cart_item_details[tmp_index].name, cart_item_details[tmp_index].name, cart_item_details[tmp_index].sku_url, cart_item_details[tmp_index].price, cart_item_details[tmp_index].currency, cart_item_details[tmp_index].discount, cart_item_details[tmp_index].total_price, cart_item_details[tmp_index].image, cart_items.cart_items[index].quantity);
+							console.log("iiiiii");
 							continue;
 						}
 					}
@@ -115,7 +110,7 @@ Cart.getCart = function(params, callback) {
 				callback(null, formated_output);
 			}
    		}
-   	);
+   */
 };
 
 
@@ -152,8 +147,12 @@ Cart.createCart = function(params, callback) {
 		callback('session_id not passed');
 		return
 	}
-	if (!cart_items) {
-		cart_items = [];
+	if ((!cart_items)||JSON.stringify(cart_items)=="[]" || !cart_items[0])
+	{
+		//cart_items = [];
+		console.log(cart_items);
+		callback("400 Bad request Cart Items not Found");
+		return;
 	}
 
 	cartObjWithCheck(session_id, cart_items, total_base_price, total_discount, total_price, user_id, created_at, updated_at, function (errors, data) {
@@ -173,7 +172,8 @@ Cart.createCart = function(params, callback) {
 			} else {
 				console.log('POST : Response from cart - ' + body);
 				var obj = JSON.parse(body).entities[0];
-				callback(null, cartObj(obj.session_id, obj.cart_items, obj.total_base_price, obj.total_discount, obj.total_price, obj.user_id, obj.created_at, obj.updated_at, obj.uuid));
+				//callback(null,"Cart successfully created");
+				callback(null, cartObj(obj.session_id, obj.cart_items, obj.total_base_price, obj.total_discount, obj.total_price, obj.user_id, obj.created, obj.modified, obj.uuid));
 			}
 		});
 	}
@@ -257,7 +257,7 @@ Cart.editCart = function(params, callback)
 						} else {
 							console.log('PUT : Response from cart - ' + body);
 							var obj = JSON.parse(body).entities[0];
-							callback(null, cartObj(obj.session_id, obj.cart_items, obj.total_base_price, obj.total_discount, obj.total_price, obj.user_id, obj.created_at, obj.updated_at, obj.uuid));
+							callback(null, cartObj(obj.session_id, obj.cart_items, obj.total_base_price, obj.total_discount, obj.total_price, obj.user_id, obj.created, obj.modified, obj.uuid));
 						}
 					});
 
@@ -313,7 +313,7 @@ Cart.deleteCart = function(params, callback) {
 				callback({message : body_obj.error});
 			} else {
 				var obj = body_obj.entities[0];
-				output = cartObj(obj.session_id, obj.cart_items, obj.total_base_price ,obj.total_discount, obj.total_price, obj.user_id, obj.created_at, obj.updated_at, obj.uuid);
+				output = cartObj(obj.session_id, obj.cart_items, obj.total_base_price ,obj.total_discount, obj.total_price, obj.user_id, obj.created, obj.modified, obj.uuid);
 				callback(null, output);
 			}
 		}
@@ -428,7 +428,7 @@ Cart.addItem = function(params, callback){
 							} else {
 								console.log('PUT : Response from cart - ' + JSON.stringify(body));
 								var obj = JSON.parse(body).entities[0];
-								output = cartObj(obj.session_id, obj.cart_items, obj.total_base_price ,obj.total_discount, obj.total_price, obj.user_id, obj.created_at, obj.updated_at);
+								output = cartObj(obj.session_id, obj.cart_items, null ,null, null, obj.user_id, obj.created, obj.modified,obj.uuid);
 								callback(null, output);
 							}
 						});	
@@ -542,7 +542,7 @@ Cart.deleteItem = function(params, callback){
 							} else {
 								console.log('PUT : Response from cart - ' + JSON.stringify(body));
 								var obj = JSON.parse(body).entities[0];
-								output = cartObj(obj.session_id, obj.cart_items, obj.total_base_price ,obj.total_discount, obj.total_price, obj.user_id, obj.created_at, obj.updated_at);
+								output = cartObj(obj.session_id, obj.cart_items, null ,null, null, obj.user_id, obj.created, obj.modified,obj.uuid);
 								callback(null, output);
 							}
 						});	
@@ -618,7 +618,8 @@ Cart.editItem = function(params, callback)
 					} else {
 						console.log('PUT : Response from cart - ' + JSON.stringify(body));
 						var obj = JSON.parse(body).entities[0];
-						output = cartObj(obj.session_id, obj.cart_items, obj.total_base_price ,obj.total_discount, obj.total_price, obj.user_id, obj.created_at, obj.updated_at);
+						//output = cartObj(obj.session_id, obj.cart_items, obj.total_base_price ,obj.total_discount, obj.total_price, obj.user_id, obj.created, obj.modified);
+						output = cartObj(obj.session_id, obj.cart_items, null ,null, null, obj.user_id, obj.created, obj.modified,obj.uuid);
 						callback(null, output);
 					}
 				});	
@@ -629,45 +630,50 @@ Cart.editItem = function(params, callback)
 
 function cartObj(session_id, cart_items, total_base_price, total_discount, total_price, user_id, created_at, updated_at, cart_id){
 	var obj = {};
-	
-	if(!session_id)
-		session_id = "";
-	if(!cart_items)
-		cart_items = "";
+	//console.log("in cartObj!!!!"+total_base_price);
+	if(session_id)
+		obj.session_id = session_id;
+	if(cart_items)
+	{
+		obj.cart_items=[];
+		for(i in  cart_items)
+		{
+			item={};
+			item.quantity=cart_items[i].quantity;
+			item.sku_id=cart_items[i].sku_id;
+			obj.cart_items.push(item);
+		}
 
-	if(!total_base_price)
-		total_base_price = "";
-	if(!total_discount)
-		total_discount = "";
-	if(!total_price)
-		total_price = "";
-	if(!user_id)
-		user_id = "";
-	if(!created_at)
-		created_at = "";
-	if(!updated_at)
-		updated_at = "";
+	}
 
-	obj.session_id = session_id;
-	obj.cart_items = cart_items;
-	obj.total_base_price = total_base_price;
-	obj.total_discount = total_discount;
-	obj.total_price = total_price;
-	obj.user_id = user_id;
-	obj.created_at = created_at;
-	obj.updated_at = updated_at;
+	if(total_base_price)
+		obj.total_base_price = total_base_price;
+	if(total_discount)
+		obj.total_discount = total_discount;
+	if(total_price)
+		obj.total_price = total_price;
+	if(user_id)
+		obj.user_id = user_id;
+	if(created_at)
+		obj.created_at = created_at;
+	if(updated_at)
+		obj.updated_at = updated_at;
+
+
 	obj.cart_id = cart_id;
 	console.log("obj=\n"+JSON.stringify(obj));
 
 	return obj;
 }
+
+
 cartObjWithCheck=function(session_id, cart_items, total_base_price, total_discount, total_price, user_id, created_at, updated_at, callback)
 {
 	var obj = {};
 
 	if(!session_id)
 		session_id = "";
-	if(!cart_items)
+	if((!cart_items)  )
 	{
 		cart_items = "";
 		if(!total_base_price)
@@ -753,6 +759,12 @@ function checkValidSkew(cart_items,cb)
 			cb("400 Bad Request Sku_id not mentioned",null);
 			return;
 		}
+		else if(!item.quantity)
+		{
+			cb("400 Bad Request quantity of "+item.sku_id+" not mentioned",null);
+			return;
+
+		}
 		else
 		{
 			console.log("making GET CAll");
@@ -792,6 +804,7 @@ function makeGetCall(sku_id,index,last_index,cb)
 		console.log(res.statusCode + "response#######"+JSON.stringify(bdy));
 		if(!err && res.statusCode==200)
 		{
+			bdy_obj=JSON.parse(bdy)
 			if(index==last_index)
 			{
 
@@ -819,12 +832,106 @@ function makeGetCall(sku_id,index,last_index,cb)
 	});
 }
 
+fetchPrice=function (obj,cb)
+{
+	//console.log("in fetchPrice");
+	total_price=0;
+	base_price=0;
+	total_discount=0;
+	discount=0;
+	//console.log("&&&&&&&&"+obj.cart_items[0].quantity);
+	//console.log("&&&&&&&&"+obj.cart_items[1].quantity);
+	var i=0;
+	async.forEach(obj.cart_items,function(item,index,array)
+		//for(var index=0;index < obj.cart_items.length;index++)
+	{
+		sku_path=basePath+"/skus/"+item.sku_id;
+		//console.log(sku_path);
+		makeRequest(sku_path,index,function(err,data)
+		{
+			if(data)
+			{
+				i++;
+				//console.log(obj.cart_items.indexOf(item));
+				base_price +=(data.price*(item.quantity)) ;
+				total_discount+=data.discount*data.price*(item.quantity);
+				//console.log(base_price+"*********");
+				//console.log("index="+obj.cart_items.indexOf(item)+"lenght="+obj.cart_items.length)
+				//if(obj.cart_items.indexOf(item)==obj.cart_items.length-1)
+				if(i==obj.cart_items.length)
+				{
+					//console.log("equal");
+					result={};
+					result.total_base_price=base_price;
+					result.total_discount=total_discount;
+					cb(null,result);
+					return;
+				}
+			}
+			else
+			{
+				cb(err);
+				return;
+			}
+		});
 
+
+
+	});
+
+}
+
+makeRequest=function (sku_path,index,cb)
+{
+	//console.log("in making request");
+	request( { url : sku_path, method: 'GET', headers: headers },function (e,res,bdy)
+		{
+			if(!e && res.statusCode==200)
+			{
+				discount=0;
+				//console.log("sku exist");
+				sku=JSON.parse(bdy).entities[0];
+				//console.log("bdy="+bdy);
+				if(sku.discount)
+				{
+					//console.log(sku.discount)
+					discount=Number(sku.discount)
+				}
+				else
+				{
+					discount=0;
+				}
+				//console.log(sku.price);
+				//base_price =(sku.price*obj.cart_items[i].quantity) ;
+				//console.log("now, bp="+base_price);
+				//total_discount+=discount*sku.price*(obj.cart_items[i].quantity);
+				//console.log("now, d="+total_discount);
+				data={};
+				data.price=sku.price;
+				data.discount=discount;
+				data.index=index;
+				cb(null,data);
+				return;
+
+
+
+			}
+			else
+			{
+				cb(err,null);
+				return;
+			}
+
+
+		}
+	);
+
+}
 
 
 function cartItemObj(sku_id, name, sku_url, price, currency, discount, total_price, image, quantity){
 	var obj = {};
-
+	//console.log("in item obj");
 	obj.sku_id = sku_id; 
 	obj.name = name;
 	obj.sku_url = sku_url;
