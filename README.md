@@ -31,12 +31,12 @@ These APIs play a critical role in the digital transformation of retail services
 
 
 ## Repository Overview
-This repository contains the necessary artifacts that will allow one to pull up a complete set of **Commerce APIs**. In addition this will also allow one to build a _sandbox_ complete with a **Developer Portal**, mock backend and a sample app.
+This repository contains the necessary artifacts that will allow one to pull up a complete set of **Commerce APIs**. In addition this will also allow one to build a _sandbox_ complete with a **Developer Portal** (https://opencommerce.apigee.com/), mock backend and a sample app.
 
 ## Prerequisite
 + Apigee API Management Developer Account
 + Apigee API BaaS Account
-+ Apigee Developer Portal
++ Apigee Developer Portal (https://opencommerce.apigee.com/)
 
 ## Setup
 To deploy the APIs and its dependencies on your own org please run the following script
