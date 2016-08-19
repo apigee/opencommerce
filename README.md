@@ -6,12 +6,12 @@ Digital Services in Retail Space
 
 Before we delve into the specifics of the Solution it may be worthwhile to note the transformation happening currently in the retail space. Digital is positing itself in many facets and interactions that a consumer has with the Retail companies.
 
-![enter image description here](http://opencommerce.apigee.com/sites/default/files/retail_header_0.png)
+![Commerce Solution Overview](http://opencommerce.apigee.com/sites/default/files/retail-header_0.png)
 
 Overview
 -------------
 
-Apigee OpenCommerce Solution enables banks to accelerate  development of digital services. OpenCommerce is built on Apigee Edge API Management Platform, and features:
+Apigee OpenCommerce Solution enables retailers to accelerate  development of digital services. OpenCommerce is built on Apigee Edge API Management Platform, and features:
 
 > - Product APIs.
 > - Product Collection APIs
@@ -27,7 +27,7 @@ It also provides an implementation of OpenID and oAuth based user authentication
 These APIs play a critical role in the digital transformation of retail services as represented below:
 
 
-![enter image description here](http://opencommerce.apigee.com/sites/default/files/opencommerce_architecture.png)
+![OpenCommerce Overview](http://opencommerce.apigee.com/sites/default/files/opencommerce_architecture.png)
 
 
 ## Repository Overview
@@ -75,6 +75,9 @@ In case you wish to run in a non interactive mode, a config.sh file is available
   UGCLIENTSECRET=
   ```
 
+## Support
+This is an open-source project of the Apigee Corporation. It is not covered by Apigee support contracts. However, we will support you as best we can. For help, please open an issue in this GitHub project. You are also always welcome to submit a pull request.
+
 ## Design
 The APIs provided are configurable to connect to your own Commerce backend and / or provide your own consent apps. The following sections will help you understand this solution so that you can go about this on your own.
 
@@ -99,7 +102,7 @@ In addition, there are some internal APIs which are not exposed outside, but whi
 #### Transfers API Flow
 
 ### Consent App
-The consent app is a key part in helping the user securely authenticate with the bank. The consent app is a trusted app of the bank will allow the user to login and subsequently provide consent information. 
+The consent app is a key part in helping the user securely authenticate with the retail services. The consent app is a trusted app of the retail services will allow the user to login and subsequently provide consent information.
 
 In this sandbox, the consent app will talk to the following APIs in order to fulfill its functionality
 + Session API

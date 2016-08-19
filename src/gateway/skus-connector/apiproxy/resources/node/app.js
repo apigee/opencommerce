@@ -11,6 +11,16 @@ var routes = require('./routes/routes.js');
 app.get('/:skuid', routes.get);
 
 
+//error APIs
+app.get('/',function (req,res)
+{
+    err={};
+    err.code=400;
+    err.msg="Bad request Sku Id not specified";
+    res.status(err.code).send(JSON.stringify(err, undefined, 2));
+
+});
+
 app.listen(3000, function() {
     console.log('App listening on port 3000!');
 });

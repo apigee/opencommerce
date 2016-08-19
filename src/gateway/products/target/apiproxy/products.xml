@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><APIProxy name="products" revision="1">
-    <ConfigurationVersion majorVersion="4" minorVersion="0"/>
-    <Description>products</Description>
-    <DisplayName>products</DisplayName>
-    <validate>false</validate>
-</APIProxy>

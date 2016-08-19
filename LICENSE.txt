@@ -1,28 +1,13 @@
 
-NOTE: This project is multi licensed. All folders are licensed under text below except those folders that has additional LICENSE.txt file.
-====
+NOTE: This project is multi licensed.
 
+* Content and Source code under /devportal are GPL 2 licensed. Please refer LICENSE.TXT under /devportal folder
+
+* Rest of the content and source code in other folders are Apache 2.0 licensed. Please refer LICENSE.TXT below.
+
+================
     Copyright 2016 Apigee Corporation
-
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to
-    deal in the Software without restriction, including without limitation the
-    rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
-    sell copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-
-    The above copyright notice and this permission notice shall be included in
-    all copies or substantial portions of the Software.
-
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-    IN THE SOFTWARE.
-
-====
+=================
 
                                  Apache License
                            Version 2.0, January 2004
@@ -225,3 +210,48 @@ NOTE: This project is multi licensed. All folders are licensed under text below 
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+--------------------------------------------------------------------------
+OpenCommerce SUB-COMPONENTS
+
+The OpenCommerce software includes a number of sub-components with separate
+copyrights and license terms. Your use of the source code for these
+sub-components is subject to the terms and conditions of the following
+licenses.
+
+This product requires Drupal, is open source project distributed under GNU General Public License (GPL) version 2.
+
+This product uses accordian_blocks Drupal module which is licensed under GNU General Public License (GPL) version 2
+
+This product uses feedback Drupal module which is licensed under GNU General Public License (GPL) version 2
+
+This product uses flexslider Drupal module which is licensed under GNU General Public License (GPL) version 2
+
+This product uses flexslider_views_slideshow Drupal module which is licensed under GNU General Public License (GPL) version 2
+
+This product uses menu_block Drupal module which is licensed under GNU General Public License (GPL) version 2
+
+This product uses quicktabs Drupal module which is licensed under GNU General Public License (GPL) version 2
+
+This product uses apigee-access node module
+Copyright 2014 Apigee Corporation,  MIT License
+
+
+This product uses async node module
+Copyright (c) 2010-2016 Caolan McMahon,  MIT License
+
+This product uses body-parser node module licensed under MIT License
+Copyright (c) 2014 Jonathan Ong <me@jongleberry.com>
+Copyright (c) 2014-2015 Douglas Christopher Wilson <doug@somethingdoug.com>
+
+
+This product uses express node module licensed under MIT License
+Copyright (c) 2009-2014 TJ Holowaychuk <tj@vision-media.ca>
+Copyright (c) 2013-2014 Roman Shtylman <shtylman+expressjs@gmail.com>
+Copyright (c) 2014-2015 Douglas Christopher Wilson <doug@somethingdoug.com>
+
+This product uses request node module licensed under Apache-2.0 License
+
+
+This product uses morgan node module licensed under MIT License
+Copyright (c) 2014 Jonathan Ong <me@jongleberry.com>
+Copyright (c) 2014-2015 Douglas Christopher Wilson <doug@somethingdoug.com>

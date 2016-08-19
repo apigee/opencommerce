@@ -1,12 +1,12 @@
 {
   "swagger": "2.0",
-  "host": "opencommerce-test.apigee.net",
+  "host": "open-commerce-dev.apigee.net",
   "schemes": [
     "https",
     "http"
   ],
   "info": {
-    "description": "Product Collections",
+    "description": "<p>Product Collections</p> Collections can be used to group products/collections. Some of the uses of such grouping could be for campaigns/promotions or for a grouping other than the natural category (e.g. Best Sellers, Related Items, etc.)",
     "title": "Product Collections",
     "version": "0.0.1",
     "termsOfService": "http://example.com/about/terms",
@@ -25,11 +25,11 @@
 
     "/collections/{collection_name}": {
       "get": {
-        "description": "<p>This will return list of products/collections that belong to a the given collection. The products returned can be personalized based on the user-id information, in case an accessToken is passed in Authorization Header.</p><p>The collections can be used to model product hierarchy, promotions, campaigns.  The dynamic collection is a rule that gets executed and returns resultant products; this can be used to model any rule based (e.g. all products in a category, where price is less than 'x' amount) promotions/campaigns. </p><p>The results can be filtered by giving a filter criteria.  The number of items returned can be controlled by providing a 'limit'. By providing the page_hint, the next set of results can be retrieved.</p>",
-        "summary": "List of Products matching criteria",
-        "operationId": "Product Collection",
+        "description": "<p>Get Product Collection</p> This will return list of products/collections that belong to the given collection. The products returned can be personalized based on the user-id information, in case an accessToken is passed in Authorization Header.<p>The collections can be used to model product hierarchy, promotions, campaigns.  The dynamic collection is a rule that gets executed and returns resultant products; this can be used to model any rule based (e.g. all products in a category, where price is less than 'x' amount) promotions/campaigns. </p><p>The results can be filtered by giving a filter criteria.  The number of items returned can be controlled by providing a 'limit'. By providing the page_hint, the next set of results can be retrieved.</p>",
+        "summary": "Details of the product collection - all the products/collections part of this collection.",
+        "operationId": "Get Collection",
         "tags": [
-          "ProductCollection"
+          "Get Collection"
         ],
         "produces": [
           "application/json; charset=utf-8"
@@ -53,7 +53,7 @@
         },
         "security": [
           {
-            "commerce_auth": [
+            "collection_auth": [
               "openid"
             ]
           }
@@ -64,7 +64,7 @@
             "in": "header",
             "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
             "type": "string",
-            "required": true
+            "required": false
           },
           {
             "name": "collection_name",
@@ -101,10 +101,10 @@
 
   },
   "securityDefinitions": {
-    "commerce_auth": {
+    "collection_auth": {
       "type": "oauth2",
-      "authorizationUrl": "https://opencommerce-test.apigee.net/apis/v1/oauth/authorize?client_id=grOmvYAei8aBARzEVIYhGtpvztofAAjz&redirect_uri=https://api.enterprise.apigee.com/v1/o/apis-bank/apimodels/accounts/templateauths/aisp_auth/callback&response_type=code&state=af0ifjsldkj&scope=openid accounts&ui-locales=en&acr_values=3",
-      "tokenUrl": "https://opencommerce-test.apigee.net/apis/v1/oauth/token",
+      "authorizationUrl": "https://open-commerce-dev.apigee.net/apis/v1/oauth/authorize?client_id=4DUBlJHLvp58krB0AcJ3yNJMzKqUVZEc&redirect_uri=https://api.enterprise.apigee.com/v1/o/open-commerce/apimodels/collection/templateauths/collection_auth/callback&response_type=code&state=af0ifjsldkj&scope=openid&ui-locales=en&acr_values=3",
+      "tokenUrl": "https://open-commerce-dev.apigee.net/apis/v1/oauth/token",
       "flow": "accessCode",
       "scopes": {
         "openid": "openID"
