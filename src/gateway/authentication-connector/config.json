@@ -10,7 +10,7 @@
           "tokens": [
             {
               "xpath": "/TargetEndpoint/HTTPTargetConnection/URL",
-              "value": "https://baas-ug000sr.apigee.net/api-solutions/opencommerce/token"
+              "value": "https://__APPHOST__/__APPORG__/__APPAPP__/token"
             }
           ]
         }
@@ -26,7 +26,7 @@
           "tokens": [
             {
               "xpath": "/TargetEndpoint/HTTPTargetConnection/URL",
-              "value": "https://baas-ug000sr.apigee.net/api-solutions/opencommerce/token"
+              "value": "https://__APPHOST__/__APPORG__/__APPAPP__/token"
             }
           ]
         }
@@ -42,7 +42,7 @@
           "tokens": [
             {
               "xpath": "/TargetEndpoint/HTTPTargetConnection/URL",
-              "value": "https://baas-ug000sr.apigee.net/api-solutions/opencommerce/token"
+              "value": "https://__APPHOST__/__APPORG__/__APPAPP__/token"
             }
           ]
         }

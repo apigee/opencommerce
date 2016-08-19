@@ -1,6 +1,6 @@
 {
   "swagger": "2.0",
-  "host": opencommerce-test.apigee.net",
+  "host": "open-commerce-dev.apigee.net",
   "schemes": [
     "https"
   ],
@@ -14,7 +14,7 @@
     "/authorize": {
       "get": {
         "description": "<p>Generates Access Token or Authrorization code depending on response_type.</p><p>&nbsp;</p><p>GET  /authorize is redirected to Consent Application where a two-factor authentication is initiated. Upon successful authentication access_token or authorization code is returned as query parameters passed to the redirect uri.</p>",
-        "summary": "Generates Access Token to initiate AISP/PISP.",
+        "summary": "Generates Access Token to initiate Commerce API call.",
         "operationId": "authorize",
         "tags": [
           "OAuth"
@@ -194,7 +194,7 @@
         },
         "id_token": {
           "type": "string",
-          "description": "JWT Token that a bank returns that can have optional customer information."
+          "description": "JWT Token that can have optional customer information."
         }
       },
       "xml": {

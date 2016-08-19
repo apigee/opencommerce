@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><APIProxy name="oauth" revision="11">
-    <ConfigurationVersion majorVersion="4" minorVersion="0"/>
-    <Description>OAuth</Description>
-    <DisplayName>OAuth</DisplayName>
-    <validate>false</validate>
-</APIProxy>

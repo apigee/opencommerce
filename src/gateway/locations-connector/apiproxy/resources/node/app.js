@@ -8,8 +8,8 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 
-var logger = require('morgan');
-app.use(logger('combined'));
+//var logger = require('morgan');
+//app.use(logger('combined'));
 
 var routes = require('./routes/routes.js');
 
