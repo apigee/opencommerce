@@ -42,11 +42,38 @@ This repository contains the necessary artifacts that will allow one to pull up 
 To deploy the APIs and its dependencies on your own org please run the following script
 
 ```bash
-$ cd src/gateway
-$ sh setup/setup.sh
+$ cd src/gateway/setup
+$ sh setup.sh
 ```
 
 This will interactively prompt you for your Edge and BaaS credentials, and will then create / deploy all relevant bundles and artifacts and will provision the **OpenCommerce Sandbox** on your own Org.
+
+In case you wish to run in a non interactive mode, a config.sh file is available in this (/setup) folder which allows one to specify defaults to the asked questions. This will ensure that the questions are not asked where it is available in the config.sh file.
+  
+  The available defaults are 
+  
+  ```bash
+  # URI of the Management API to the Edge Org where you wish to deploy the proxies
+  URI="https://api.enterprise.apigee.com"
+  # URI of the BaaS / Usergrid API which will be used as a sandbox backend
+  UGURI="https://api.usergrid.com"
+  # Organization name of the Edge Org where you will be deploying the proxies
+  ORG=
+  # Environment in the Org specified above to which you will deploy the proxies
+  ENV=
+  # Email of a user that has sufficient permissions to import and deploy proxies in the specified Org
+  ADMIN_EMAIL=
+  # Edge Password of the user specified above
+  APW=
+  # Organization name of the BaaS instance that is being used to deploy the sandbox
+  UGORG=
+  # Application in the above BaaS instance which will be used for the sandbox. It will be created if it doesn't exist.
+  UGAPP=
+  # Organization Client ID of the BaaS where you wish to install the sandbox
+  UGCLIENTID=
+  # Organization Client Secret of the BaaS where you wish to install the sandbox
+  UGCLIENTSECRET=
+  ```
 
 ## Design
 The APIs provided are configurable to connect to your own Commerce backend and / or provide your own consent apps. The following sections will help you understand this solution so that you can go about this on your own.
