@@ -8,6 +8,8 @@ Before we delve into the specifics of the Solution it may be worthwhile to note 
 
 ![Commerce Solution Overview](http://opencommerce.apigee.com/sites/default/files/retail-header_0.png)
 
+Get your free copy of The State of APIs in Retail [Report](https://pages.apigee.com/ebook-State-of-APIs-in-Retail-reg.html?utm_source=github&utm_content=state-of-apis-retail "The State of APIs in Retail").
+
 Overview
 -------------
 
@@ -86,6 +88,10 @@ In case you wish to run in a non interactive mode, a config.sh file is available
 
 ## Support
 This is an open-source project of the Apigee Corporation. It is not covered by Apigee support contracts. However, we will support you as best we can. For help, please open an issue in this GitHub project. You are also always welcome to submit a pull request.
+
+## Webcast
+
+Register [here](https://pages.apigee.com/2016-08-25-Webcast-LLBean-Digital-commerce-done-right-reg.html?utm_source=github&utm_campaign=2016-08-25-Webcast-LLBean-Digital-commerce-done-right "Webcast") for live Webcast on the APIs.
 
 ## Design
 The APIs provided are configurable to connect to your own Commerce backend and / or provide your own consent apps. The following sections will help you understand this solution so that you can go about this on your own.
