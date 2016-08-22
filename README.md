@@ -8,7 +8,7 @@ Before we delve into the specifics of the Solution it may be worthwhile to note 
 
 ![Commerce Solution Overview](http://opencommerce.apigee.com/sites/default/files/retail-header_0.png)
 
-Get your free copy of The State of APIs in Retail [Report](https://pages.apigee.com/ebook-State-of-APIs-in-Retail-reg.html?utm_source=github&utm_content=state-of-apis-retail "The State of APIs in Retail").
+Get your free copy of **The State of APIs in Retail** [Report](https://pages.apigee.com/ebook-State-of-APIs-in-Retail-reg.html?utm_source=github&utm_content=state-of-apis-retail "The State of APIs in Retail").
 
 Overview
 -------------
