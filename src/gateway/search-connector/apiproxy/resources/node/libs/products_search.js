@@ -57,7 +57,8 @@ products_search.searchProducts = function (product_filter, sku_filter, cursor, l
         });
 
     }
-    else {
+    else
+    {
 
         //there has to a generic request irrespective of search made through collections or through products
         // seperate requests made due to a bug in baas search
@@ -65,7 +66,8 @@ products_search.searchProducts = function (product_filter, sku_filter, cursor, l
         //url to be used in case of single request
         url += "/products;ql=where type='product'" + product_filter;
 
-        var options = {
+        var options =
+        {
             method: 'GET',
             uri: url,
             qs: {

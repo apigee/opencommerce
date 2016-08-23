@@ -26,7 +26,7 @@ app.get('/',function (req,res)
     err.code=400;
     err.msg="Bad request Product Id not specified";
     res.status(err.code).send(JSON.stringify(err, undefined, 2));
-    
+
 });
 
 app.listen(3000, function ()

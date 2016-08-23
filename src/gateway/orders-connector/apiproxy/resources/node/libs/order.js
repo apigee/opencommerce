@@ -6,8 +6,8 @@ Order = {};
 
 var basePath = pkginfo.baasBasePath;
 
-var headers = { 
-    //"Content-Type" : "application/x-www-form-urlencoded",
+var headers = {
+	//"Content-Type" : "application/x-www-form-urlencoded",
 };
 
 
@@ -28,10 +28,16 @@ Order.getAllOrders = function(params, callback) {
 		genurl.addLimit(limit);
 	if (pageHint)
 		genurl.addPageHint(pageHint);
+
+	sql={}
 	if (username)
 	{
 		//console.log("USERNAME--> "+ username);
-		genurl.addQL(" where username = " + username);
+		sql={qs: {
+			"ql": username,
+
+		}};
+		//genurl.addQL(" where username = " + username);
 	}
 
 	// get the generated URL
@@ -39,11 +45,15 @@ Order.getAllOrders = function(params, callback) {
 
 	console.log('GET : ' + url);
 
-	request({ url : url, method: 'GET', headers: headers }, function(error, response, body){
+	request({ url : url, method: 'GET', headers: headers,qs: {
+		"ql":  "where username = '" + username +"'"
+
+	} }, function(error, response, body){
 		if(error){
 			console.log('GET : Error - ' + error);
 			callback(error);
-		} else {
+		} else
+		{
 			console.log('GET : Response from orders - ' + body);
 			var body_obj = JSON.parse(body);
 			entities_list = body_obj.entities;
@@ -96,7 +106,7 @@ Order.getOrder = function(params, callback)
 			console.log('GET : Error - ' + err);
 			callback(errorobj);
 		} else
-			{
+		{
 			var obj;
 			var formated_output;
 			console.log('GET : Response from order - ' + body);
@@ -114,8 +124,8 @@ Order.getOrder = function(params, callback)
 				errorobj.msg=body_obj.error;
 				callback(errorobj,null);
 			}
-			
-			
+
+
 		}
 
 	});
@@ -134,16 +144,16 @@ function orderObj(order_number, order_date, sub_total_amount, currency, total_di
 	obj.is_tax_applicable = is_tax_applicable;
 	obj.total_amount = total_amount;
 	obj.updated_at = updated_at;
-	obj.client_ip = client_ip; 
+	obj.client_ip = client_ip;
 	obj.cancel_reason = cancel_reason;
-	obj.cancel_date = cancel_date; 
-	obj.cart_id = cart_id; 
+	obj.cancel_date = cancel_date;
+	obj.cart_id = cart_id;
 	obj.customer_details = customer_details;
-	obj.payment_details = payment_details; 
+	obj.payment_details = payment_details;
 	obj.fulfillment_status = fulfillment_status;
 	obj.ship_to = ship_to;
 	obj.is_billing_same_as_shipping = is_billing_same_as_shipping;
-	obj.bill_to = bill_to; 
+	obj.bill_to = bill_to;
 	obj.order_items = order_items;
 	obj.packages = packages;
 

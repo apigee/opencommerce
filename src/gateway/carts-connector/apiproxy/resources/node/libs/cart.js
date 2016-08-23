@@ -7,8 +7,8 @@ Cart = {};
 
 var basePath = pkginfo.baasBasePath;
 
-var headers = { 
-    "Content-Type" : "application/json"
+var headers = {
+	"Content-Type" : "application/json"
 };
 
 Cart.getCart = function(params, callback) {
@@ -19,98 +19,98 @@ Cart.getCart = function(params, callback) {
 	var cart_items;
 	var cart_item_details;
 
-			// use genurl object to create URL
-				genurl = new util.genurl();
-				genurl.setBase(basePath);
-				genurl.join('carts');
-				genurl.join(cart_id);
+	// use genurl object to create URL
+	genurl = new util.genurl();
+	genurl.setBase(basePath);
+	genurl.join('carts');
+	genurl.join(cart_id);
 
-				// get the generated URL
-				url = genurl.getUrl();
+	// get the generated URL
+	url = genurl.getUrl();
 
-				console.log('GET : ' + url);
+	console.log('GET : ' + url);
 
-				request({ url : url, method: 'GET', headers: headers }, function(error, response, body)
+	request({ url : url, method: 'GET', headers: headers }, function(error, response, body)
+	{
+		errorobj={};
+
+		if(error)
+		{
+			console.log('GET : Error - ' + err);
+			errorobj.code=500;
+			errorobj.msg=error.message;
+			callback(errorobj);
+		}
+		else
+		{
+			//console.log('GET : Response from cart - ' + body);
+			var body_obj = JSON.parse(body);
+			if(body_obj.error)
+			{
+				console.log('GET : Error - ' + body_obj.error);
+				errorobj.code=response.statusCode;
+				errorobj.msg=body_obj.error;
+				callback(errorobj);
+			} else
+			{
+				var obj = JSON.parse(body).entities[0];
+				fetchPrice(obj,function(err,data)
 				{
-					errorobj={};
-
-					if(error)
+					if(data)
 					{
-						console.log('GET : Error - ' + err);
-						errorobj.code=500;
-						errorobj.msg=error.message;
-						callback(errorobj);
+						//console.log(JSON.stringify(data))
+						total_base_price=data.total_base_price;
+						total_discount=data.total_discount;
+						total_price=total_base_price - total_discount;
+						//console.log("yayyy");
+						console.log(total_price);
+						cart_items = cartObj(obj.session_id, obj.cart_items, base_price ,total_discount, total_price, obj.user_id, obj.created, obj.modified, obj.uuid);
+						callback(null,cart_items);
+						return;
 					}
 					else
 					{
-						//console.log('GET : Response from cart - ' + body);
-						var body_obj = JSON.parse(body);
-						if(body_obj.error)
-						{
-							console.log('GET : Error - ' + body_obj.error);
-							errorobj.code=response.statusCode;
-							errorobj.msg=body_obj.error;
-							callback(errorobj);
-						} else
-						{
-							var obj = JSON.parse(body).entities[0];
-							fetchPrice(obj,function(err,data)
-							{
-								if(data)
-								{
-									//console.log(JSON.stringify(data))
-									total_base_price=data.total_base_price;
-									total_discount=data.total_discount;
-									total_price=total_base_price - total_discount;
-									//console.log("yayyy");
-									console.log(total_price);
-									cart_items = cartObj(obj.session_id, obj.cart_items, base_price ,total_discount, total_price, obj.user_id, obj.created, obj.modified, obj.uuid);
-									callback(null,cart_items);
-									return;
-								}
-								else
-								{
-									callback(err);
-									return;
-								}
-
-
-
-							});
-
-
-
-						}
+						callback(err);
+						return;
 					}
+
+
 
 				});
 
-			// second async function
 
 
-		// callback called after both the above functions are done ie c(); this fucntion is called  only once!
-		/*function(err, results) {
-			if(err)
-			{
-				callback(err);
-			} else
-				{
-				var formated_output = cart_items;
-				for(index in cart_items.cart_items){
-					for (tmp_index in cart_item_details)
-					{
-						if(cart_items.cart_items[index].sku_id == cart_item_details[tmp_index].name)
-						{
-							formated_output.cart_items[index] = cartItemObj(cart_item_details[tmp_index].name, cart_item_details[tmp_index].name, cart_item_details[tmp_index].sku_url, cart_item_details[tmp_index].price, cart_item_details[tmp_index].currency, cart_item_details[tmp_index].discount, cart_item_details[tmp_index].total_price, cart_item_details[tmp_index].image, cart_items.cart_items[index].quantity);
-							console.log("iiiiii");
-							continue;
-						}
-					}
-				}
-				callback(null, formated_output);
 			}
-   		}
-   */
+		}
+
+	});
+
+	// second async function
+
+
+	// callback called after both the above functions are done ie c(); this fucntion is called  only once!
+	/*function(err, results) {
+	 if(err)
+	 {
+	 callback(err);
+	 } else
+	 {
+	 var formated_output = cart_items;
+	 for(index in cart_items.cart_items){
+	 for (tmp_index in cart_item_details)
+	 {
+	 if(cart_items.cart_items[index].sku_id == cart_item_details[tmp_index].name)
+	 {
+	 formated_output.cart_items[index] = cartItemObj(cart_item_details[tmp_index].name, cart_item_details[tmp_index].name, cart_item_details[tmp_index].sku_url, cart_item_details[tmp_index].price, cart_item_details[tmp_index].currency, cart_item_details[tmp_index].discount, cart_item_details[tmp_index].total_price, cart_item_details[tmp_index].image, cart_items.cart_items[index].quantity);
+	 console.log("iiiiii");
+	 continue;
+	 }
+	 }
+	 }
+	 callback(null, formated_output);
+	 }
+	 }
+	 */
 };
 
 
@@ -158,32 +158,32 @@ Cart.createCart = function(params, callback) {
 	cartObjWithCheck(session_id, cart_items, total_base_price, total_discount, total_price, user_id, created_at, updated_at, function (errors, data) {
 
 
-	console.log('POST data: ' + JSON.stringify(data));
-	if (data) {
-		request({
-			url: url,
-			method: 'POST',
-			headers: headers,
-			body: JSON.stringify(data)
-		}, function (error, response, body) {
-			if (error) {
-				console.log('POST : Error - ' + err);
-				callback(error);
-			} else {
-				console.log('POST : Response from cart - ' + body);
-				var obj = JSON.parse(body).entities[0];
-				//callback(null,"Cart successfully created");
-				callback(null, cartObj(obj.session_id, obj.cart_items, obj.total_base_price, obj.total_discount, obj.total_price, obj.user_id, obj.created, obj.modified, obj.uuid));
-			}
-		});
-	}
-	else
+		console.log('POST data: ' + JSON.stringify(data));
+		if (data) {
+			request({
+				url: url,
+				method: 'POST',
+				headers: headers,
+				body: JSON.stringify(data)
+			}, function (error, response, body) {
+				if (error) {
+					console.log('POST : Error - ' + err);
+					callback(error);
+				} else {
+					console.log('POST : Response from cart - ' + body);
+					var obj = JSON.parse(body).entities[0];
+					//callback(null,"Cart successfully created");
+					callback(null, cartObj(obj.session_id, obj.cart_items, null, null, null, obj.user_id, obj.created, obj.modified, obj.uuid));
+				}
+			});
+		}
+		else
 		{
 			console.log(errors);
 			callback(errors);
 		}
 	});
-	
+
 };
 
 Cart.editCart = function(params, callback)
@@ -191,13 +191,18 @@ Cart.editCart = function(params, callback)
 	console.log('PUT : carts : ' + JSON.stringify(params));
 	var cart_id = params.cart_id;
 	var cart_details = params.cart_details;
-
+	var user_id=null;
 	var session_id = cart_details.session_id;
 	var cart_items = cart_details.cart_items;
 	var total_base_price = cart_details.total_base_price;
 	var total_discount = cart_details.total_discount;
 	var total_price = cart_details.total_price;
 	var user_id = cart_details.user_id;
+	if(user_id!=null)
+	{
+		callback("400 Bad Request User Id cannot be changed ");
+		return;
+	}
 	// created_at,updated_at timestamp in Seconds
 	if (!(created_at = cart_details.created_at))
 		var created_at = Math.floor((new Date()).getTime() / 1000);
@@ -226,8 +231,9 @@ Cart.editCart = function(params, callback)
 	console.log("CART!!!!!!!" + JSON.stringify(cart_items));
 
 	if (!cart_items) {
-		console.log("No item");
-		cart_items = [];
+		callback("400 Bad Request No Cart Items Specified ");
+		return;
+
 	}
 	cartObjWithCheck(session_id, cart_items, total_base_price, total_discount, total_price, user_id, created_at, updated_at, function (errors, data)
 	{
@@ -257,7 +263,7 @@ Cart.editCart = function(params, callback)
 						} else {
 							console.log('PUT : Response from cart - ' + body);
 							var obj = JSON.parse(body).entities[0];
-							callback(null, cartObj(obj.session_id, obj.cart_items, obj.total_base_price, obj.total_discount, obj.total_price, obj.user_id, obj.created, obj.modified, obj.uuid));
+							callback(null, cartObj(obj.session_id, obj.cart_items, null, null, null, obj.user_id, obj.created, obj.modified, obj.uuid));
 						}
 					});
 
@@ -279,7 +285,7 @@ Cart.editCart = function(params, callback)
 		{
 			callback(errors);
 		}
-});
+	});
 
 
 
@@ -346,35 +352,35 @@ Cart.addItem = function(params, callback){
 			if (value.sku_id)
 			{
 				genurl.join(value.sku_id);
-			var url = genurl.getUrl();
-			console.log('POST : ' + url);
-			makeGetCall(value.sku_id, items.indexOf(value), items.length - 1, function (err, res) {
+				var url = genurl.getUrl();
+				console.log('POST : ' + url);
+				makeGetCall(value.sku_id, items.indexOf(value), items.length - 1, function (err, res) {
 
-				if (res) {
-					console.log("all skus perfect ");
-					request({url: url, method: 'POST', headers: headers}, function (error, response, body) {
-						if (error) {
-							console.log('POST for connection of items : Error - ' + error);
-							cb(error);
-							return
-						}
-						else if (JSON.parse(body).error) {
-							cb(JSON.parse(body).error);
-						}
-						else {
-							cb();
-							return
-						}
-					});
-				}
-				else {
-					console.log("error" + err);
-					cb(err);
-					return
-				}
-			});
-		}
-		else
+					if (res) {
+						console.log("all skus perfect ");
+						request({url: url, method: 'POST', headers: headers}, function (error, response, body) {
+							if (error) {
+								console.log('POST for connection of items : Error - ' + error);
+								cb(error);
+								return
+							}
+							else if (JSON.parse(body).error) {
+								cb(JSON.parse(body).error);
+							}
+							else {
+								cb();
+								return
+							}
+						});
+					}
+					else {
+						console.log("error" + err);
+						cb(err);
+						return
+					}
+				});
+			}
+			else
 			{
 				cb("400 Bad request, Sku_id not mentioned");
 			}
@@ -406,13 +412,13 @@ Cart.addItem = function(params, callback){
 								}
 							}
 							if(!item_found){
-								newCart.cart_items.push({'sku_id': sku_id, 'quantity': quantity});	
+								newCart.cart_items.push({'sku_id': sku_id, 'quantity': quantity});
 							}
 						}
 						var requestData = newCart;
-						
+
 						console.log('PUT data: ' + JSON.stringify(requestData));
-						
+
 						genurl = new util.genurl();
 						genurl.setBase(basePath);
 						genurl.join('carts');
@@ -431,7 +437,7 @@ Cart.addItem = function(params, callback){
 								output = cartObj(obj.session_id, obj.cart_items, null ,null, null, obj.user_id, obj.created, obj.modified,obj.uuid);
 								callback(null, output);
 							}
-						});	
+						});
 					}
 				});
 			}
@@ -521,13 +527,13 @@ Cart.deleteItem = function(params, callback){
 							}
 							if(!item_found){
 								callback('404 item with sku_id '+ sku_id +' not found');
-								return	
+								return
 							}
 						}
 						var requestData = newCart;
-						
+
 						console.log('PUT data: ' + JSON.stringify(requestData));
-							
+
 						genurl = new util.genurl();
 						genurl.setBase(basePath);
 						genurl.join('carts');
@@ -545,7 +551,7 @@ Cart.deleteItem = function(params, callback){
 								output = cartObj(obj.session_id, obj.cart_items, null ,null, null, obj.user_id, obj.created, obj.modified,obj.uuid);
 								callback(null, output);
 							}
-						});	
+						});
 					}
 				});
 			}
@@ -561,70 +567,70 @@ Cart.editItem = function(params, callback)
 	var items = params.items;
 
 	console.log('POST item to cart making GET first');
-		this.getCart({'cart_id': cart_id}, function(err, output){
-			if(err)
-			{
-				console.log(err);
-				callback(err);
-			}
-			else
-			{
-				console.log("correct cart");
-				oldCart = JSON.parse(JSON.stringify(output));
+	this.getCart({'cart_id': cart_id}, function(err, output){
+		if(err)
+		{
+			console.log(err);
+			callback(err);
+		}
+		else
+		{
+			console.log("correct cart");
+			oldCart = JSON.parse(JSON.stringify(output));
 
-				// creating new object to update back
-				var newCart = oldCart;
-				var item_found = false;
-				for (itemindex in items)
+			// creating new object to update back
+			var newCart = oldCart;
+			var item_found = false;
+			for (itemindex in items)
+			{
+
+				var sku_id = items[itemindex].sku_id;
+				if(!sku_id)
 				{
-
-					var sku_id = items[itemindex].sku_id;
-					if(!sku_id)
-					{
-						callback("400 Bad request, Sku Id not mentioned");
-						return;
+					callback("400 Bad request, Sku Id not mentioned");
+					return;
+				}
+				else {
+					var quantity = items[itemindex].quantity;
+					for (index in newCart.cart_items) {
+						if (newCart.cart_items[index].sku_id == sku_id) {
+							item_found = true;
+							newCart.cart_items[index].quantity = quantity;
+							break;
+						}
 					}
-					else {
-						var quantity = items[itemindex].quantity;
-						for (index in newCart.cart_items) {
-							if (newCart.cart_items[index].sku_id == sku_id) {
-								item_found = true;
-								newCart.cart_items[index].quantity = quantity;
-								break;
-							}
-						}
-						if (!item_found) {
-							console.log(sku_id + "not found");
-							callback('404 item with sku_id ' + sku_id + ' not found');
-							return
-						}
+					if (!item_found) {
+						console.log(sku_id + "not found");
+						callback('404 item with sku_id ' + sku_id + ' not found');
+						return
 					}
 				}
-				var requestData = newCart;
-				
-				console.log('PUT data: ' + JSON.stringify(requestData));
-				
-				genurl = new util.genurl();
-				genurl.setBase(basePath);
-				genurl.join('carts');
-				genurl.join(cart_id);
-				var url = genurl.getUrl();
-
-				request({ url : url, method: 'PUT', headers: headers, body: JSON.stringify(requestData)}, function(error, response, body){
-					if(error){
-						console.log('PUT : Error - ' + err);
-						callback(error);
-						return
-					} else {
-						console.log('PUT : Response from cart - ' + JSON.stringify(body));
-						var obj = JSON.parse(body).entities[0];
-						//output = cartObj(obj.session_id, obj.cart_items, obj.total_base_price ,obj.total_discount, obj.total_price, obj.user_id, obj.created, obj.modified);
-						output = cartObj(obj.session_id, obj.cart_items, null ,null, null, obj.user_id, obj.created, obj.modified,obj.uuid);
-						callback(null, output);
-					}
-				});	
 			}
-		});
+			var requestData = newCart;
+
+			console.log('PUT data: ' + JSON.stringify(requestData));
+
+			genurl = new util.genurl();
+			genurl.setBase(basePath);
+			genurl.join('carts');
+			genurl.join(cart_id);
+			var url = genurl.getUrl();
+
+			request({ url : url, method: 'PUT', headers: headers, body: JSON.stringify(requestData)}, function(error, response, body){
+				if(error){
+					console.log('PUT : Error - ' + err);
+					callback(error);
+					return
+				} else {
+					console.log('PUT : Response from cart - ' + JSON.stringify(body));
+					var obj = JSON.parse(body).entities[0];
+					//output = cartObj(obj.session_id, obj.cart_items, obj.total_base_price ,obj.total_discount, obj.total_price, obj.user_id, obj.created, obj.modified);
+					output = cartObj(obj.session_id, obj.cart_items, null ,null, null, obj.user_id, obj.created, obj.modified,obj.uuid);
+					callback(null, output);
+				}
+			});
+		}
+	});
 
 };
 
@@ -932,14 +938,14 @@ makeRequest=function (sku_path,index,cb)
 function cartItemObj(sku_id, name, sku_url, price, currency, discount, total_price, image, quantity){
 	var obj = {};
 	//console.log("in item obj");
-	obj.sku_id = sku_id; 
+	obj.sku_id = sku_id;
 	obj.name = name;
 	obj.sku_url = sku_url;
-	obj.price = price;	
-	obj.currency = currency; 
-	obj.discount = discount; 
+	obj.price = price;
+	obj.currency = currency;
+	obj.discount = discount;
 	obj.total_price = total_price;
-	obj.image = image; 
+	obj.image = image;
 	obj.quantity = quantity;
 
 	return obj;

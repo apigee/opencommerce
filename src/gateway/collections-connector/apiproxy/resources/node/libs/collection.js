@@ -7,9 +7,9 @@ Collection = {};
 
 var basePath = pkginfo.baasBasePath;
 
-var headers = { 
-    //"Content-Type" : "application/x-www-form-urlencoded",
-	"Authorization":"Bearer YWMt6hC8gDkpEeahpY8g1ZSFHgAAAVWgxJgOagbavdxfXXw80gKiAyVToqfIWkc"
+var headers = {
+	//"Content-Type" : "application/x-www-form-urlencoded",
+	//"Authorization":"Bearer YWMt6hC8gDkpEeahpY8g1ZSFHgAAAVWgxJgOagbavdxfXXw80gKiAyVToqfIWkc"
 };
 
 Collection.getCollection = function(params, callback) {
@@ -24,9 +24,9 @@ Collection.getCollection = function(params, callback) {
 
 	async.parallel(
 		[	// first async function
-    		function(cb)
+			function(cb)
 			{
-    			genurl = new util.genurl();
+				genurl = new util.genurl();
 				genurl.setBase(basePath);
 				genurl.join('collections');
 				genurl.join(collection_id);
@@ -36,7 +36,7 @@ Collection.getCollection = function(params, callback) {
 
 				console.log('GET : ' + url);
 
-    			request({ url : url, method: 'GET', headers: headers }, function(error, response, body)
+				request({ url : url, method: 'GET', headers: headers }, function(error, response, body)
 				{
 					errorobj={};
 					if(error)
@@ -68,8 +68,8 @@ Collection.getCollection = function(params, callback) {
 				});
 			},
 			//second asyc function
-    		function(cb){
-    			genurl = new util.genurl();
+			function(cb){
+				genurl = new util.genurl();
 				genurl.setBase(basePath);
 				genurl.join('collections');
 				genurl.join(collection_id);
@@ -80,7 +80,7 @@ Collection.getCollection = function(params, callback) {
 
 				console.log('GET : ' + url);
 
-    			request({ url : url, method: 'GET', headers: headers }, function(error, response, body)
+				request({ url : url, method: 'GET', headers: headers }, function(error, response, body)
 				{
 					errorobj={};
 					if(error)
@@ -91,7 +91,7 @@ Collection.getCollection = function(params, callback) {
 						console.log('GET : Error - ' + err);
 						callback(errorobj,null);
 					} else
-						{
+					{
 						console.log('GET : Response from collection products relation - ' + body);
 						var body_obj = JSON.parse(body);
 						if(body_obj.error)
@@ -114,9 +114,9 @@ Collection.getCollection = function(params, callback) {
 						}
 					}
 				});
-    		}
+			}
 
-		], 
+		],
 
 		// callback called after both the above functions are done ie c(); this fucntion is called  only once!
 		function(err, results)
@@ -131,8 +131,8 @@ Collection.getCollection = function(params, callback) {
 				formated_output.products = products_details;
 				callback(null, formated_output);
 			}
-   		}
-   	);
+		}
+	);
 };
 
 function collectionObj(id, name, collection_description, image, products, collections, attributes, created_date, published_status, published_scope, expiry_date, updated_at){
@@ -156,12 +156,12 @@ function collectionObj(id, name, collection_description, image, products, collec
 
 function productObj(id, name, short_description, long_description, images, category, attributes, vendor, skus, reviews, ratings, overall_rating) {
 	var obj = {};
-	
+
 	// obj.id = id;
-	obj.name = name;	
+	obj.name = name;
 	obj.short_description = short_description;
 	obj.long_description = long_description;
-	obj.images = images;	
+	obj.images = images;
 	obj.category = category;
 	obj.attributes = attributes;
 	obj.vendor = vendor;

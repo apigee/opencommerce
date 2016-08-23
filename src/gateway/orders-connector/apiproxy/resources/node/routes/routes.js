@@ -33,7 +33,7 @@ Routes.getOrder = function(req, res) {
 
     params.status = req.query.status;
     params.order_id = req.params.order_id;
-    params.username = req.params.username;
+    params.username = "\'"+ req.params.username + "\'";
 
     console.log('GET order');
 
