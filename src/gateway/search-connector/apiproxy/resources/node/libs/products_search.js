@@ -22,13 +22,12 @@ products_search.searchProducts = function (product_filter, sku_filter, cursor, l
     }
 
     if (collection) {
-        url += '/collections/' + collection + "/issetof;ql=where type='product' " + product_filter + "/isinstanceof";
+        url += '/collections/' + collection + "/has;ql=where type='product' " + product_filter ;
         var options = {
             method: 'GET',
             uri: url,
 
             qs: {
-                "ql": sku_filter,
                 "cursor": cursor,
                 "limit": limit
             }
@@ -37,9 +36,17 @@ products_search.searchProducts = function (product_filter, sku_filter, cursor, l
         request(options, function (error, response, body) {
             if (!error && response.statusCode == 200)
             {
-                var skus = assignResponseForSku(JSON.parse(body));
+                // console.log(JSON.parse(body));
+                var products = assignResponseForProducts1(JSON.parse(body));
+                var len = products.length;
+                var skusList = [];
+                // console.log(JSON.parse(body).cursor);
+                if(len>0)
+                    requestProductSku(products, sku_filter, skusList, 0, len, callback, JSON.parse(body).cursor);
+                else
+                    callback(null,[]);
 
-                callback(null, skus);
+                //callback(null, skus);
 
 
             }
@@ -84,7 +91,7 @@ products_search.searchProducts = function (product_filter, sku_filter, cursor, l
                 var len = products.length;
                 //syncronous request to fetch the sku's
                 var skusList = [];
-
+                // console.log(JSON.parse(body).cursor);
                 if(len>0)
                     requestProductSku(products, sku_filter, skusList, 0, len, callback, JSON.parse(body).cursor);
                 else
@@ -92,11 +99,12 @@ products_search.searchProducts = function (product_filter, sku_filter, cursor, l
             }
             else
             {
-                body_obj=JSON.parse(body);
+
+                var body_obj1=JSON.parse(body);
 
                 errorobj={};
                 errorobj.code=response.statusCode;
-                errorobj.msg=body_obj.error;
+                errorobj.msg=body_obj1.error;
 
                 callback(errorobj, null);
 
@@ -115,8 +123,11 @@ function requestProductSku(products, sku_filter, skusList, index, len, callback,
         qs: {
             "ql": sku_filter
         }
-    }, function (err, res, bdy) {
-        if (!err && res.statusCode == 200) {
+    }, function (err, res, bdy)
+    {
+        if (!err && res.statusCode == 200)
+        {
+            // console.log(JSON.parse(bdy));
             var skus = assignResponseForSku(JSON.parse(bdy));
             for (var i in skus)
                 skusList.push(skus[i]);
@@ -138,12 +149,41 @@ function requestProductSku(products, sku_filter, skusList, index, len, callback,
     });
 }
 
-function assignResponseForProducts(results) {
+function assignResponseForProducts(results)
+{
     var resultObj = [];
-    for (var i in results.entities) {
+    for (var i in results.entities)
+    {
+
         var result = results.entities[i];
         var resObj = {};
         addItem(resObj, "id", result.name);
+        addItem(resObj, "name", result.product_name);
+        addItem(resObj, "short_description", result.short_description);
+        addItem(resObj, "long_description", result.short_description);
+        addItem(resObj, "images", result.images);
+        addItem(resObj, "category", result.category);
+        addItem(resObj, "attributes", result.attributes);//attributes
+        addItem(resObj, "vendor", result.vendor);//vendor
+        addItem(resObj, "reviews", result.reviews);//reviews
+        addItem(resObj, "rating", result.rating);//rating
+        addItem(resObj, "overall_rating", result.overall_rating);//overall_rating
+        resultObj.push(resObj);
+    }
+    return resultObj;
+
+}
+
+function assignResponseForProducts1(results)
+{
+    var resultObj = [];
+    for (var i in results.entities)
+    {
+
+        var result = results.entities[i];
+        // console.log(result.uuid);
+        var resObj = {};
+        addItem(resObj, "id", result.uuid);
         addItem(resObj, "name", result.product_name);
         addItem(resObj, "short_description", result.short_description);
         addItem(resObj, "long_description", result.short_description);
