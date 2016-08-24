@@ -81,7 +81,7 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Cart"
+              "$ref": "#/definitions/CartResponse"
             }
           },
           "400": {
@@ -140,7 +140,7 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Cart"
+              "$ref": "#/definitions/CartResponse"
             }
           },
           "400": {
@@ -193,7 +193,7 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Cart"
+              "$ref": "#/definitions/CartResponse"
             }
           },
           "400": {
@@ -489,6 +489,43 @@
         }
       }
     },
+
+    "CartResponse":{
+      "type": "object",
+      "description": "Cart or Wishlist",
+      "properties": {
+        "cart_id": {
+          "type": "string",
+          "description": "A unique identifier for the cart. Shall not be present in POST request"
+        },
+        "session_id": {
+          "type": "string",
+          "description": "A placeholder for apps to store any information that will help in mapping the user."
+        },
+        "cart_items": {
+          "type": "array",
+          "description": "Items & quantity chosen",
+          "items": {
+            "$ref": "#/definitions/Item"
+          }
+        },
+        "user_id": {
+          "type": "string",
+          "description": "Customer Identifier; if not present, user-id associated with the accessToken will be used"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Created date/time"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Updated date/time"
+        }
+      }
+    },
+
     "Cart": {
       "type": "object",
       "description": "Cart or Wishlist",
