@@ -16,8 +16,15 @@
                 <Name>OAuth.VerifyAccessToken</Name>
             </Step>
             <Step>
+                <Name>Jsc.VerifyScope</Name>
+            </Step>
+            <Step>
+                <Name>Fault.InvalidScope</Name>
+                <Condition>(scopeError != null)</Condition>
+            </Step>
+            <Step>
                 <Name>Assign.TargetParams</Name>
-                <Condition>accesstoken.username != null</Condition>
+                <Condition>username != null</Condition>
             </Step>
             <Step>
                 <Name>Extract.RequestParams</Name>

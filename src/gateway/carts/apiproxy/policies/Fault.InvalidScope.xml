@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RaiseFault async="false" continueOnError="false" enabled="true" name="Fault.InvalidScope">
+    <DisplayName>Fault.InvalidScope</DisplayName>
+    <FaultRules/>
+    <Properties/>
+    <FaultResponse>
+        <Set>
+            <Payload contentType="application/json" variablePrefix="@" variableSuffix="#">
+                {
+                "status": "error",
+                "message": "Invalid Scope"
+                }
+            </Payload>
+            <StatusCode>403</StatusCode>
+            <ReasonPhrase>Forbidden</ReasonPhrase>
+        </Set>
+    </FaultResponse>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</RaiseFault>
