@@ -10,13 +10,13 @@ routes.getProduct = function (req, res)
     products.getProduct(productId, function (err, data)
     {
         if (err)
-            {
-                res.status(err.code).send(JSON.stringify(err, undefined, 2));
-            }
+        {
+            res.status(err.code).send(JSON.stringify(err, undefined, 2));
+        }
         else
-            {
-                res.send(data);
-            }
+        {
+            res.send(data);
+        }
     });
 };
 

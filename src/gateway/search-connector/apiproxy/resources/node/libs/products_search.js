@@ -22,7 +22,7 @@ products_search.searchProducts = function (product_filter, sku_filter, cursor, l
     }
 
     if (collection) {
-        url += '/collections/' + collection + "/issetof;ql=where type='product' " + product_filter + "/isinstanceof";
+        url += '/collections/' + collection + "/has;ql=where type='product' " + product_filter + "/isinstanceof";
         var options = {
             method: 'GET',
             uri: url,

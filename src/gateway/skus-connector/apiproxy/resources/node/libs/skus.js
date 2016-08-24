@@ -59,9 +59,9 @@ skus.get = function(params, callback)
 
         else if(response.statusCode==400)
         {
-                errobj.code=response.statusCode;
-                errobj.msg="Bad Request";
-                callback(errobj,null);
+            errobj.code=response.statusCode;
+            errobj.msg="Bad Request";
+            callback(errobj,null);
         }
         else if(response.statusCode==401)
         {

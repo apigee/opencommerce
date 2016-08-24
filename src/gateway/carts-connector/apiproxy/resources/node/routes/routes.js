@@ -17,7 +17,7 @@ Routes.getCart = function(req, res) {
         }
         else {
             res.statusCode = 200;
-            res.send(data); 
+            res.send(data);
         }
     });
 };
@@ -26,6 +26,7 @@ Routes.createCart = function(req, res) {
     var params = {};
 
     params.cart_details = req.body.cart_details;
+    console.log(req.body.cart_details);
 
     console.log('POST cart');
 
@@ -101,7 +102,7 @@ Routes.deleteCart = function(req, res) {
 Routes.addItem = function(req, res) {
     var params = {};
     params.cart_id = req.params.cart_id;
-    params.items = req.body.items;
+    params.items = req.body.cart_items;
 
     console.log('POST items to cart');
 
@@ -130,7 +131,7 @@ Routes.addItem = function(req, res) {
 Routes.deleteItem = function(req, res) {
     var params = {};
     params.cart_id = req.params.cart_id;
-    params.items = req.body.items;
+    params.items = req.body.cart_items;
 
     console.log('DELETE items from cart');
 
@@ -159,7 +160,7 @@ Routes.deleteItem = function(req, res) {
 Routes.editItem = function(req, res) {
     var params = {};
     params.cart_id = req.params.cart_id;
-    params.items = req.body.items;
+    params.items = req.body.cart_items;
 
     console.log('PUT edit items in cart');
 

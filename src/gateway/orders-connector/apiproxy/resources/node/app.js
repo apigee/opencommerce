@@ -5,6 +5,9 @@ var routes = require('./routes/routes.js');
 
 var app = express();
 app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({
+    extended: true
+}));
 
 
 app.get('/', routes.getAllOrders);

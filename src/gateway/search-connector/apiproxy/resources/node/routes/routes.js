@@ -10,7 +10,7 @@ routes.searchProducts = function (req, res) {
     var cursor = req.query.page_hint;
     var limit = req.query.limit;
     var category = req.query.category;
-    var collection = req.query.collection;
+    var collection = req.query.collection_name;
     products_search.searchProducts( product_filter, sku_filter, cursor, limit, category, collection,  function (err, data) {
         if (err) {
             res.status(err.code).send(
