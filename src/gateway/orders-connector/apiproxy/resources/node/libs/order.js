@@ -29,26 +29,26 @@ Order.getAllOrders = function(params, callback) {
 	if (pageHint)
 		genurl.addPageHint(pageHint);
 
-	sql={}
-	if (username)
-	{
-		//console.log("USERNAME--> "+ username);
-		sql={qs: {
-			"ql": username,
-
-		}};
-		//genurl.addQL(" where username = " + username);
-	}
-
+	var options={};
 	// get the generated URL
 	url = genurl.getUrl();
+	if (username)
+	{
+		options={ url : url, method: 'GET', headers: headers,qs: {
+			"ql":  "where username = '" + username +"'"
+
+		} };
+	}
+	else
+	{
+		options={ url : url, method: 'GET', headers: headers};
+	}
+
+
 
 	console.log('GET : ' + url);
 
-	request({ url : url, method: 'GET', headers: headers,qs: {
-		"ql":  "where username = '" + username +"'"
-
-	} }, function(error, response, body){
+	request(options, function(error, response, body){
 		if(error){
 			console.log('GET : Error - ' + error);
 			callback(error);
@@ -64,7 +64,7 @@ Order.getAllOrders = function(params, callback) {
 			for (key in entities_list)
 			{
 				obj = entities_list[key];
-				tmpObj = orderObj(obj.order_number, obj.order_date, obj.sub_total_amount, obj.currency, obj.total_discount, obj.discount_codes, obj.tax_lines, obj.is_tax_applicable, obj.total_amount, obj.updated_at, obj.client_ip, obj.cancel_reason, obj.cancel_date, obj.cart_id, obj.customer_details, obj.payment_details, obj.fulfillment_status, obj.ship_to, obj.is_billing_same_as_shipping, obj.bill_to, obj.order_items, obj.packages);
+				tmpObj = orderListObj(obj.name, obj.order_date, obj.sub_total_amount, obj.currency, obj.total_discount, obj.discount_codes, obj.tax_lines, obj.is_tax_applicable, obj.total_amount, obj.updated_at, obj.client_ip, obj.cancel_reason, obj.cancel_date, obj.cart_id, obj.customer_details, obj.payment_details, obj.fulfillment_status, obj.ship_to, obj.is_billing_same_as_shipping, obj.bill_to, obj.order_items, obj.packages);
 				output.push(tmpObj);
 			}
 
@@ -114,7 +114,7 @@ Order.getOrder = function(params, callback)
 			if(!body_obj.error)
 			{
 				obj = body_obj.entities[0];
-				output = orderObj(obj.order_number, obj.order_date, obj.sub_total_amount, obj.currency, obj.total_discount, obj.discount_codes, obj.tax_lines, obj.is_tax_applicable, obj.total_amount, obj.updated_at, obj.client_ip, obj.cancel_reason, obj.cancel_date, obj.cart_id, obj.customer_details, obj.payment_details, obj.fulfillment_status, obj.ship_to, obj.is_billing_same_as_shipping, obj.bill_to, obj.order_items, obj.packages);
+				output = orderObj(obj.name, obj.order_date, obj.sub_total_amount, obj.currency, obj.total_discount, obj.discount_codes, obj.tax_lines, obj.is_tax_applicable, obj.total_amount, obj.updated_at, obj.client_ip, obj.cancel_reason, obj.cancel_date, obj.cart_id, obj.customer_details, obj.payment_details, obj.fulfillment_status, obj.ship_to, obj.is_billing_same_as_shipping, obj.bill_to, obj.order_items, obj.packages);
 				formated_output = output;
 				callback(null, formated_output);
 			}
@@ -131,10 +131,10 @@ Order.getOrder = function(params, callback)
 	});
 };
 
-function orderObj(order_number, order_date, sub_total_amount, currency, total_discount, discount_codes, tax_lines, is_tax_applicable, total_amount, updated_at, client_ip, cancel_reason, cancel_date, cart_id, customer_details, payment_details, fulfillment_status,ship_to,is_billing_same_as_shipping,bill_to,order_items,packages){
+function orderObj(order_name, order_date, sub_total_amount, currency, total_discount, discount_codes, tax_lines, is_tax_applicable, total_amount, updated_at, client_ip, cancel_reason, cancel_date, cart_id, customer_details, payment_details, fulfillment_status,ship_to,is_billing_same_as_shipping,bill_to,order_items,packages){
 	var obj = {};
 
-	obj.order_number = order_number;
+	obj.order_number = order_name;
 	obj.order_date = order_date;
 	obj.sub_total_amount = sub_total_amount;
 	obj.currency = currency;
@@ -156,6 +156,37 @@ function orderObj(order_number, order_date, sub_total_amount, currency, total_di
 	obj.bill_to = bill_to;
 	obj.order_items = order_items;
 	obj.packages = packages;
+
+	return obj;
+}
+
+function orderListObj(order_name, order_date, sub_total_amount, currency, total_discount, discount_codes, tax_lines, is_tax_applicable, total_amount, updated_at, client_ip, cancel_reason, cancel_date, cart_id, customer_details, payment_details, fulfillment_status,ship_to,is_billing_same_as_shipping,bill_to,order_items,packages){
+	var obj = {};
+
+	obj.order_number = order_name;
+	obj.order_date = order_date;
+	obj.sub_total_amount = sub_total_amount;
+	obj.currency = currency;
+	obj.total_discount = total_discount;
+	//obj.discount_codes = discount_codes;
+	obj.tax_lines = tax_lines;
+	obj.is_tax_applicable = is_tax_applicable;
+	obj.total_amount = total_amount;
+	obj.updated_at = updated_at;
+	//obj.client_ip = client_ip;
+	obj.cancel_reason = cancel_reason;
+	obj.cancel_date = cancel_date;
+	//obj.cart_id = cart_id;
+	//obj.customer_details = customer_details;
+
+	obj.payment_status = payment_details.status;
+
+	obj.fulfillment_status = fulfillment_status;
+	obj.ship_to = ship_to;
+	//obj.is_billing_same_as_shipping = is_billing_same_as_shipping;
+	//obj.bill_to = bill_to;
+	//obj.order_items = order_items;
+	//obj.packages = packages;
 
 	return obj;
 }
