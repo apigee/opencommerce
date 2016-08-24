@@ -49,13 +49,13 @@
         },
         "security": [{
           "cart_auth": [
-            "openid"
+            "openid","carts"
           ]
         }],
         "parameters": [{
           "name": "Authorization",
           "in": "header",
-          "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
+          "description": "This is Mandatory parameter. Authorization Bearer {token}; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization) using <a href='https://opencommerce.apigee.com/oauth/apis/post/token'>/token</a> Oauth API",
           "type": "string",
           "required": false
         }, {
@@ -93,13 +93,13 @@
         },
         "security": [{
           "cart_auth": [
-            "openid"
+            "openid","carts"
           ]
         }],
         "parameters": [{
           "name": "Authorization",
           "in": "header",
-          "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
+          "description": "This is Mandatory parameter. Authorization Bearer {token}; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization) using <a href='https://opencommerce.apigee.com/oauth/apis/post/token'>/token</a> Oauth API",
           "type": "string",
           "required": false
         }, {
@@ -152,13 +152,13 @@
         },
         "security": [{
           "cart_auth": [
-            "openid"
+            "openid","carts"
           ]
         }],
         "parameters": [{
           "name": "Authorization",
           "in": "header",
-          "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
+          "description": "This is Mandatory parameter. Authorization Bearer {token}; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization) using <a href='https://opencommerce.apigee.com/oauth/apis/post/token'>/token</a> Oauth API",
           "type": "string",
           "required": false
         }, {
@@ -205,13 +205,13 @@
         },
         "security": [{
           "cart_auth": [
-            "openid"
+            "openid","carts"
           ]
         }],
         "parameters": [{
           "name": "Authorization",
           "in": "header",
-          "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
+          "description": "This is Mandatory parameter. Authorization Bearer {token}; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization) using <a href='https://opencommerce.apigee.com/oauth/apis/post/token'>/token</a> Oauth API",
           "type": "string",
           "required": false
         }, {
@@ -260,13 +260,13 @@
         },
         "security": [{
           "cart_auth": [
-            "openid"
+            "openid","carts"
           ]
         }],
         "parameters": [{
           "name": "Authorization",
           "in": "header",
-          "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
+          "description": "This is Mandatory parameter. Authorization Bearer {token}; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization) using <a href='https://opencommerce.apigee.com/oauth/apis/post/token'>/token</a> Oauth API",
           "type": "string",
           "required": false
         }, {
@@ -319,13 +319,13 @@
         },
         "security": [{
           "cart_auth": [
-            "openid"
+            "openid","carts"
           ]
         }],
         "parameters": [{
           "name": "Authorization",
           "in": "header",
-          "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
+          "description": "This is Mandatory parameter. Authorization Bearer {token}; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization) using <a href='https://opencommerce.apigee.com/oauth/apis/post/token'>/token</a> Oauth API",
           "type": "string",
           "required": false
         }, {
@@ -378,13 +378,13 @@
         },
         "security": [{
           "cart_auth": [
-            "openid"
+            "openid","carts"
           ]
         }],
         "parameters": [{
           "name": "Authorization",
           "in": "header",
-          "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
+          "description": "This is Mandatory parameter. Authorization Bearer {token}; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization) using <a href='https://opencommerce.apigee.com/oauth/apis/post/token'>/token</a> Oauth API",
           "type": "string",
           "required": false
         }, {
@@ -415,11 +415,12 @@
   "securityDefinitions": {
     "cart_auth": {
       "type": "oauth2",
-      "authorizationUrl": "https://open-commerce-dev.apigee.net/apis/v1/oauth/authorize?client_id=f3TQqXrAA8cdsSunptUz4KVy9lxAMYJr&redirect_uri=https://api.enterprise.apigee.com/v1/o/open-commerce/apimodels/carts/templateauths/cart_auth/callback&response_type=code&state=af0ifjsldkj&scope=openid&ui-locales=en&acr_values=3",
+      "authorizationUrl": "https://open-commerce-dev.apigee.net/apis/v1/oauth/authorize?client_id=f3TQqXrAA8cdsSunptUz4KVy9lxAMYJr&redirect_uri=https://api.enterprise.apigee.com/v1/o/open-commerce/apimodels/carts/templateauths/cart_auth/callback&response_type=code&state=af0ifjsldkj&scope=openid carts&ui-locales=en&acr_values=3",
       "tokenUrl": "https://open-commerce-dev.apigee.net/apis/v1/oauth/token",
       "flow": "accessCode",
       "scopes": {
-        "openid": "openID"
+        "openid": "openID",
+        "carts": "Carts"
       }
     }
   },
