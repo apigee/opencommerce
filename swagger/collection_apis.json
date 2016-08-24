@@ -51,20 +51,13 @@
             "description": "Unauthorized access"
           }
         },
-        "security": [
-          {
-            "collection_auth": [
-              "openid"
-            ]
-          }
-        ],
         "parameters": [
           {
             "name": "Authorization",
             "in": "header",
-            "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
+            "description": "Authorization Bearer {Token}; token obtained using <a href='https://opencommerce.apigee.com/oauth/apis/post/token'>/token</a> Oauth API setting grant_type as 'client_credentials'. A Token obtained as part of user authentication (Authcode or Implicit Grant) can also be used ",
             "type": "string",
-            "required": false
+            "required": true
           },
           {
             "name": "collection_name",
@@ -100,17 +93,7 @@
 
 
   },
-  "securityDefinitions": {
-    "collection_auth": {
-      "type": "oauth2",
-      "authorizationUrl": "https://open-commerce-dev.apigee.net/apis/v1/oauth/authorize?client_id=4DUBlJHLvp58krB0AcJ3yNJMzKqUVZEc&redirect_uri=https://api.enterprise.apigee.com/v1/o/open-commerce/apimodels/collection/templateauths/collection_auth/callback&response_type=code&state=af0ifjsldkj&scope=openid&ui-locales=en&acr_values=3",
-      "tokenUrl": "https://open-commerce-dev.apigee.net/apis/v1/oauth/token",
-      "flow": "accessCode",
-      "scopes": {
-        "openid": "openID"
-      }
-    }
-  },
+
   "definitions": {
     "ProductDetail": {
       "description": "Product Details",
