@@ -1,0 +1,4 @@
+<Javascript async="false" continueOnError="false" enabled="true" timeLimit="200" name="Jsc.VerifyScope">
+    <DisplayName>Jsc.VerifyScope</DisplayName>
+    <ResourceURL>jsc://VerifyScope.js</ResourceURL>
+</Javascript>

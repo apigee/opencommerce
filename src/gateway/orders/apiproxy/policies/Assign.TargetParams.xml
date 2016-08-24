@@ -4,7 +4,7 @@
     <AssignTo createNew="false" transport="http" type="request"/>
     <Add>
         <QueryParams>
-            <QueryParam name="username">{accesstoken.username}</QueryParam>
+            <QueryParam name="username">{username}</QueryParam>
         </QueryParams>
     </Add>
     <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
