@@ -24,7 +24,7 @@
   "paths": {
     "/orders": {
       "get": {
-        "description": "<p>Order List</p>This will return list of orders placed by the user.><p>The results can be filtered by specifying the status.  The number of items returned can be controlled by providing a 'limit'. By providing the page_hint, the next set of results can be retrieved.</p>",
+        "description": "<p>Order List</p>This will return list of orders placed by the user. <p>The results can be filtered by specifying the status.  The number of items returned can be controlled by providing a 'limit'. By providing the page_hint, the next set of results can be retrieved.</p>",
         "summary": "List of Orders matching criteria",
         "operationId": "Order List",
         "tags": [
@@ -45,12 +45,15 @@
           },
           "401": {
             "description": "Unauthorized access"
+          },
+          "403": {
+            "description": "Forbidden"
           }
         },
         "security": [
           {
             "order_auth": [
-              "openid"
+              "openid","orders"
             ]
           }
         ],
@@ -58,7 +61,7 @@
           {
             "name": "Authorization",
             "in": "header",
-            "description": "Authorization Bearer Token; if user has signed-in",
+            "description": "Authorization Bearer {Token}. Token obtained using Oauth with users' consent or Token obtained by calling <a href='https://opencommerce.apigee.com/oauth/apis/post/token'>/token</a> Oauth API with grant_type 'client_credentials' . Mandatory parameter",
             "type": "string",
             "required": false
           },
@@ -82,12 +85,19 @@
             "description": "An encoded representation of query position pointing to the set of results. Used in conjunction with 'limit' for pagination",
             "type": "string",
             "required": false
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "User identifier to retrieve orders for the user.  Applicable only for Apps using 'client_credentials' Token",
+            "type": "string",
+            "required": false
           }
         ]
       }
     },
 
-    "/orders/{order_id}": {
+    "/orders/{order_number}": {
       "get": {
         "description": "<p>Order Detail</p> Detailed Listing of Order, given the Order Id",
         "summary": "Order Detail ",
@@ -116,7 +126,7 @@
         "security": [
           {
             "order_auth": [
-              "openid"
+              "openid","orders"
             ]
           }
         ],
@@ -124,12 +134,12 @@
           {
             "name": "Authorization",
             "in": "header",
-            "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization)",
+            "description": "Authorization Bearer Token; token obtained using grant_type as 'authorization_code' (in case of User authentication) or 'client_credentials' (App credential based authorization) using <a href='https://opencommerce.apigee.com/oauth/apis/post/token'>/token</a> Oauth API",
             "type": "string",
             "required": false
           },
           {
-            "name": "order_id",
+            "name": "order_number",
             "in": "path",
             "description": "Order identifier",
             "type": "string",
@@ -144,11 +154,12 @@
   "securityDefinitions": {
     "order_auth": {
       "type": "oauth2",
-      "authorizationUrl": "https://open-commerce-dev.apigee.net/apis/v1/oauth/authorize?client_id=WckpfFX5CltEq4X3BfGG8NvlA7JOWd75&redirect_uri=https://api.enterprise.apigee.com/v1/o/apis-bank/apimodels/order/templateauths/order_auth/callback&response_type=code&state=af0ifjsldkj&scope=openid&ui-locales=en&acr_values=3",
+      "authorizationUrl": "https://open-commerce-dev.apigee.net/apis/v1/oauth/authorize?client_id=WckpfFX5CltEq4X3BfGG8NvlA7JOWd75&redirect_uri=https://api.enterprise.apigee.com/v1/o/apis-bank/apimodels/order/templateauths/order_auth/callback&response_type=code&state=af0ifjsldkj&scope=openid orders&ui-locales=en&acr_values=3",
       "tokenUrl": "https://open-commerce-dev.apigee.net/apis/v1/oauth/token",
       "flow": "accessCode",
       "scopes": {
-        "openid": "openID"
+        "openid": "openID",
+        "orders": "Orders"
       }
     }
   },
@@ -162,7 +173,7 @@
           "type": "array",
           "description": "Array of Orders",
           "items":{
-            "$ref": "#/definitions/Order"
+            "$ref": "#/definitions/OrderSummary"
           }
 
         },
@@ -177,6 +188,77 @@
       }
     },
 
+
+    "OrderSummary": {
+      "type":"object",
+      "description":"Order Summary",
+      "properties" : {
+        "order_number": {
+          "type": "string",
+          "description": "Unique identifier for the order"
+        },
+        "order_date": {
+          "type": "integer",
+          "format": "int64",
+          "description": "When the order was placed"
+        },
+        "sub_total_amount": {
+          "type": "number",
+          "format": "float",
+          "description": "Total amount of the order, excluding discounts/taxes"
+        },
+        "currency": {
+          "type": "string",
+          "description": "Currency code"
+        },
+        "total_discount": {
+          "type": "number",
+          "format": "float",
+          "description": "Total discounts offered"
+        },
+        "tax_lines": {
+          "type": "array",
+          "description": "Taxes applied.  A separate entry for each tax",
+          "items": {
+            "type": "object"
+          }
+        },
+        "is_tax_applicable": {
+          "type": "boolean",
+          "description": "Whether tax is applicable for the purchase"
+        },
+        "total_amount": {
+          "type": "number",
+          "format": "float",
+          "description": "Total amount"
+        },
+        "payment_status": {
+          "type": "string",
+          "description": "Payment status"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Last updated at date/time"
+        },
+        "cancel_reason": {
+          "type": "string",
+          "description": "If order was cancelled, the reason for the cancellation"
+        },
+        "cancel_date": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Date/time when the Order was cancelled"
+        },
+        "fulfillment_status": {
+          "type": "string",
+          "description": "Overall fulfillment status of the Order"
+        },
+        "ship_to": {
+          "$ref": "#/definitions/Address"
+        }
+      }
+    },
 
     "Order":{
       "type":"object",
