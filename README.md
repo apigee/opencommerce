@@ -1,4 +1,4 @@
-<a href="https://pages.apigee.com/ebook-State-of-APIs-in-Retail-reg.html?utm_source=github&utm_content=state-of-apis-retail"><img src="http://opencommerce.apigee.com/sites/default/files/state_of_apis_report_1.0.png"/></a> <a href="https://pages.apigee.com/2016-08-25-Webcast-LLBean-Digital-commerce-done-right-reg.html?utm_source=github&utm_campaign=2016-08-25-Webcast-LLBean-Digital-commerce-done-right"><img src="http://opencommerce.apigee.com/sites/default/files/webcast_1.0.png"/></a>
+<a href="https://pages.apigee.com/ebook-State-of-APIs-in-Retail-reg.html?utm_source=github&utm_content=state-of-apis-retail"><img src="http://opencommerce.apigee.com/sites/default/files/state_of_apis_report_1.0.png"/></a>
 ===================
 
 <a href="http://apigee.com/"><img src="http://apigee.com/about/sites/all/themes/apigee_themes/apigee_mktg/images/logo.png"/></a> Open Commerce
