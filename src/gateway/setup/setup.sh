@@ -2,8 +2,8 @@
 
 ### setup.sh
 
-URI="https://api.enterprise.apigee.com"
-UGURI="api.usergrid.com"
+#URI="https://api.enterprise.apigee.com"
+#UGURI="api.usergrid.com"
 
 ### Load default from script
 . ./config.sh

@@ -4,7 +4,7 @@
 URI="https://api.enterprise.apigee.com"
 
 # URI of the BaaS / Usergrid API which will be used as a sandbox backend
-UGURI="https://api.usergrid.com"
+UGURI="api.usergrid.com"
 
 # Organization name of the Edge Org where you will be deploying the proxies
 ORG=
