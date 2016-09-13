@@ -107,11 +107,21 @@ All **Southbound APIs** end with the suffix _'-connector'_
 
 In addition, there are some internal APIs which are not exposed outside, but which are used internally from the other APIs and provide common service such as sending out SMS, storing and fetching session data etc.
 
-### Sequence Diagram
-#### OAuth API Flow
-![OAuth API Interaction](http://opencommerce.apigee.com/sites/default/files/open_commerce_api_common_flow.png)
+### Authentication
 
-#### Transfers API Flow
+Accessing the the APIs require a valid Oauth access token to be passed in the `Authorization` header, as `Authorization: Bearer <token>` .
+
+The tokens can be obtained using:
+
+1) <a href = "https://opencommerce.apigee.com/oauth/apis/post/token"> Oauth Client Credentials authentication </a> - only the non-user specific APIs like products, collections, store and search can be accessed using this token.
+
+2) <a href = "https://opencommerce.apigee.com/oauth/apis/get/authorize"> Open ID based user authentication and consent </a> - the APIs that require user data like orders & carts and also the non-user specific APIs can be accessed using this token.
+
+The apps that access the commerce APIs can be classified as:
+
+1) **Trusted Apps**:  Either First party App or limited set of third party trusted apps.  They could access all the APIs using client credentials and for APIs that require user-data, the user-id could be passed as a parameter.
+
+2) **Untrusted Apps**: All other apps, would have to use OpenID based user authentication for accessing APIs that require user data and Client Credentials authentication for non-user specific APIs.
 
 ### Consent App
 The consent app is a key part in helping the user securely authenticate with the retail services. The consent app is a trusted app of the retail services will allow the user to login and subsequently provide consent information.
@@ -123,6 +133,14 @@ In this sandbox, the consent app will talk to the following APIs in order to ful
 In order to customize the consent app, or in case one or more components delivered along with the sandbox is changed, then the configuration of the consent app needs to be updated.
 
 The consent app has a _config.json_ file available in the `src/gateway/consent-app/apiproxy/resources/node/` folder. This json file has to be customized so that the right API endpoints are provided to the consent app.
+
+
+### Sequence Diagram
+#### OAuth API Flow
+
+![OAuth API Interaction](http://opencommerce.apigee.com/sites/default/files/open_commerce_api_common_flow.png)
+
+
 
 ### APIs
 
