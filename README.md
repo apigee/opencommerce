@@ -115,11 +115,11 @@ The tokens can be obtained using:
 
 1) <a href = "https://opencommerce.apigee.com/oauth/apis/post/token"> Oauth Client Credentials authentication </a> - only the non-user specific APIs like products, collections, store and search can be accessed using this token.
 
-2) <a href = "https://opencommerce.apigee.com/oauth/apis/get/authorize"> Open ID based user authentication and consent </a> - the APIs that require user data like orders & carts and also the non-user specific APIs can be accessed using this token.
+2) <a href = "https://opencommerce.apigee.com/oauth/apis/get/authorize"> Open ID Connect based user authentication and consent </a> - the APIs that require user data like orders & carts and also the non-user specific APIs can be accessed using this token.
 
 The apps that access the commerce APIs can be classified as:
 
-1) **Trusted Apps**:  Either First party App or limited set of third party trusted apps.  They could access all the APIs using client credentials and for APIs that require user-data, the user-id could be passed as a parameter.
+1) **Trusted Apps**:  Either First party App or limited set of third party trusted apps.  They could access all the APIs using client credentials of the App and for APIs that require user-data, the user-id could be passed as a parameter.  The <a href="http://docs.apigee.com/management/apis/post/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/apps">App</a> shall have the <a href="http://docs.apigee.com/management/apis/post/organizations/%7Borg_name%7D/apiproducts">apiProducts</a> with 'orders' and 'carts' scopes.
 
 2) **Untrusted Apps**: All other apps, would have to use OpenID based user authentication for accessing APIs that require user data and Client Credentials authentication for non-user specific APIs.
 
