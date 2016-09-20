@@ -34,7 +34,7 @@ echo "${SETUP_RESULT}"
 echo ""
 
 ### products
-SETUP_RESULT=`curl -u "${ADMIN_EMAIL}:${APW}" -X POST "${URI}/v1/o/${ORG}/apiproducts" -H "Content-Type: application/json" -d '{"approvalType":"auto", "displayName":"Retail APIs","name":"Retail_APIs","environments":["test","prod"],"scopes":["openid"], "proxies":["oauth", "carts", "collections", "locations", "orders", "products", "search", "skus", "userinfo"]}' 1>&2`
+SETUP_RESULT=`curl -u "${ADMIN_EMAIL}:${APW}" -X POST "${URI}/v1/o/${ORG}/apiproducts" -H "Content-Type: application/json" -d '{"approvalType":"auto", "displayName":"Retail APIs","name":"Retail_APIs","environments":["test","prod"],"scopes":["openid","orders","carts"], "proxies":["oauth", "carts", "collections", "locations", "orders", "products", "search", "skus", "userinfo"]}' 1>&2`
 echo "${SETUP_RESULT}"
 echo ""
 
