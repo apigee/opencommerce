@@ -42,12 +42,16 @@ This repository contains the necessary artifacts that will allow one to pull up 
 + Apigee Developer Portal (https://opencommerce.apigee.com/)
 
 ## Setup
+The setup script assumes 'prod' & 'test' environments are available in your Apigee EDGE org and Virtual host 'secure' is enabled in the Apigee EDGE org environment configuration.
+
+
 To deploy the APIs and its dependencies on your own org please run the following script
 
 ```bash
 $ cd src/gateway/setup
 $ sh setup.sh
 ```
+
 
 This will interactively prompt you for your Edge and BaaS credentials, and will then create / deploy all relevant bundles and artifacts and will provision the **OpenCommerce Sandbox** on your own Org.
 
