@@ -11,6 +11,6 @@
         <Response/>
     </PostFlow>
     <HTTPTargetConnection>
-        <URL>[to_be_replaced]</URL>
+        <URL>{{ baasBasePath }}/token</URL>
     </HTTPTargetConnection>
 </TargetEndpoint>

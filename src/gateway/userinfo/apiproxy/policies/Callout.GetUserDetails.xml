@@ -8,6 +8,6 @@
     <Response>getUserDetailsResponse</Response>
     <HTTPTargetConnection>
         <Properties/>
-        <URL>[to_be_replaced]</URL>
+        <URL>{{ baasBasePath }}/customers/{accesstoken.customer_number}</URL>
     </HTTPTargetConnection>
 </ServiceCallout>

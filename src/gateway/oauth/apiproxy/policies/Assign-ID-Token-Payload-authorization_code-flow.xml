@@ -5,7 +5,7 @@
     <Properties/>
     <AssignVariable>
         <Name>iss</Name>
-        <Value>[to_be_replaced]</Value>
+        <Value>{{ edgeBasePath }}</Value>
     </AssignVariable>
     <AssignVariable>
         <Name>aud</Name>

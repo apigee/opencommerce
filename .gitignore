@@ -6,7 +6,7 @@ tests
 /src/gateway/deploy.sh
 /src/gateway/*.zip
 /src/gateway/**/config.json
-/src/gateway/*/apiproxy/resources/node/package.json
+#/src/gateway/*/apiproxy/resources/node/package.json
 /src/gateway/*/target
 /src/gateway/target
 
@@ -51,3 +51,5 @@ jspm_packages
 src/templates/connector-template/apiproxy/policies/
 src/gateway/consent-app/apiproxy/resources/node/public/javascripts/
 /src/gateway/*/apiproxy/resources/node/node_modules/
+
+**/.DS_Store
