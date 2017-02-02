@@ -1,0 +1,21 @@
+{
+  "name": "opencommerce-fork",
+  "version": "1.0.0",
+  "description": "<a href=\"https://pages.apigee.com/ebook-State-of-APIs-in-Retail-reg.html?utm_source=github&utm_content=state-of-apis-retail\"><img src=\"http://opencommerce.apigee.com/sites/default/files/state_of_apis_report_1.0.png\"/></a> ===================",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "launchpad": "git+https://revision.aeip.apigee.net/solution-commons/launchpad.git#master"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kidiyoor/opencommerce/issues"
+  },
+  "homepage": "https://github.com/kidiyoor/opencommerce#readme"
+}
