@@ -16,6 +16,6 @@
     "body-parser": "*",
 
     "express": "^4.13.4",
-    "request": "^2.69.0"
+    "request": "2.69.0"
   }
 }
