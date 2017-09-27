@@ -101,32 +101,18 @@ resources:
     - name: commerce_connector_apis
       type: proxy
       items:
-      - name: carts
-        apiName: carts
       - name: carts-connector
         apiName: carts-connector
-      - name: orders
-        apiName: orders
       - name: orders-connector
         apiName: orders-connector
-      - name: products
-        apiName: products
       - name: products-connector
         apiName: products-connector
-      - name: skus
-        apiName: skus
       - name: skus-connector
         apiName: skus-connector
-      - name: search
-        apiName: search
       - name: search-connector
         apiName: search-connector
-      - name: collections
-        apiName: collections
       - name: collections-connector
         apiName: collections-connector
-      - name: locations
-        apiName: locations
       - name: locations-connector
         apiName: locations-connector
       - name: authentication-connector
@@ -135,6 +121,20 @@ resources:
         apiName: userinfo
       - name: oauth
         apiName: oauth
+      - name: carts
+        apiName: carts
+      - name: orders
+        apiName: orders
+      - name: products
+        apiName: products
+      - name: skus
+        apiName: skus
+      - name: search
+        apiName: search
+      - name: collections
+        apiName: collections
+      - name: locations
+        apiName: locations
     - name: developers
       type: developer
       items:
