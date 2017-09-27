@@ -1,0 +1,14 @@
+{
+  "name": "apigee-opencommerce",
+  "version": "1.0.0",
+  "description": "opencommerce solution in Apigee",
+  "scripts": {
+    "start": "npm install && gulp deploy"
+  },
+  "dependencies": {
+    "async": "*",
+    "gulp": "*",
+    "edge-launchpad": "^2.0.2"
+  },
+  "license": "Apache-2.0"
+}

@@ -5,8 +5,8 @@ tests
 
 /src/gateway/deploy.sh
 /src/gateway/*.zip
-/src/gateway/**/config.json
-/src/gateway/*/apiproxy/resources/node/package.json
+#/src/gateway/**/config.json
+#/src/gateway/*/apiproxy/resources/node/package.json
 /src/gateway/*/target
 /src/gateway/target
 

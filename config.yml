@@ -1,0 +1,177 @@
+resources:
+- name: opencommerce_apis
+  type: solutions.api
+  properties:
+    inputs:
+    - name: org
+      prompt: Edge Org name
+    - name: username
+      prompt: Username
+      ifNotPresent: token
+    - name: password
+      prompt: Password
+      hidden: true
+      ifNotPresent: token
+    - name: env
+      prompt: Edge Org Environment
+    - name: usergrid_org
+      prompt: BaaS Org name
+    - name: usergrid_app
+      prompt: BaaS App name
+    - name: usergrid_client_id
+      prompt: BaaS Org Client Id
+    - name: usergrid_secret
+      prompt: BaaS Org Client Secret
+    
+    configurations:
+    - env: test
+      baas_host: https://apibaas-trial.apigee.net
+      edge_host: https://api.enterprise.apigee.com
+      sms_endpoint: https://rest.nexmo.com/sms/json
+
+    - env: prod
+      baas_host: https://apibaas-trial.apigee.net
+      edge_host: https://api.enterprise.apigee.com
+      sms_endpoint: https://rest.nexmo.com/sms/json
+
+    edgeOrg:
+    script: gulpfile.js
+    basePath: .
+    subResources:
+    - name: baas_data_load
+      type: baasLoadData
+      items:
+      - name: carts
+        file: src/gateway/setup/baas/data/carts.json
+        permissions: ['get,post,delete:carts','get,post,delete:carts/*','get,post,delete:carts/**']
+      - name: categories
+        file: src/gateway/setup/baas/data/categories.json
+        permissions: ['get,post,put,delete:categories','get,post,put,delete:categories/*','get,post,put,delete:categories/**']
+      - name: collections
+        file: src/gateway/setup/baas/data/collections.json
+        permissions: ['get,post,put,delete:collections','get,post,put,delete:collections/*','get,post,put,delete:collections/**']
+      - name: mystiques
+        file: src/gateway/setup/baas/data/mystiques.json
+        permissions: ['get,post,put,delete:mystiques','get,post,put,delete:mystiques/*','get,post,put,delete:mystiques/**']
+      - name: orders
+        file: src/gateway/setup/baas/data/orders.json
+        permissions: ['get,post,put,delete:orders','get,post,put,delete:orders/*','get,post,put,delete:orders/**']
+      - name: products
+        file: src/gateway/setup/baas/data/products.json
+        permissions: ['get,post,put,delete:products','get,post,put,delete:products/*','get,post,put,delete:products/**']
+      - name: skus
+        file: src/gateway/setup/baas/data/skus.json
+        permissions: ['get,post,put,delete:skus','get,post,put,delete:skus/*','get,post,put,delete:skus/**']
+      - name: stores
+        file: src/gateway/setup/baas/data/stores.json
+        permissions: ['get,post,put,delete:stores','get,post,put,delete:stores/*','get,post,put,delete:stores/**']
+      - name: users
+        file: src/gateway/setup/baas/data/users.json
+        permissions: ['get,post,put,delete:users','get,post,put,delete:users/*','get,post,put,delete:users/**']
+    - name: create_connections
+      type: baasConnection
+      items:
+      - name: connections
+        file: src/gateway/setup/baas/data/connections.json
+
+    - name: cacheResources
+      type: cache
+      items:
+      - name: consent-session-cache
+        payload: '{ "name": "consent-session-cache"}'
+      - name: application-session-cache
+        payload: '{ "name": "application-session-cache"}'
+      - name: nonce-cache
+        payload: '{ "name": "nonce-cache"}'
+      - name: sms-token-cache
+        payload: '{ "name": "sms-token-cache"}'
+    - name: replaceorgvalues
+      type: configSubstitutions
+      items:
+      - name: baasBasePath
+        filePaths: ['src/gateway/carts-connector/target/apiproxy/resources/node/package.json','src/gateway/orders-connector/target/apiproxy/resources/node/package.json','src/gateway/products-connector/target/apiproxy/resources/node/package.json','src/gateway/skus-connector/target/apiproxy/resources/node/package.json']
+        value: '{{ baas_host }}/{{ usergrid_org }}/{{ usergrid_app }}'
+      - name: baasBasePath
+        filePaths: ['src/gateway/search-connector/target/apiproxy/resources/node/package.json','src/gateway/userinfo/target/apiproxy/policies/Callout.GetUserDetails.xml','src/gateway/collections-connector/target/apiproxy/resources/node/package.json','src/gateway/locations-connector/target/apiproxy/resources/node/package.json','src/gateway/authentication-connector/target/apiproxy/targets/default.xml']
+        value: '{{ baas_host }}/{{ usergrid_org }}/{{ usergrid_app }}'
+      - name: edgeBasePath
+        filePaths: ['src/gateway/oauth/target/apiproxy/policies/Redirect-Login-Application.xml','src/gateway/oauth/target/apiproxy/policies/Assign-ID-Token-Payload-authorization_code-flow.xml','src/gateway/oauth/target/apiproxy/policies/Assign-JWT-Payload.xml']
+        value: 'https://{{ org }}-{{ env }}.apigee.net'
+      
+    - name: commerce_connector_apis
+      type: proxy
+      items:
+      - name: carts-connector
+        apiName: carts-connector
+      - name: orders-connector
+        apiName: orders-connector
+      - name: products-connector
+        apiName: products-connector
+      - name: skus-connector
+        apiName: skus-connector
+      - name: search-connector
+        apiName: search-connector
+      - name: collections-connector
+        apiName: collections-connector
+      - name: locations-connector
+        apiName: locations-connector
+      - name: authentication-connector
+        apiName: authentication-connector
+      - name: userinfo
+        apiName: userinfo
+      - name: oauth
+        apiName: oauth
+      - name: carts
+        apiName: carts
+      - name: orders
+        apiName: orders
+      - name: products
+        apiName: products
+      - name: skus
+        apiName: skus
+      - name: search
+        apiName: search
+      - name: collections
+        apiName: collections
+      - name: locations
+        apiName: locations
+    - name: developers
+      type: developer
+      items:
+      - payload: '{"email":"opencommerce@apigee.net", "firstName":"OpenCommerce","lastName":"Developer","userName":"opencommerce"}'
+        email: opencommerce@apigee.net
+    - name: apiProducts
+      type: product
+      items:
+      - payload: '{"approvalType":"auto", "displayName":"Retail APIs","name":"Retail_APIs","environments":["test","prod"],"scopes":["openid","orders","carts"],"proxies":["oauth", "carts", "collections", "locations", "orders", "products", "search", "skus", "userinfo"]}'
+        name: Retail_APIs
+      - payload: '{"approvalType":"auto", "attributes":[{"name":"access","value":"private"}], "displayName":"Internal Consent APIs","name":"internal_consent_apis","environments":["test","prod"],"scopes":[], "proxies":["session", "authentication-connector", "oauth"]}'
+        name: internal_consent_apis
+    - name: developerApps
+      type: app
+      items:
+      - name: Retail_App
+        payload: '{"name":"Retail_App","callback":"http://apigee.com/about","email":"opencommerce@apigee.net","apiProducts":"Retail_APIs"}'
+        assignResponse:
+        - from: credentials.0.consumerKey
+          to: apiKey_RA
+      - name: internal_consent_app
+        payload: '{"name":"internal_consent_app","callback":"http://apigee.com/about","email":"opencommerce@apigee.net","apiProducts":"internal_consent_apis"}'
+        assignResponse:
+        - from: credentials.0.consumerKey
+          to: apiKey_IA
+    - name: replace_consent_app_key
+      type: configSubstitutions
+      items:
+      - name: internalAppKey
+        filePaths: ['src/gateway/consent-app/target/apiproxy/resources/node/config.json']
+        value: '{{ apiKey_IA }}'
+      - name: edgeBasePath
+        filePaths: ['src/gateway/consent-app/target/apiproxy/resources/node/config.json']
+        value: 'https://{{ org }}-{{ env }}.apigee.net'
+    - name: deploy_remaining_apis
+      type: proxy
+      items:
+      - name: consent-app
+        apiName: consent-app
+    
