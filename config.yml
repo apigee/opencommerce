@@ -118,7 +118,7 @@ resources:
       type: developer
       items:
       - payload: '{"email":"opencommerce@apigee.net", "firstName":"OpenCommerce","lastName":"Developer","userName":"opencommerce"}'
-        email: openbank@apigee.net
+        email: opencommerce@apigee.net
     - name: apiProducts
       type: product
       items:
