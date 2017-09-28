@@ -39,27 +39,27 @@ resources:
       type: baasLoadData
       items:
       - name: carts
-        permissions: ['get,post,delete:banks','get,post,delete:banks/*','get,post,delete:banks/**']
+        permissions: ['get,post,delete:carts','get,post,delete:carts/*','get,post,delete:carts/**']
       - name: categories
-        permissions: ['get,post,delete:transactions','get,post,delete:transactions/*','get,post,delete:transactions/**']
+        permissions: ['get,post,delete:categories','get,post,delete:categories/*','get,post,delete:categories/**']
       - name: collections
         file: src/gateway/setup/baas/data/collections.json
-        permissions: ['get,post,delete:accounts','get,post,delete:accounts/*','get,post,delete:accounts/**']
+        permissions: ['get,post,delete:collections','get,post,delete:collections/*','get,post,delete:collections/**']
       - name: orders
         file: src/gateway/setup/baas/data/orders.json
-        permissions: ['get,post,delete:customers','get,post,delete:customers/*','get,post,delete:customers/**']
+        permissions: ['get,post,delete:orders','get,post,delete:orders/*','get,post,delete:orders/**']
       - name: products
         file: src/gateway/setup/baas/data/products.json
-        permissions: ['get,post,delete:locations','get,post,delete:locations/*','get,post,delete:locations/**']
+        permissions: ['get,post,delete:products','get,post,delete:products/*','get,post,delete:products/**']
       - name: skus
         file: src/gateway/setup/baas/data/skus.json
-        permissions: ['get,post,delete:products','get,post,delete:products/*','get,post,delete:products/**']
+        permissions: ['get,post,delete:skus','get,post,delete:skus/*','get,post,delete:skus/**']
       - name: stores
         file: src/gateway/setup/baas/data/stores.json
-        permissions: ['get,post,delete:products','get,post,delete:products/*','get,post,delete:products/**']
+        permissions: ['get,post,delete:stores','get,post,delete:stores/*','get,post,delete:stores/**']
       - name: users
         file: src/gateway/setup/baas/data/users.json
-        permissions: ['get,post,delete:products','get,post,delete:products/*','get,post,delete:products/**']
+        permissions: ['get,post,delete:users','get,post,delete:users/*','get,post,delete:users/**']
 
     - name: create_connections
       type: baasConnection
@@ -92,7 +92,7 @@ resources:
       - name: baasBasePath
         filePaths: ['src/gateway/carts-connector/target/apiproxy/resources/node/package.json','src/gateway/orders-connector/target/apiproxy/resources/node/package.json','src/gateway/products-connector/target/apiproxy/resources/node/package.json','src/gateway/skus-connector/target/apiproxy/resources/node/package.json','src/gateway/search-connector/target/apiproxy/resources/node/package.json','src/gateway/collections-connector/target/apiproxy/resources/node/package.json','src/gateway/locations-connector/target/apiproxy/resources/node/package.json']
         value: '{{ baas_host }}/{{ usergrid_org }}/{{ usergrid_app }}'
-    - name: bank_apis
+    - name: commerce_apis
       type: proxy
       items:
       - name: authentication-connector
